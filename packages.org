@@ -1,8 +1,9 @@
 #+TITLE: List of packages
-#+DESCRIPTION: Here is the list of packages I install on my netbook installation.
 #+KEYWORDS: archlinux,pacman,packages,aur,git,build,netbook
 
-* Pacman
+* This document defines and describes the suite of programs used to create my shell working environment.
+
+** Pacman
 - *Administration* abs arch-wiki-lite htop pkgstats reflector
 - *Bootloader* syslinux
 - *Codecs* gstreamer0.10 gstreamer0.10-plugins gstreamer
@@ -24,7 +25,7 @@
 - *Video* xf86-video-intel
 - *Wireless/Network* wget wpa_supplicant
 
-* AUR
+** AUR
 - *Administration* kernel-netbook profile-sync-daemon profile-cleaner speedtest-cli
 - *Cloud* dropbox dropbox-cli
 - *Internet* conkeror-git cower-git transmission-gtk2
@@ -33,9 +34,9 @@
 - *Widget* tango-icon-theme gtk-clearlooks-zenburn
 - *X11* ratpoison-git
 
-* Custom Build
+** Custom Build
 
-* Deps
+** Deps
 - *dialog* (needed for the wifi-menu) via *pacman*
 - *ghostscript* (needed for emacs/doc-view mode) via *pacman*
 - *yajl* (needed for cower) via *pacman*
