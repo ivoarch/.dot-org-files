@@ -2,8 +2,6 @@
 
 * Dotfiles, Emacs + Org-mode and Literate programming.
 
-:shipit:
-
 [[https://github.com/ivoarch/.dot-org-files/blob/master/packages.org][packages.org]]
 - List of installed packages and restore them in a clean install.
 
@@ -21,3 +19,6 @@
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/.screenrc.org][.screenrc]]
 - Gnu Screen RC configuration file.
+
+[[https://github.com/ivoarch/.dot-org-files/blob/master/.zshrc.org][.zshrc]]
+- Powerful shell configuration.

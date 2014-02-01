@@ -1,0 +1,621 @@
+#+TITLE: ZSH Configuration file
+
+* Load Antigen
+
+I use [[https://github.com/zsh-users/antigen][antigen]] as plugin manager for my zsh.
+
+#+begin_src shell-script
+source ~/.antigen/antigen.zsh
+#+end_src
+
+* Enable extra/plugins/modules
+
+** Fish shell like syntax highlighting for Zsh.
+
+#+begin_src shell-script
+antigen bundle zsh-users/zsh-syntax-highlighting
+#+end_src
+
+Syntax colors.
+
+#+begin_src shell-script
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+
+# Aliases and functions
+ZSH_HIGHLIGHT_STYLES[alias]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[function]='fg=cyan,bold'
+
+# Commands and builtins
+ZSH_HIGHLIGHT_STYLES[command]="fg=green"
+ZSH_HIGHLIGHT_STYLES[hashed-command]="fg=green,bold"
+ZSH_HIGHLIGHT_STYLES[builtin]="fg=green,bold"
+ZSH_HIGHLIGHT_STYLES[precommand]="fg=green,underline"
+ZSH_HIGHLIGHT_STYLES[commandseparator]="none"
+
+# Paths
+ZSH_HIGHLIGHT_STYLES[path]='fg=white,underline'
+
+# Globbing
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=yellow,bold'
+
+# Options and arguments
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=red'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=red'
+
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]="fg=green"
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]="fg=green"
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]="fg=green"
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]="fg=green"
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]="fg=green"
+
+# Patterns
+ZSH_HIGHLIGHT_PATTERNS+=('mv *' 'fg=white,bold,bg=red')
+ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
+ZSH_HIGHLIGHT_PATTERNS+=('sudo ' 'fg=white,bold,bg=red')
+#+end_src
+
+** ZSH port of Fish shell's history search feature.
+
+#+begin_src shell-script
+antigen bundle zsh-users/zsh-history-substring-search
+#+end_src
+
+Settings.
+
+#+begin_src shell-script
+# bind UP and DOWN arrow keys
+for keycode in '[' '0'; do
+bindkey "^[${keycode}A" history-substring-search-up
+  bindkey "^[${keycode}B" history-substring-search-down
+done
+unset keycode
+
+# bind P and N for EMACS mode
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+#+end_src
+
+* Tell antigen that you're done
+
+You have to add this command after defining all bundles you need, in your zshrc. The completions defined by your bundles
+will be loaded at this step.
+
+#+begin_src shell-script
+antigen-apply
+#+end_src
+
+* Quoting URLs
+
+#+begin_src shell-script
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+#+end_src
+
+* Fix Emacs multi-term colors
+
+#+begin_src shell-script
+if [ "$EMACS" ];then
+    export TERM=Eterm-color
+fi
+#+end_src
+
+* Glabal options
+
+#+begin_src shell-script
+setopt nobeep                  # i hate beeps
+setopt alwaystoend             # when complete from middle, move cursor
+setopt autopushd               # automatically append dirs to the push/pop list
+setopt cdablevars              # avoid the need for an explicit $
+setopt correctall              # correct commands
+setopt correct_all             # correct all the words in the command line
+setopt noflowcontrol           # if I could disable Ctrl-s completely I would!
+setopt promptsubst             # do variable fu in prompt
+setopt RM_STAR_WAIT            # confirmation after 'rm *' etc..
+setopt printexitvalue          # alert me if something's failed'
+#+end_src
+
+* Completion stuff
+
+** Load completions
+
+#+begin_src shell-script
+autoload -U compinit
+compinit
+zmodload zsh/complist
+#+end_src
+
+** Options
+
+#+begin_src shell-script
+setopt hash_list_all           # hash everything before completion
+setopt completealiases         # complete alisases
+setopt extendedglob            # weird & wacky pattern matching - yay zsh!
+setopt nolisttypes             # show types in completion
+setopt autolist                # filename completion
+setopt listpacked              # compact completion lists
+setopt MARK_DIRS               # Append a trailing `/' to all directory names resulting from filename generation (globbing).
+setopt completeinword          # not just at the end
+#+end_src
+
+** Formatting and messages
+
+#+begin_src shell-script
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format $'%{\e[0;33m%} %B%d%b%{\e[0m%}'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*:default' list-prompt'%S%M matches%s'
+zstyle ':completion:*:prefix:*' add-space true
+#+end_src
+
+** Completion use cache
+
+#+begin_src shell-script
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+#+end_src
+
+** Zsh auto rehash commands
+
+Sometimes zsh not recognize the executable when installing a new program.
+To fix this add the following line to your =~/.zshrc= file.
+
+#+begin_src shell-script
+zstyle ':completion:*' rehash true
+#+end_src
+
+** Case sensitive, partial word and substring completion
+
+#+begin_src shell-script
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+#+end_src
+
+** Activate menu selection
+
+#+begin_src shell-script
+zstyle ':completion:*' menu select=2
+#+end_src
+
+** Color/list
+
+#+begin_src shell-script
+zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=34=36"
+#+end_src
+
+** My process (killer) completion
+
+#+begin_src shell-script
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $(whoami) -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:*:killall:*' menu yes select
+zstyle ':completion:*:killall:*' force-list always
+#+end_src
+
+* Jobs/control/events
+
+** Options
+#+begin_src shell-script
+setopt notify                  # report background job events immediately
+setopt print_exit_value        # report job status changes
+setopt checkjobs               # report job status on shell exit
+#+end_src
+
+** Report CPU usage for commands running longer than 10 seconds.
+
+#+begin_src shell-script
+export TIMEFMT="%U user %S system %P cpu %*E total, running %J"
+REPORTTIME=10
+#+end_src
+
+** Watching for Other Users
+
+#+begin_src shell-script
+watch=(notme) # watch for everybody except me
+LOGCHECK=300  # check every 5 min for login/logout activity
+WATCHFMT="%(a:${fg[cyan]}Hello %n [%m] [%t]:${fg[red]}Bye %n [%m] [%t])"
+#+end_src
+
+* Directory
+
+** Options
+
+#+begin_src shell-script
+setopt autocd                   # change to dirs without cd
+setopt pushd_to_home            # Push to home directory when no argument is given.
+setopt auto_pushd               # Push the old directory onto the stack on cd.
+setopt auto_name_dirs           # Auto add variable-stored paths to ~ list.
+setopt pushd_ignore_dups        # Do not store duplicates in the stack.
+#+end_src
+
+** Functions
+
+#+begin_src shell-script
+cd () {
+  if   [[ "x$*" == "x..." ]]; then
+    cd ../..
+  elif [[ "x$*" == "x...." ]]; then
+    cd ../../..
+  elif [[ "x$*" == "x....." ]]; then
+    cd ../../..
+  elif [[ "x$*" == "x......" ]]; then
+    cd ../../../..
+  else
+    builtin cd "$@"
+  fi
+}
+
+function mcd() {
+    mkdir -p "$1" && cd "$1";
+}
+#+end_src
+
+** Aliases
+
+#+begin_src shell-script
+alias ..='cd ..'
+alias cd..='cd ..'
+alias cd...='cd ../..'
+alias cd....='cd ../../..'
+alias cd.....='cd ../../../..'
+alias cd/='cd /'
+
+alias 1='cd -'
+alias 2='cd +2'
+alias 3='cd +3'
+alias 4='cd +4'
+alias 5='cd +5'
+alias 6='cd +6'
+alias 7='cd +7'
+alias 8='cd +8'
+alias 9='cd +9'
+
+alias d='dirs -v | head -10'
+#+end_src
+
+* History
+
+** Variables
+
+#+begin_src shell-script
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+#+end_src
+
+** Options
+
+#+begin_src shell-script
+setopt append_history     # Allow multiple terminal sessions to all append to one zsh command history
+setopt extended_history   # Include more information about when the command was executed, etc
+setopt hist_ignore_dups   # Ignore duplication command history list
+setopt hist_reduce_blanks # Remove extra blanks from each command line being added to history
+setopt inc_append_history # Add comamnds as they are typed, don't wait until shell exit'
+setopt hist_find_no_dups  # When searching history don't display results already cycled through twice'
+setopt share_history      # Share command history data
+#+end_src
+
+* Terminal
+
+** dircolors
+
+#+begin_src shell-script
+eval `dircolors ~/.dircolors`
+#+end_src
+
+** Aliases
+
+*** Compile/Sources
+
+#+begin_src shell-script
+alias cm='./configure && make'
+alias mmi='make && sudo make install'
+alias pmmi='perl Makefile.PL && mmi'
+alias maek='make'
+alias mkae='make'
+alias pipr='pip install --no-deps --ignore-installed'
+#+end_src
+
+*** Emacs
+
+#+begin_src shell-script
+alias emacs='emacsclient -ca'
+alias ec='emacsclient -c'
+alias e='emacsclient -a -t'
+alias eq='emacs -nw --quick'
+alias eamcs='emacs'
+alias emcs='emacs'
+alias nano='e'
+alias vim='emacs'
+alias vi='emacs'
+alias leafpad='ec'
+alias gedit='ec'
+# http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
+alias es="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
+alias E='es'
+#+end_src
+
+*** Apps
+
+#+begin_src shell-script
+alias sl="screen -list"  # GNU/Screen
+alias wiki='wiki-search' # Archlinux-Wiki
+alias rat='ratpoison -c' # Ratpoison
+#+end_src
+
+*** PACMAN/AUR
+
+#+begin_src shell-script
+alias pacman='pacman --color=always'
+alias cower='cower --color=always'
+alias cowerd='cower --download --force --target=/home/ivo/Packages/arch/aur/'
+alias updates='checkupdates && cower -u'
+#+end_src
+
+*** PKGBUILD's
+
+#+begin_src shell-script
+alias mp='makepkg'
+alias mpf='makepkg -f'
+alias mpsi='makepkg -si'
+alias mpg='makepkg -g >> PKGBUILD'
+alias mps='makepkg -g >> PKGBUILD && makepkg -f'
+alias ms='makepkg --source'
+alias msf='makepkg --source -f'
+#+end_src
+
+*** Systemd
+
+#+begin_src shell-script
+alias ctl='sudo systemctl'
+alias start='sudo systemctl start'
+alias stop='sudo systemctl stop'
+alias status='sudo systemctl status'
+alias restart='sudo systemctl restart'
+alias reboot='sudo systemctl start reboot.target'
+#alias enable='sudo systemctl enable' # problematic on my pc and zsh 5.0.5
+alias disable='sudo systemctl disable'
+alias units='systemctl list-unit-files'
+alias targets='systemctl list-units --type=target'
+#+end_src
+
+*** Maintenance
+
+logs.
+
+#+begin_src shell-script
+alias journalctl-error='sudo journalctl -b --priority 0..3'
+#+end-src
+
+Clear Conkeror Profile.
+
+#+begin_src shell-script
+alias pc='profile-cleaner ck'
+#+end_src
+
+*** Auto extension stuff
+
+#+begin_src shell-script
+alias -s {ogg,mp3,wav,wma}="mplayer"
+alias -s {avi,mpeg,mpg,mov,m2v,flv}="mplayer"
+alias -s {png,gif,jpg,jpeg}=$EDITOR
+alias -s {doc,pdf}=$EDITOR
+alias -s {txt,c,h,conf,tex}=$EDITOR
+alias -s PKGBUILD=$EDITOR
+alias -s {html,php,com,net,org,gov}=$BROWSER
+alias -s torrent='transmission-gtk'
+#+end_src
+
+*** No/Correct commands
+
+#+begin_src shell-script
+alias man='nocorrect man'
+alias mv='nocorrect mv'
+alias mysql='nocorrect mysql'
+alias mkdir='nocorrect mkdir'
+#+end_src
+
+*** General
+
+#+begin_src shell-script
+alias cp='cp -RPv'
+alias la='ls -a'
+alias lsa='ls -lah'
+alias l='ls -la'
+alias ll='ls -l'
+alias ls='ls -Xp --color=auto'
+alias mk='mkdir -p'
+alias mkdir='mk'
+alias mv='mv -i'
+alias wget='wget -c'
+alias history='fc -l 1'
+alias h='history'
+alias ssh='ssh -X'
+alias grep='grep --color=auto'
+alias free='free -m'
+alias open='xdg-open'
+alias c='clear'
+alias q='exit'
+alias Q='q'
+alias t='touch'
+alias j='jobs'
+#+end_src
+
+*** Mount devices
+
+#+begin_src shell-script
+alias cdmount='sudo mount /dev/sr0 /mnt/cdrom/'
+alias usb='sudo mount /dev/sdb1 /mnt/usb'
+alias uusb='sudo umount /mnt/usb
+#+end_src
+
+*** Wireless/Network
+
+#+begin_src shell-script
+alias myip='curl ifconfig.me'
+alias pi='ping -c 4 archlinux.org'
+alias fw='sudo iptables -L'
+alias netctl='sudo netctl'
+alias netctl-auto='sudo netctl-auto'
+alias myserver='python -m SimpleHTTPServer 8000'
+alias speedtest='speedtest-cli --simple'
+#+end_src
+
+*** Global aliases
+
+#+begin_src shell-script
+alias -g H="| head"
+alias -g T="| tail"
+alias -g G="| grep"
+alias -g L="| less"
+alias -g M="| most"
+alias -g B="&|"
+alias -g H="--help"
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+#+end_src
+
+** functions
+
+*** Packing in the archive
+
+#+begin_src shell-script
+pk () {
+    if [ $1 ] ; then
+case $1 in
+            tbz) tar cjvf $2.tar.bz2 $2 ;;
+            tgz) tar czvf $2.tar.gz $2 ;;
+            tar) tar cpvf $2.tar $2 ;;
+            bz2) bzip $2 ;;
+            gz) gzip -c -9 -n $2 > $2.gz ;;
+            zip) zip -r $2.zip $2 ;;
+            7z) 7z a $2.7z $2 ;;
+            *) echo "'$1' cannot be packed via pk()" ;;
+        esac
+else
+echo "'$1' is not a valid file"
+    fi
+}
+#+end_src
+
+*** Extract files
+
+#+begin_src shell-script
+extract () {
+    if [ -f $1 ] ; then
+case $1 in
+            *.tar.bz2) tar xvjf $1 ;;
+            *.tar.gz) tar xvzf $1 ;;
+            *.bz2) bunzip2 $1 ;;
+            *.rar) rar x $1 ;;
+            *.gz) gunzip $1 ;;
+            *.tar) tar xvf $1 ;;
+            *.tbz2) tar xvjf $1 ;;
+            *.tgz) tar xvzf $1 ;;
+            *.zip) unzip $1 ;;
+            *.Z) uncompress $1 ;;
+            *.7z) 7z x $1 ;;
+            *) echo "don't know how to extract '$1′…" ;;
+        esac
+else
+echo "'$1′ is not a valid file!"
+    fi
+}
+#+end_src
+
+*** Remove orphans (Archlinux)
+
+#+begin_src  shell-script
+orphans() {
+    if [[ ! -n $(pacman -Qdt) ]]; then
+        echo no orphans to remove
+    else
+        sudo pacman -Rs $(pacman -Qdtq)
+    fi
+}
+#+end_src
+
+*** Diff
+
+#+begin_src shell-script
+if command -v colordiff > /dev/null 2>&1; then
+    alias diff="colordiff -Nuar"
+else
+    alias diff="diff -Nuar"
+fi
+#+end_src
+
+* Profile
+
+** My Preferred programs
+
+#+begin_src shell-script
+export EDITOR="emacs"
+export CC="/usr/bin/gcc"
+export BROWSER="conkeror"
+export HOMEPAGE="https://bbs.archlinux.org/search.php?action=show_new"
+#+end_src
+
+** Encoding
+
+#+begin_src shell-script
+export LANG="en_US.UTF-8"
+export LC_ALL=$LANG
+export LC_COLLATE=$LANG
+export LC_CTYPE=$LANG
+export LC_MESSAGES=$LANG
+export LC_MONETARY=$LANG
+export LC_NUMERIC=$LANG
+export LC_TIME=$LANG
+export LC_NAME=$LANG
+export LC_TELEPHONE=$LANG
+export LESSCHARSET="UTF-8"
+#+end_src
+
+** Add ~/bin to path
+
+#+begin_src shell-script
+export PATH="$HOME/bin:$PATH"
+#+end_src
+
+
+* The Prompt
+
+** Load the colors
+
+#+begin_src shell-script
+autoload -U colors && color
+#+end_src
+
+** Git prompt
+
+#+begin_src shell-script
+function prompt_char {
+    git branch >/dev/null 2>/dev/null && echo '±' && return
+    hg root >/dev/null 2>/dev/null && echo '☿' && return
+    echo '$'
+}
+
+function git_branch {
+    BRANCH="$(git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3)"
+    if ! test -z $BRANCH; then
+        COL="%{$fg[green]%}" # Everything's fine
+        [[ $(git log origin/master..HEAD 2> /dev/null ) != "" ]] && COL="%{$fg[red]%}" # We have changes to push
+        [[ $(git status --porcelain 2> /dev/null) != "" ]] && COL="%{$fg[yellow]%}" # We have uncommited changes
+        echo "%{$fg[green]%}(%{$fg[cyan]%}$(prompt_char) $COL$BRANCH%{$fg[green]%})"
+    fi
+}
+#+end_src
+
+** Prompt
+
+#+begin_src shell-script
+PROMPT='$(git_branch)%{$fg[green]%}(%~)%{$reset_color%}%# '
+RPROMPT="%(?,%{$fg[green]%}:%),%{$fg[yellow]%}%? %{$fg[red]%}:()%f"
+SPROMPT="Correct %{$fg[red]%}%R to %{$fg[green]%}%r?%{$reset_color%} ([%{$fg[green]%}Y%{$reset_color%}]es/[%{$fg[red]%}N%{$reset_color%}]o/[%{$fg[yellow]%}E%{$reset_color%}]dit/[%{$fg[red]%}A%{$reset_color%}]bort) "
+#+end_src
