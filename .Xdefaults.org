@@ -1,0 +1,108 @@
+#+TITLE: Xdefaults
+
+* XFT settings.
+
+#+begin_src bash
+Xft.dpi: 96
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.hintstyle: hintfull
+Xft.rgba: rgb
+#+end_src
+
+* URxvt Customization and Optimization.
+
+** Start Urxvt as a login shell.
+
+#+begin_src bash
+URxvt*loginShell: true
+#+end_src
+
+** Enable 256 color support.
+
+I use gnu-screen so this is helpful.
+
+#+begin_src bash
+URxvt*termName: screen-256color
+#+end_src
+
+** Scrolling/mouse wheel improvments.
+
+#+begin_src bash
+URxvt*scrollBar: false
+URxvt*mouseWheelScrollPage: true
+#+end_src
+
+** URL and Mouseless text selection.
+
+Install [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]] from Arch/community repo.
+
+#+begin_src bash
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
+URxvt.url-select.launcher:  conkeror
+URxvt.url-select.underline: true
+URxvt.keysym.M-u:           perl:url-select:select_nextnnn
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:search
+#+end_src
+
+** Font Appearance.
+
+#+begin_src bash
+URxvt*letterSpace: -1
+URxvt*font: xft:DejaVu Sans Mono-10
+URxvt*boldFont: xft:DejaVu Sans Mono-10
+URxvt*italicFont: xft:DejaVu Sans Mono-10
+URxvt*boldItalicFont: xft:DejaVu Sans Mono-10
+#+end_src
+
+** Zenburn color-scheme.
+
+#+begin_src bash
+URxvt*background: #3F3F3F
+URxvt*foreground: #DCDCCC
+URxvt*cursorColor: #DCDCCC
+URxvt*cursorColor2: #3F3F3F
+URxvt*colorUL: #8CD0D3
+URxvt*underlineColor: #F0DFAF
+URxvt*colorBD: #E0CF9F
+URxvt*colorIT: #656555
+
+!! black dark/light
+URxvt*color0: #3F3F3F
+URxvt*color8: #5F5F5F
+!! red dark/light
+URxvt*color1: #BC8383
+URxvt*color9: #CC9393
+!! green dark/light
+URxvt*color2: #5F7F5F
+URxvt*color10: #7F9F7F
+!! yellow dark/light
+URxvt*color3: #E0CF9F
+URxvt*color11: #F0DFAF
+!! blue dark/light
+URxvt*color4: #7CB8BB
+URxvt*color12: #8CD0D3
+!! magenta dark/light
+URxvt*color5: #DC8CC3
+URxvt*color13: #DC8CC3
+!! cyan dark/light
+URxvt*color6: #93E0E3
+URxvt*color14: #93E0E3
+!! white dark/light
+URxvt*color7: #DCDCCC
+URxvt*color15: #FFFFFF
+#+beging_src
+
+* XMESSAGE
+
+#+begin_src bash
+Xmessage*font: -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1
+Xmessage*background: red
+Xmessage*foreground: yellow
+Xmessage*form.*.shapeStyle: rectangle
+Xmessage*Scrollbar.width: 1
+Xmessage*Scrollbar.borderWidth: 0
+Xmessage*Buttons: OK
+Xmessage*defaultButton: OK
+#+end_src
