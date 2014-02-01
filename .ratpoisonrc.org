@@ -1,0 +1,178 @@
+#+TITLE: My ratpoison configuration
+
+* Disable "Welcome" message.
+
+#+begin_src shell-script
+startup_message off
+#+end_src
+
+* Unmanaged window list.
+
+#+begin_src shell-script
+unmanage xmessage
+unmanage MPlayer
+#+end_src
+
+* RP "The best wm for smaller screens!"
+
+Disable borders/panels etc..
+
+#+begin_src shell-script
+set padding 0 0 0 0
+set barborder 0
+set border 0
+#+end_src
+
+* Default font.
+
+#+begin_src shell-script
+set font "DejaVu Sans Mono-10"
+#+end_src
+
+* Appearance.
+
+#+begin_src shell-script
+set winfmt [%n] %s %t
+set winname class
+set winliststyle column
+set wingravity c
+set bargravity ne
+set maxsizegravity c
+#+end_src
+
+* Bar's timeout in seconds.
+
+#+begin_src shell-script
+msgwait 5
+#+end_src
+
+* Don't change the cursor into a square when waiting for a key.
+
+#+begin_src shell-script
+set waitcursor 0
+#+end_src
+
+* Rudeness.
+
+#+begin_src shell-script
+rudeness 12
+#+end_src
+
+* When the hook is run, command will be executed.
+
+#+begin_src shell-script
+addhook switchwin banish
+#+end_src
+
+* Key bindings.
+
+** Windows/Frames
+
+#+begin_src shell-script
+bind z windows
+bind o only
+bind u undo
+bind d dedicate
+bind g groups
+#+end_src
+
+** Run-or-raise
+
+Get the runorraise script form [[https://raw2.github.com/ivoarch/bin/master/ratpoison/runorraise.pl][here]].
+
+#+begin_src shell-script
+bind a exec ~/bin/ratpoison/rat_info.sh
+bind c exec ~/bin/ratpoison/runorraise.pl URxvt 'urxvt'
+bind e exec ~/bin/ratpoison/runorraise.pl Emacs 'emacsclient -ca emacs'
+bind w exec ~/bin/ratpoison/runorraise.pl Conkeror 'conkeror'
+#+end_src
+
+** Function
+
+Open *man* pages from RP.
+
+#+begin_src shell-script
+bind m exec ratpoison -c "exec urxvt -e man $(ratpoison -c "prompt Manpage:")"
+#+end_src
+
+Show Dropbox status.
+
+#+begin_src shell-script
+bind D exec ratpoison -c "echo `dropbox status`"
+#+end_src
+
+Show info script.
+
+#+begin_src shell-script
+bind a exec ~/bin/ratpoison/rat_info.sh
+#+end_src
+
+Show *root* window.
+
+#+begin_src shell-script
+alias showroot exec ratpoison -c fdump > FOO; ratpoison -c 'select -' -c only
+alias unshowroot exec ratpoison -c "frestore `cat FOO`"
+bind B showroot
+bind M-B unshowroot
+#+end_src
+
+Toggle on|off energy saving.
+
+#+begin_src shell-script
+alias screensaver exec ~/bin/system/dpms-toggle.sh
+bind Pause screensaver
+#+end_src
+
+Take a screenshot.
+
+#+begin_src shell-script
+alias ratshot exec import -window root png:$HOME/Pictures/Screenshots/ratpoison-$(date +%s)$$.png && ratpoison -c "echo Ratshot saved!"
+definekey top Print ratshot
+#+end_src
+
+** Other.
+
+Abort keystrokes.
+
+#+begin_src shell-script
+definekey root Escape abort
+#+end_src
+
+
+** Multimedia keys.
+
+Audio/Volume keys.
+
+#+begin_src shell-script
+definekey top XF86AudioRaiseVolume exec amixer -q set PCM 5+ unmute; ratpoison -c "echo RaiseVolume +5"
+definekey top XF86AudioLowerVolume exec amixer -q set PCM 5- unmute;  ratpoison -c "echo LowerVolume -5"
+definekey top XF86AudioMute exec amixer -q set PCM toggle; ratpoison -c "echo [ MUTE ]"
+#+end_src
+
+Control EMMS (emacs multimedia system)
+
+#+begin_src shell-script
+definekey top XF86AudioPlay exec urxvt -e emacsclient -e "(emms-pause)"; ratpoison -c "echo toggle EMMS"
+definekey top XF86AudioPrev exec urxvt -e emacsclient -e "(emms-previous)"; ratpoison -c "echo EMMS << Previous song"
+definekey top XF86AudioNext exec urxvt -e emacsclient -e "(emms-next)"; ratpoison -c "echo EMMS >> Next song"
+#+end_src
+
+* Aliases.
+
+#+begin_src shell-script
+alias edit exec emacs $HOME/.ratpoisonrc
+alias mail exec ~/bin/mail/gmail.sh
+alias skype exec ~/bin/system/run-skype.sh
+alias ratoff exec ~/bin/system/touchpad_toggle
+alias raton exec ~/bin/system/touchpad_toggle
+alias enote exec emacsclient -c --eval '(deft)'
+alias reboot exec systemctl reboot
+alias poweroff exec systemctl poweroff
+#+end_src
+
+* Initial commands.
+
+#+begin_src shell-script
+exec urxvt -e screen -RD
+exec conkeror
+#+end_src
