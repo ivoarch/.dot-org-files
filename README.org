@@ -1,0 +1,23 @@
+#+TITLE: My dot-org-files
+
+* Dotfiles, Emacs + Org-mode and Literate programming.
+
+:shipit:
+
+[[https://github.com/ivoarch/.dot-org-files/blob/master/packages.org][packages.org]]
+- List of installed packages and restore them in a clean install.
+
+[[https://github.com/ivoarch/.dot-org-files/blob/master/todo.org][todo.org]]
+- Tasks with unclassified time period.
+
+[[https://github.com/ivoarch/.dot-org-files/blob/master/.Xdefaults.org][.Xdefaults]]
+- Settings for multiple X programs.
+
+[[https://github.com/ivoarch/.dot-org-files/blob/master/.xinitrc.org][.xinitrc]]
+- X initialization script.
+
+[[https://github.com/ivoarch/.dot-org-files/blob/master/.ratpoisonrc.org][.ratpoisonrc]]
+- Ratpoison RC configuration file.
+
+[[https://github.com/ivoarch/.dot-org-files/blob/master/.screenrc.org][.screenrc]]
+- Gnu Screen RC configuration file.
