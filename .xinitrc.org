@@ -3,6 +3,7 @@
 * Enable DPMS energy saving.
 
 When I want to disable the energy saving, I use a shell script to toggle =on|off= via ratpoison key bindings.
+Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/dpms-toggle.sh][here]].
 
 #+begin_src bash
 xset +dpms; xset s on

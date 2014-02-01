@@ -103,6 +103,8 @@ bind D exec ratpoison -c "echo `dropbox status`"
 
 Show info script.
 
+Get the ratpoison-info script from [[https://raw2.github.com/ivoarch/bin/master/ratpoison/rat_info.sh][here]].
+
 #+begin_src shell-script
 bind a exec ~/bin/ratpoison/rat_info.sh
 #+end_src
@@ -117,6 +119,8 @@ bind M-B unshowroot
 #+end_src
 
 Toggle on|off energy saving.
+
+Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/dpms-toggle.sh][here]].
 
 #+begin_src shell-script
 alias screensaver exec ~/bin/system/dpms-toggle.sh
