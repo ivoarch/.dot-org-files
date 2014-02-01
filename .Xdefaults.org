@@ -92,7 +92,7 @@ URxvt*color14: #93E0E3
 !! white dark/light
 URxvt*color7: #DCDCCC
 URxvt*color15: #FFFFFF
-#+beging_src
+#+end_src
 
 * XMESSAGE
 
