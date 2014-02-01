@@ -31,9 +31,9 @@
 - *Mail* mu-git
 - *Utilities* stint-git
 - *Widget* tango-icon-theme gtk-clearlooks-zenburn
+- *X11* ratpoison-git
 
 * Custom Build
-- *X11* ratpoison (without xft, [[https://raw2.github.com/ivoarch/.dotfiles/master/ratpoison.PKGBUILD][PKGBUILD]] )
 
 * Deps
 - *dialog* (needed for the wifi-menu) via *pacman*
