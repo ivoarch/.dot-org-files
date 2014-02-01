@@ -1,0 +1,42 @@
+#+TITLE: List of packages
+#+DESCRIPTION: Here is the list of packages I install on my netbook installation.
+#+KEYWORDS: archlinux,pacman,packages,aur,git,build,netbook
+
+* Pacman
+- *Administration* abs arch-wiki-lite htop pkgstats reflector
+- *Bootloader* syslinux
+- *Codecs* gstreamer0.10 gstreamer0.10-plugins gstreamer
+- *Development* git python-pip sbcl
+- *Display* xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-xfontsel
+- *Document/Editor* emacs
+- *Fonts* ttf-dejavu xorg-xlsfonts terminus-font
+- *Games* ?
+- *Graphics* gimp imagemagick scrot
+- *Hardware* dosfstools rfkill wireless_tools
+- *Internet* w3m
+- *Mail* offlineimap
+- *Media* ffmpeg mplayer youtube.dl
+- *Plugin* flashplugin
+- *Server* openssh
+- *Sound* alsa-oss alsa-plugins alsa-utils
+- *Terminal* rxvt-unicode urxvt-perls xterm screen zsh
+- *Utilities* acpi lsof moreutils p7zip unrar unzip zip xclip xdotool xdg-user-dirs xorg-xmessage
+- *Video* xf86-video-intel
+- *Wireless/Network* wget wpa_supplicant
+
+* AUR
+- *Administration* kernel-netbook profile-sync-daemon profile-cleaner speedtest-cli
+- *Cloud* dropbox dropbox-cli
+- *Internet* conkeror-git cower-git transmission-gtk2
+- *Mail* mu-git
+- *Utilities* stint-git
+- *Widget* tango-icon-theme gtk-clearlooks-zenburn
+
+* Custom Build
+- *X11* ratpoison (without xft, [[https://raw2.github.com/ivoarch/.dotfiles/master/ratpoison.PKGBUILD][PKGBUILD]] )
+
+* Deps
+- *dialog* (needed for the wifi-menu) via *pacman*
+- *ghostscript* (needed for emacs/doc-view mode) via *pacman*
+- *yajl* (needed for cower) via *pacman*
+- *xulrunner* (needed for conkeror-git) via *pacman*
