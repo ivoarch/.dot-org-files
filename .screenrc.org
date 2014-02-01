@@ -1,0 +1,61 @@
+#+TITLE: Gnu Screen RC file
+
+* Turn welcome message off
+
+#+begin_src bash
+startup_message off
+#+end_src
+
+* Use 256 colors.
+
+#+begin_src bash
+term screen-256color
+#+end_src
+
+* Use 256 Colors with Rxvt-Unicode.
+
+#+begin_src bash
+terminfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+#+end_src
+
+* Turn off visual bell.
+
+#+begin_src bash
+vbell off
+#+end_src
+
+* Message timeout in seconds.
+
+#+begin_src bash
+msgwait 2
+#+end_src
+
+* More scrollbacks.
+
+#+begin_src bash
+defscrollback 10000
+#+end_src
+
+* Turn off hardstatus.
+
+#+begin_src bash
+hardstatus off
+#+end_src
+
+* Set the title for all shells.
+
+#+begin_src bash
+shelltitle "$ |ZSH"
+#+end_src
+
+* Alternate screen support.
+
+#+begin_src bash
+altscreen on
+#+end_src
+
+* Set Escape key.
+
+#+begin_src bash
+escape ^Zz
+#+end_src
