@@ -630,4 +630,6 @@ bindkey -e
 
 ** Enable magic space
 
+#+begin_src shell-script
 bindkey ' '   magic-space
+#+end_src
