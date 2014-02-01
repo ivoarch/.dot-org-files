@@ -388,7 +388,7 @@ logs.
 
 #+begin_src shell-script
 alias journalctl-error='sudo journalctl -b --priority 0..3'
-#+end-src
+#+end_src
 
 Clear Conkeror Profile.
 
@@ -619,3 +619,15 @@ PROMPT='$(git_branch)%{$fg[green]%}(%~)%{$reset_color%}%# '
 RPROMPT="%(?,%{$fg[green]%}:%),%{$fg[yellow]%}%? %{$fg[red]%}:()%f"
 SPROMPT="Correct %{$fg[red]%}%R to %{$fg[green]%}%r?%{$reset_color%} ([%{$fg[green]%}Y%{$reset_color%}]es/[%{$fg[red]%}N%{$reset_color%}]o/[%{$fg[yellow]%}E%{$reset_color%}]dit/[%{$fg[red]%}A%{$reset_color%}]bort) "
 #+end_src
+
+* Keybindings
+
+** Use emacs style
+
+#+begin_src
+bindkey -e
+#+end_src
+
+** Enable magic space
+
+bindkey ' '   magic-space
