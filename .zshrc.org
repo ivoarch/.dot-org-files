@@ -11,11 +11,13 @@ source ~/.antigen/antigen.zsh
 
 ** Fish shell like syntax highlighting for Zsh.
 
+This one’s awesome. It highlights what you’re typing in real time.
+
 #+begin_src sh :tangle ~/.zshrc
 antigen bundle zsh-users/zsh-syntax-highlighting
 #+end_src
 
-Syntax colors.
+Color the highlighting to your liking.
 
 #+begin_src sh :tangle ~/.zshrc
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
@@ -55,6 +57,9 @@ ZSH_HIGHLIGHT_PATTERNS+=('sudo ' 'fg=white,bold,bg=red')
 
 ** ZSH port of Fish shell's history search feature.
 
+Type part of a command that you have run in the past, push the =up|down= arrow, or using emacs style like =^N ^P=
+and start going back in time to your previous commands that match that sub string.
+
 #+begin_src sh :tangle ~/.zshrc
 antigen bundle zsh-users/zsh-history-substring-search
 #+end_src
@@ -74,8 +79,6 @@ bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 #+end_src
 
-#+RESULTS:
-
 * Tell antigen that you're done
 
 You have to add this command after defining all bundles you need, in your zshrc. The completions defined by your bundles
@@ -86,6 +89,8 @@ antigen-apply
 #+end_src
 
 * Quoting URLs
+
+Functions to make it easier to type URLs as command line arguments.
 
 #+begin_src sh :tangle ~/.zshrc
 autoload -U url-quote-magic
@@ -117,6 +122,8 @@ setopt printexitvalue          # alert me if something's failed'
 
 * Completion stuff
 
+Completion in =zsh= is awesome. One of the most complex parts of the shell.
+
 ** Load completions
 
 #+begin_src sh :tangle ~/.zshrc
@@ -128,7 +135,6 @@ zmodload zsh/complist
 ** Options
 
 #+begin_src sh :tangle ~/.zshrc
-setopt hash_list_all           # hash everything before completion
 setopt completealiases         # complete alisases
 setopt extendedglob            # weird & wacky pattern matching - yay zsh!
 setopt nolisttypes             # show types in completion
@@ -153,7 +159,7 @@ zstyle ':completion:*:default' list-prompt'%S%M matches%s'
 zstyle ':completion:*:prefix:*' add-space true
 #+end_src
 
-** Completion use cache
+** Enable command caching
 
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion::complete:*' use-cache on
@@ -163,7 +169,7 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 ** Zsh auto rehash commands
 
 Sometimes zsh not recognize the executable when installing a new program.
-To fix this add the following line to your =~/.zshrc= file.
+To rebuild the cache of executable commands, add the following line to your =~/.zshrc= file.
 
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion:*' rehash true
@@ -183,11 +189,15 @@ zstyle ':completion:*' menu select=2
 
 ** Color/list
 
+Get zsh to color the completed part of the results when using tab completion.
+
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=34=36"
 #+end_src
 
 ** My process (killer) completion
+
+I really like the =kill|all= autocomplete functionality of zsh.
 
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
@@ -221,6 +231,8 @@ WATCHFMT="%(a:${fg[cyan]}Hello %n [%m] [%t]:${fg[red]}Bye %n [%m] [%t])"
 #+end_src
 
 * Directory
+
+Most of these commands are used for quick navigation.
 
 ** Options
 
@@ -584,6 +596,8 @@ export PATH="$HOME/bin:$PATH"
 #+end_src
 
 * The Prompt
+
+Setting up my zsh prompt.
 
 ** Load the colors
 

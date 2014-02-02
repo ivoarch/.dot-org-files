@@ -1,6 +1,6 @@
 #+TITLE: My dot-org-files
 
-* Dotfiles, Emacs + Org-mode and Literate programming.
+*** Dotfiles, Emacs + Org-mode with babel and Literate programming.
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/packages.org][packages.org]]
 - List of installed packages.
