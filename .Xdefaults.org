@@ -1,6 +1,6 @@
 #+TITLE: Xdefaults
 
-* XFT settings.
+** XFT settings.
 
 Necessary to improve the xft fonts.
 
@@ -12,15 +12,15 @@ Xft.hintstyle: hintfull
 Xft.rgba: rgb
 #+end_src
 
-* URxvt Customization and Optimization.
+** URxvt Customization and Optimization.
 
-** Start Urxvt as a login shell.
+*** Start Urxvt as a login shell.
 
 #+begin_src sh :tangle ~/.Xdefaults :padline no
 URxvt*loginShell: true
 #+end_src
 
-** Enable 256 color support.
+*** Enable 256 color support.
 
 I use gnu-screen so this is helpful.
 
@@ -28,7 +28,7 @@ I use gnu-screen so this is helpful.
 URxvt*termName: screen-256color
 #+end_src
 
-** Scrolling/mouse wheel improvments.
+*** Scrolling/mouse wheel improvments.
 
 Someone who really need scroll bars?
 
@@ -37,7 +37,7 @@ URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: true
 #+end_src
 
-** URL and Mouseless text selection.
+*** URL and Mouseless text selection.
 
 I want to select and open URLs in my browser without using the mouse, by this we installed [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]]
 from Arch/community repo.
@@ -51,7 +51,7 @@ URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-s:           perl:keyboard-select:search
 #+end_src
 
-** Font Appearance.
+*** Font Appearance.
 
 I got best results with these settings.
 
@@ -63,7 +63,7 @@ URxvt*italicFont: xft:DejaVu Sans Mono-10
 URxvt*boldItalicFont: xft:DejaVu Sans Mono-10
 #+end_src
 
-** Zenburn color-scheme.
+*** Zenburn color-scheme.
 
 The Color scheme that Changed the World!
 
@@ -103,7 +103,7 @@ URxvt*color7: #DCDCCC
 URxvt*color15: #FFFFFF
 #+end_src
 
-* XMESSAGE
+** XMESSAGE
 
 Configure the appearance of xmessage, I like red background and yellow foreground.
 

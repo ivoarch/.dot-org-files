@@ -1,15 +1,15 @@
 #+TITLE: ZSH Configuration file
 
-* Load Antigen
+** Load Antigen
 I use [[https://github.com/zsh-users/antigen][antigen]] as plugin manager for my zsh.
 
 #+begin_src sh :tangle ~/.zshrc
 source ~/.antigen/antigen.zsh
 #+end_src
 
-* Enable extra/plugins/modules
+** Enable extra/plugins/modules
 
-** Fish shell like syntax highlighting for Zsh.
+*** Fish shell like syntax highlighting for Zsh.
 
 This one’s awesome. It highlights what you’re typing in real time.
 
@@ -55,7 +55,7 @@ ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
 ZSH_HIGHLIGHT_PATTERNS+=('sudo ' 'fg=white,bold,bg=red')
 #+end_src
 
-** ZSH port of Fish shell's history search feature.
+*** ZSH port of Fish shell's history search feature.
 
 Type part of a command that you have run in the past, push the =up|down= arrow, or using emacs style like =^N ^P=
 and start going back in time to your previous commands that match that sub string.
@@ -79,7 +79,7 @@ bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 #+end_src
 
-* Tell antigen that you're done
+*** Tell antigen that you're done
 
 You have to add this command after defining all bundles you need, in your zshrc. The completions defined by your bundles
 will be loaded at this step.
@@ -88,7 +88,7 @@ will be loaded at this step.
 antigen-apply
 #+end_src
 
-* Quoting URLs
+** Quoting URLs
 
 Functions to make it easier to type URLs as command line arguments.
 
@@ -97,7 +97,7 @@ autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 #+end_src
 
-* Fix Emacs multi-term colors
+** Fix Emacs multi-term colors
 
 #+begin_src sh :tangle ~/.zshrc
 if [ "$EMACS" ];then
@@ -105,7 +105,7 @@ if [ "$EMACS" ];then
 fi
 #+end_src
 
-* Glabal options
+** Glabal options
 
 #+begin_src sh :tangle ~/.zshrc
 setopt nobeep                  # i hate beeps
@@ -120,11 +120,11 @@ setopt RM_STAR_WAIT            # confirmation after 'rm *' etc..
 setopt printexitvalue          # alert me if something's failed'
 #+end_src
 
-* Completion stuff
+** Completion stuff
 
 Completion in =zsh= is awesome. One of the most complex parts of the shell.
 
-** Load completions
+*** Load completions
 
 #+begin_src sh :tangle ~/.zshrc
 autoload -U compinit
@@ -132,7 +132,7 @@ compinit
 zmodload zsh/complist
 #+end_src
 
-** Options
+*** Options
 
 #+begin_src sh :tangle ~/.zshrc
 setopt completealiases         # complete alisases
@@ -144,7 +144,7 @@ setopt MARK_DIRS               # Append a trailing `/' to all directory names re
 setopt completeinword          # not just at the end
 #+end_src
 
-** Formatting and messages
+*** Formatting and messages
 
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion:*' verbose yes
@@ -159,14 +159,14 @@ zstyle ':completion:*:default' list-prompt'%S%M matches%s'
 zstyle ':completion:*:prefix:*' add-space true
 #+end_src
 
-** Enable command caching
+*** Enable command caching
 
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 #+end_src
 
-** Zsh auto rehash commands
+*** Zsh auto rehash commands
 
 Sometimes zsh not recognize the executable when installing a new program.
 To rebuild the cache of executable commands, add the following line to your =~/.zshrc= file.
@@ -175,19 +175,19 @@ To rebuild the cache of executable commands, add the following line to your =~/.
 zstyle ':completion:*' rehash true
 #+end_src
 
-** Case sensitive, partial word and substring completion
+*** Case sensitive, partial word and substring completion
 
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 #+end_src
 
-** Activate menu selection
+*** Activate menu selection
 
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion:*' menu select=2
 #+end_src
 
-** Color/list
+*** Color/list
 
 Get zsh to color the completed part of the results when using tab completion.
 
@@ -195,7 +195,7 @@ Get zsh to color the completed part of the results when using tab completion.
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=34=36"
 #+end_src
 
-** My process (killer) completion
+*** My process (killer) completion
 
 I really like the =kill|all= autocomplete functionality of zsh.
 
@@ -206,23 +206,23 @@ zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 #+end_src
 
-* Jobs/control/events
+** Jobs/control/events
 
-** Options
+*** Options
 #+begin_src sh :tangle ~/.zshrc
 setopt notify                  # report background job events immediately
 setopt print_exit_value        # report job status changes
 setopt checkjobs               # report job status on shell exit
 #+end_src
 
-** Report CPU usage for commands running longer than 10 seconds.
+*** Report CPU usage for commands running longer than 10 seconds.
 
 #+begin_src sh :tangle ~/.zshrc
 export TIMEFMT="%U user %S system %P cpu %*E total, running %J"
 REPORTTIME=10
 #+end_src
 
-** Watching for Other Users
+*** Watching for Other Users
 
 #+begin_src sh :tangle ~/.zshrc
 watch=(notme) # watch for everybody except me
@@ -230,11 +230,11 @@ LOGCHECK=300  # check every 5 min for login/logout activity
 WATCHFMT="%(a:${fg[cyan]}Hello %n [%m] [%t]:${fg[red]}Bye %n [%m] [%t])"
 #+end_src
 
-* Directory
+** Directory
 
 Most of these commands are used for quick navigation.
 
-** Options
+*** Options
 
 #+begin_src sh :tangle ~/.zshrc
 setopt autocd                   # change to dirs without cd
@@ -244,7 +244,7 @@ setopt auto_name_dirs           # Auto add variable-stored paths to ~ list.
 setopt pushd_ignore_dups        # Do not store duplicates in the stack.
 #+end_src
 
-** Functions
+*** Functions
 
 #+begin_src sh :tangle ~/.zshrc
 cd () {
@@ -265,7 +265,7 @@ function mcd() {
     mkdir -p "$1" && cd "$1";
 }
 #+end_src
-** Aliases
+*** Aliases
 
 #+begin_src sh :tangle ~/.zshrc
 alias ..='cd ..'
@@ -288,9 +288,9 @@ alias 9='cd +9'
 alias d='dirs -v | head -10'
 #+end_src
 
-* History
+** History
 
-** Variables
+*** Variables
 
 #+begin_src sh :tangle ~/.zshrc
 HISTFILE=$HOME/.zsh_history
@@ -298,7 +298,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 #+end_src
 
-** Options
+*** Options
 
 #+begin_src sh :tangle ~/.zshrc
 setopt append_history     # Allow multiple terminal sessions to all append to one zsh command history
@@ -310,17 +310,17 @@ setopt hist_find_no_dups  # When searching history don't display results already
 setopt share_history      # Share command history data
 #+end_src
 
-* Terminal
+** Terminal
 
-** dircolors
+*** dircolors
 
 #+begin_src sh :tangle ~/.zshrc
 eval `dircolors ~/.dircolors`
 #+end_src
 
-** Aliases
+*** Aliases
 
-*** Compile/Sources
+**** Compile/Sources
 
 #+begin_src sh :tangle ~/.zshrc
 alias cm='./configure && make'
@@ -331,7 +331,7 @@ alias mkae='make'
 alias pipr='pip install --no-deps --ignore-installed'
 #+end_src
 
-*** Emacs
+**** Emacs
 
 #+begin_src sh :tangle ~/.zshrc
 alias emacs='emacsclient -ca'
@@ -350,7 +350,7 @@ alias es="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 alias E='es'
 #+end_src
 
-*** Apps
+**** Apps
 
 #+begin_src sh :tangle ~/.zshrc
 alias sl="screen -list"  # GNU/Screen
@@ -358,7 +358,7 @@ alias wiki='wiki-search' # Archlinux-Wiki
 alias rat='ratpoison -c' # Ratpoison
 #+end_src
 
-*** PACMAN/AUR
+**** PACMAN/AUR
 
 #+begin_src sh :tangle ~/.zshrc
 alias pacman='pacman --color=always'
@@ -367,7 +367,7 @@ alias cowerd='cower --download --force --target=/home/ivo/Packages/arch/aur/'
 alias updates='checkupdates && cower -u'
 #+end_src
 
-*** PKGBUILD's
+**** PKGBUILD's
 
 #+begin_src sh :tangle ~/.zshrc
 alias mp='makepkg'
@@ -379,7 +379,7 @@ alias ms='makepkg --source'
 alias msf='makepkg --source -f'
 #+end_src
 
-*** Systemd
+**** Systemd
 
 #+begin_src sh :tangle ~/.zshrc
 alias ctl='sudo systemctl'
@@ -394,7 +394,7 @@ alias units='systemctl list-unit-files'
 alias targets='systemctl list-units --type=target'
 #+end_src
 
-*** Maintenance
+**** Maintenance
 
 logs.
 
@@ -408,7 +408,7 @@ Clear Conkeror Profile.
 alias pc='profile-cleaner ck'
 #+end_src
 
-*** Auto extension stuff
+**** Auto extension stuff
 
 #+begin_src sh :tangle ~/.zshrc
 alias -s {ogg,mp3,wav,wma}="mplayer"
@@ -421,7 +421,7 @@ alias -s {html,php,com,net,org,gov}=$BROWSER
 alias -s torrent='transmission-gtk'
 #+end_src
 
-*** No/Correct commands
+**** No/Correct commands
 
 #+begin_src sh :tangle ~/.zshrc
 alias man='nocorrect man'
@@ -430,7 +430,7 @@ alias mysql='nocorrect mysql'
 alias mkdir='nocorrect mkdir'
 #+end_src
 
-*** General
+**** General
 
 #+begin_src sh :tangle ~/.zshrc
 alias cp='cp -RPv'
@@ -456,7 +456,7 @@ alias t='touch'
 alias j='jobs'
 #+end_src
 
-*** Mount devices
+**** Mount devices
 
 #+begin_src sh :tangle ~/.zshrc
 alias cdmount='sudo mount /dev/sr0 /mnt/cdrom/'
@@ -464,7 +464,7 @@ alias usb='sudo mount /dev/sdb1 /mnt/usb'
 alias uusb='sudo umount /mnt/usb'
 #+end_src
 
-*** Wireless/Network
+**** Wireless/Network
 
 #+begin_src sh :tangle ~/.zshrc
 alias myip='curl ifconfig.me'
@@ -476,7 +476,7 @@ alias myserver='python -m SimpleHTTPServer 8000'
 alias speedtest='speedtest-cli --simple'
 #+end_src
 
-*** Global aliases
+**** Global aliases
 
 #+begin_src sh :tangle ~/.zshrc
 alias -g H="| head"
@@ -492,9 +492,9 @@ alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 #+end_src
 
-** functions
+**** functions
 
-*** Packing in the archive
+**** Packing in the archive
 
 #+begin_src sh :tangle ~/.zshrc
 pk () {
@@ -515,7 +515,7 @@ echo "'$1' is not a valid file"
 }
 #+end_src
 
-*** Extract files
+**** Extract files
 
 #+begin_src sh :tangle ~/.zshrc
 extract () {
@@ -540,7 +540,7 @@ echo "'$1′ is not a valid file!"
 }
 #+end_src
 
-*** Remove orphans (Archlinux)
+**** Remove orphans (Archlinux)
 
 #+begin_src sh :tangle ~/.zshrc
 orphans() {
@@ -552,7 +552,7 @@ orphans() {
 }
 #+end_src
 
-*** Diff
+**** Diff
 
 #+begin_src sh :tangle ~/.zshrc
 if command -v colordiff > /dev/null 2>&1; then
@@ -562,9 +562,9 @@ else
 fi
 #+end_src
 
-* Profile
+** Profile
 
-** My Preferred programs
+*** My Preferred programs
 
 #+begin_src sh :tangle ~/.zshrc
 export EDITOR="emacs"
@@ -573,7 +573,7 @@ export BROWSER="conkeror"
 export HOMEPAGE="https://bbs.archlinux.org/search.php?action=show_new"
 #+end_src
 
-** Encoding
+*** Encoding
 
 #+begin_src sh :tangle ~/.zshrc
 export LANG="en_US.UTF-8"
@@ -589,23 +589,23 @@ export LC_TELEPHONE=$LANG
 export LESSCHARSET="UTF-8"
 #+end_src
 
-** Add ~/bin to path
+*** Add ~/bin to path
 
 #+begin_src sh :tangle ~/.zshrc
 export PATH="$HOME/bin:$PATH"
 #+end_src
 
-* The Prompt
+** The Prompt
 
 Setting up my zsh prompt.
 
-** Load the colors
+*** Load the colors
 
 #+begin_src sh :tangle ~/.zshrc
 autoload -U colors && colors
 #+end_src
 
-** Git prompt
+*** Git prompt
 
 #+begin_src sh :tangle ~/.zshrc
 function prompt_char {
@@ -625,7 +625,7 @@ function git_branch {
 }
 #+end_src
 
-** Prompt
+*** Prompt
 
 #+begin_src sh :tangle ~/.zshrc
 PROMPT='$(git_branch)%{$fg[green]%}(%~)%{$reset_color%}%# '
@@ -633,15 +633,15 @@ RPROMPT="%(?,%{$fg[green]%}:%),%{$fg[yellow]%}%? %{$fg[red]%}:()%f"
 SPROMPT="Correct %{$fg[red]%}%R to %{$fg[green]%}%r?%{$reset_color%} ([%{$fg[green]%}Y%{$reset_color%}]es/[%{$fg[red]%}N%{$reset_color%}]o/[%{$fg[yellow]%}E%{$reset_color%}]dit/[%{$fg[red]%}A%{$reset_color%}]bort) "
 #+end_src
 
-* Keybindings
+** Keybindings
 
-** Use emacs style
+*** Use emacs style
 
 #+begin_src sh :tangle ~/.zshrc
 bindkey -e
 #+end_src
 
-** Enable magic space
+*** Enable magic space
 
 #+begin_src sh :tangle ~/.zshrc
 bindkey ' '   magic-space

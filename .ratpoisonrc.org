@@ -1,19 +1,19 @@
 #+TITLE: My ratpoison configuration
 
-* Disable "Welcome" message.
+** Disable "Welcome" message.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 startup_message off
 #+end_src
 
-* Unmanaged window list.
+** Unmanaged window list.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 unmanage xmessage
 unmanage MPlayer
 #+end_src
 
-* RP "The best wm for smaller screens!"
+** RP "The best wm for smaller screens!"
 
 Disable borders/panels etc..
 
@@ -23,13 +23,13 @@ set barborder 0
 set border 0
 #+end_src
 
-* Default font.
+** Default font.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 set font "DejaVu Sans Mono-10"
 #+end_src
 
-* Appearance.
+** Appearance.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 set winfmt [%n] %s %t
@@ -40,33 +40,33 @@ set bargravity ne
 set maxsizegravity c
 #+end_src
 
-* Bar's timeout in seconds.
+** Bar's timeout in seconds.
 
 #+begin_src sh :tangle ~/.ratpoisonrc :padline no
 msgwait 5
 #+end_src
 
-* Don't change the cursor into a square when waiting for a key.
+** Don't change the cursor into a square when waiting for a key.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 set waitcursor 0
 #+end_src
 
-* Rudeness.
+** Rudeness.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 rudeness 12
 #+end_src
 
-* When the hook is run, command will be executed.
+** When the hook is run, command will be executed.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 addhook switchwin banish
 #+end_src
 
-* Key bindings.
+** Key bindings.
 
-** Windows/Frames
+*** Windows/Frames
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 bind z windows
@@ -76,7 +76,7 @@ bind d dedicate
 bind g groups
 #+end_src
 
-** Run-or-raise
+*** Run-or-raise
 
 Get the runorraise script form [[https://raw2.github.com/ivoarch/bin/master/ratpoison/runorraise.pl][here]].
 
@@ -87,7 +87,7 @@ bind e exec ~/bin/ratpoison/runorraise.pl Emacs 'emacsclient -ca emacs'
 bind w exec ~/bin/ratpoison/runorraise.pl Conkeror 'conkeror'
 #+end_src
 
-** Function
+*** Function
 
 Open *man* pages from RP.
 
@@ -134,7 +134,7 @@ alias ratshot exec import -window root png:$HOME/Pictures/Screenshots/ratpoison-
 definekey top Print ratshot
 #+end_src
 
-** Other.
+*** Other.
 
 Abort keystrokes.
 
@@ -143,7 +143,7 @@ definekey root Escape abort
 #+end_src
 
 
-** Multimedia keys.
+*** Multimedia keys.
 
 Audio/Volume keys.
 
@@ -161,7 +161,7 @@ definekey top XF86AudioPrev exec urxvt -e emacsclient -e "(emms-previous)"; ratp
 definekey top XF86AudioNext exec urxvt -e emacsclient -e "(emms-next)"; ratpoison -c "echo EMMS >> Next song"
 #+end_src
 
-* Aliases.
+** Aliases.
 
 Get the scripts [[https://raw2.github.com/ivoarch/bin/master/mail/gmail.sh][gmail.sh]], [[https://raw2.github.com/ivoarch/bin/master/system/touchpad_toggle][touchpad_toggle]], [[https://raw2.github.com/ivoarch/bin/master/system/run-skype.sh][run-skype]]
 
@@ -176,7 +176,7 @@ alias reboot exec systemctl reboot
 alias poweroff exec systemctl poweroff
 #+end_src
 
-* Initial commands.
+** Initial commands.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 exec urxvt -e screen -RD

@@ -1,6 +1,6 @@
 #+TITLE: My .xinitrc file
 
-* Enable DPMS energy saving.
+** Enable DPMS energy saving.
 
 When I want to disable the energy saving, I use a shell script to toggle =on|off= via ratpoison key bindings.
 Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/dpms-toggle.sh][here]].
@@ -9,7 +9,7 @@ Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/dpms-tog
 xset +dpms; xset s on
 #+end_src
 
-* Enable killing Xorg.
+** Enable killing Xorg.
 
 By default, killing Xorg with the key combination Ctrl+Alt+Backspace is disabled.
 
@@ -17,7 +17,7 @@ By default, killing Xorg with the key combination Ctrl+Alt+Backspace is disabled
 setxkbmap -option terminate:ctrl_alt_bksp
 #+end_src
 
-* Configure the keyboard layout.
+** Configure the keyboard layout.
 
 Switch between typing in English (us) and Bulgarian (bg) with =AltGr= key.
 
@@ -25,7 +25,7 @@ Switch between typing in English (us) and Bulgarian (bg) with =AltGr= key.
 setxkbmap -layout us,bg -variant ,bas_phonetic -option grp:switch
 #+end_src
 
-* Adjusting keyboard and mouse speed.
+** Adjusting keyboard and mouse speed.
 
 I want to navigate faster so this is necessary.
 
@@ -34,20 +34,20 @@ xset r rate 200 50 &
 xset m 3 1 &
 #+end_src
 
-* Adding path to terminus font.
+** Adding path to terminus font.
 
 #+begin_src sh :tangle ~/.xinitrc
 xset +fp /usr/share/fonts/local
 xset fp rehash
 #+end_src
 
-* Merging .XDefaults
+** Merging .XDefaults
 
 #+begin_src sh :tangle ~/.xinitrc
 xrdb -merge ~/.Xdefaults &
 #+end_src
 
-* Start Emacs as a daemon.
+** Start Emacs as a daemon.
 
 I want to have emacs running as a daemon on my system, and connect to the server using emacsclient.
 
@@ -55,7 +55,9 @@ I want to have emacs running as a daemon on my system, and connect to the server
 emacs --daemon &
 #+end_src
 
-* Start the RP window manager.
+** Start the RP window manager.
+
+And finally, I start the window manager.
 
 #+begin_src sh :tangle ~/.xinitrc
 exec /usr/bin/ratpoison

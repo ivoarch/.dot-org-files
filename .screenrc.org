@@ -1,60 +1,60 @@
 #+TITLE: Gnu Screen RC file
 
-* Turn welcome message off
+** Turn welcome message off
 
 #+begin_src sh :tangle ~/.screenrc
 startup_message off
 #+end_src
 
-* Use 256 colors.
+** Use 256 colors.
 
 #+begin_src sh :tangle ~/.screenrc :padline no
 term screen-256color
 #+end_src
 
-* Use 256 Colors with Rxvt-Unicode.
+** Use 256 Colors with Rxvt-Unicode.
 
 #+begin_src sh :tangle ~/.screenrc :padline no
 terminfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 #+end_src
 
-* Turn off visual bell.
+** Turn off visual bell.
 
 #+begin_src sh :tangle ~/.screenrc :padline no
 vbell off
 #+end_src
 
-* Message timeout in seconds.
+** Message timeout in seconds.
 
 #+begin_src sh :tangle ~/.screenrc :padline no
 msgwait 2
 #+end_src
 
-* More scrollbacks.
+** More scrollbacks.
 
 #+begin_src sh :tangle ~/.screenrc :padline no
 defscrollback 10000
 #+end_src
 
-* Turn off hardstatus.
+** Turn off hardstatus.
 
 #+begin_src sh :tangle ~/.screenrc :padline no
 hardstatus off
 #+end_src
 
-* Set the title for all shells.
+** Set the title for all shells.
 
 #+begin_src sh
 shelltitle "$ |ZSH"
 #+end_src
 
-* Alternate screen support.
+** Alternate screen support.
 
 #+begin_src sh
 altscreen on
 #+end_src
 
-* Set Escape key.
+** Set Escape key.
 
 #+begin_src sh
 escape ^Zz
