@@ -2,6 +2,8 @@
 
 * XFT settings.
 
+Necessary to improve the xft fonts.
+
 #+begin_src sh :tangle ~/.Xdefaults :padline yes
 Xft.dpi: 96
 Xft.antialias: 1
@@ -28,6 +30,8 @@ URxvt*termName: screen-256color
 
 ** Scrolling/mouse wheel improvments.
 
+Someone who really need scroll bars?
+
 #+begin_src sh :tangle ~/.Xdefaults :padline no
 URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: true
@@ -35,7 +39,8 @@ URxvt*mouseWheelScrollPage: true
 
 ** URL and Mouseless text selection.
 
-Install [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]] from Arch/community repo.
+I want to select and open URLs in my browser without using the mouse, by this we installed [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]]
+from Arch/community repo.
 
 #+begin_src sh :tangle ~/.Xdefaults :padline yes
 URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
@@ -48,6 +53,8 @@ URxvt.keysym.M-s:           perl:keyboard-select:search
 
 ** Font Appearance.
 
+I got best results with these settings.
+
 #+begin_src sh :tangle ~/.Xdefaults :padline yes
 URxvt*letterSpace: -1
 URxvt*font: xft:DejaVu Sans Mono-10
@@ -57,6 +64,8 @@ URxvt*boldItalicFont: xft:DejaVu Sans Mono-10
 #+end_src
 
 ** Zenburn color-scheme.
+
+The Color scheme that Changed the World!
 
 #+begin_src sh :tangle ~/.Xdefaults :padline yes
 URxvt*background: #3F3F3F
@@ -95,6 +104,8 @@ URxvt*color15: #FFFFFF
 #+end_src
 
 * XMESSAGE
+
+Configure the appearance of xmessage, I like red background and yellow foreground.
 
 #+begin_src sh :tangle ~/.Xdefaults :padline yes
 Xmessage*font: -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1
