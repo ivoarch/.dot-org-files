@@ -9,9 +9,9 @@ Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/dpms-tog
 xset +dpms; xset s on
 #+end_src
 
-#+RESULTS:
+* Enable killing Xorg.
 
-* Enable Control_Alt_Backspace.
+By default, killing Xorg with the key combination Ctrl+Alt+Backspace is disabled.
 
 #+begin_src sh :tangle ~/.xinitrc
 setxkbmap -option terminate:ctrl_alt_bksp
@@ -19,11 +19,15 @@ setxkbmap -option terminate:ctrl_alt_bksp
 
 * Configure the keyboard layout.
 
+Switch between typing in English (us) and Bulgarian (bg) with =AltGr= key.
+
 #+begin_src sh :tangle ~/.xinitrc
-setxkbmap us,bg ,bas_phonetic grp:switch,grp:shifts_toggle,grp_led:scroll
+setxkbmap -layout us,bg -variant ,bas_phonetic -option grp:switch
 #+end_src
 
 * Adjusting keyboard and mouse speed.
+
+I want to navigate faster so this is necessary.
 
 #+begin_src sh :tangle ~/.xinitrc
 xset r rate 200 50 &
@@ -45,16 +49,14 @@ xrdb -merge ~/.Xdefaults &
 
 * Start Emacs as a daemon.
 
+I want to have emacs running as a daemon on my system, and connect to the server using emacsclient.
+
 #+begin_src sh :tangle ~/.xinitrc
 emacs --daemon &
 #+end_src
-
-#+RESULTS:
 
 * Start the RP window manager.
 
 #+begin_src sh :tangle ~/.xinitrc
 exec /usr/bin/ratpoison
 #+end_src
-
-#+RESULTS:
