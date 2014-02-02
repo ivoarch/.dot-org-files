@@ -5,50 +5,56 @@
 When I want to disable the energy saving, I use a shell script to toggle =on|off= via ratpoison key bindings.
 Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/dpms-toggle.sh][here]].
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.xinitrc
 xset +dpms; xset s on
 #+end_src
 
+#+RESULTS:
+
 * Enable Control_Alt_Backspace.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.xinitrc
 setxkbmap -option terminate:ctrl_alt_bksp
 #+end_src
 
 * Configure the keyboard layout.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.xinitrc
 setxkbmap us,bg ,bas_phonetic grp:switch,grp:shifts_toggle,grp_led:scroll
 #+end_src
 
 * Adjusting keyboard and mouse speed.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.xinitrc
 xset r rate 200 50 &
 xset m 3 1 &
 #+end_src
 
 * Adding path to terminus font.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.xinitrc
 xset +fp /usr/share/fonts/local
 xset fp rehash
 #+end_src
 
 * Merging .XDefaults
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.xinitrc
 xrdb -merge ~/.Xdefaults &
 #+end_src
 
 * Start Emacs as a daemon.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.xinitrc
 emacs --daemon &
 #+end_src
 
+#+RESULTS:
+
 * Start the RP window manager.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.xinitrc
 exec /usr/bin/ratpoison
 #+end_src
+
+#+RESULTS:

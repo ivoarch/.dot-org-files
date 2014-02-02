@@ -2,13 +2,13 @@
 
 * Disable "Welcome" message.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 startup_message off
 #+end_src
 
 * Unmanaged window list.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 unmanage xmessage
 unmanage MPlayer
 #+end_src
@@ -17,7 +17,7 @@ unmanage MPlayer
 
 Disable borders/panels etc..
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 set padding 0 0 0 0
 set barborder 0
 set border 0
@@ -25,13 +25,13 @@ set border 0
 
 * Default font.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 set font "DejaVu Sans Mono-10"
 #+end_src
 
 * Appearance.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 set winfmt [%n] %s %t
 set winname class
 set winliststyle column
@@ -42,25 +42,25 @@ set maxsizegravity c
 
 * Bar's timeout in seconds.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc :padline no
 msgwait 5
 #+end_src
 
 * Don't change the cursor into a square when waiting for a key.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 set waitcursor 0
 #+end_src
 
 * Rudeness.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 rudeness 12
 #+end_src
 
 * When the hook is run, command will be executed.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 addhook switchwin banish
 #+end_src
 
@@ -68,7 +68,7 @@ addhook switchwin banish
 
 ** Windows/Frames
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 bind z windows
 bind o only
 bind u undo
@@ -80,7 +80,7 @@ bind g groups
 
 Get the runorraise script form [[https://raw2.github.com/ivoarch/bin/master/ratpoison/runorraise.pl][here]].
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 bind a exec ~/bin/ratpoison/rat_info.sh
 bind c exec ~/bin/ratpoison/runorraise.pl URxvt 'urxvt'
 bind e exec ~/bin/ratpoison/runorraise.pl Emacs 'emacsclient -ca emacs'
@@ -91,13 +91,13 @@ bind w exec ~/bin/ratpoison/runorraise.pl Conkeror 'conkeror'
 
 Open *man* pages from RP.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc :padline no
 bind m exec ratpoison -c "exec urxvt -e man $(ratpoison -c "prompt Manpage:")"
 #+end_src
 
 Show Dropbox status.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc :padline no
 bind D exec ratpoison -c "echo `dropbox status`"
 #+end_src
 
@@ -105,13 +105,13 @@ Show info script.
 
 Get the ratpoison-info script from [[https://raw2.github.com/ivoarch/bin/master/ratpoison/rat_info.sh][here]].
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc :padline no
 bind a exec ~/bin/ratpoison/rat_info.sh
 #+end_src
 
 Show *root* window.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc :padline no
 alias showroot exec ratpoison -c fdump > FOO; ratpoison -c 'select -' -c only
 alias unshowroot exec ratpoison -c "frestore `cat FOO`"
 bind B showroot
@@ -122,14 +122,14 @@ Toggle on|off energy saving.
 
 Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/dpms-toggle.sh][here]].
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 alias screensaver exec ~/bin/system/dpms-toggle.sh
 bind Pause screensaver
 #+end_src
 
 Take a screenshot.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 alias ratshot exec import -window root png:$HOME/Pictures/Screenshots/ratpoison-$(date +%s)$$.png && ratpoison -c "echo Ratshot saved!"
 definekey top Print ratshot
 #+end_src
@@ -138,7 +138,7 @@ definekey top Print ratshot
 
 Abort keystrokes.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 definekey root Escape abort
 #+end_src
 
@@ -147,7 +147,7 @@ definekey root Escape abort
 
 Audio/Volume keys.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 definekey top XF86AudioRaiseVolume exec amixer -q set PCM 5+ unmute; ratpoison -c "echo RaiseVolume +5"
 definekey top XF86AudioLowerVolume exec amixer -q set PCM 5- unmute;  ratpoison -c "echo LowerVolume -5"
 definekey top XF86AudioMute exec amixer -q set PCM toggle; ratpoison -c "echo [ MUTE ]"
@@ -155,7 +155,7 @@ definekey top XF86AudioMute exec amixer -q set PCM toggle; ratpoison -c "echo [ 
 
 Control EMMS (emacs multimedia system)
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 definekey top XF86AudioPlay exec urxvt -e emacsclient -e "(emms-pause)"; ratpoison -c "echo toggle EMMS"
 definekey top XF86AudioPrev exec urxvt -e emacsclient -e "(emms-previous)"; ratpoison -c "echo EMMS << Previous song"
 definekey top XF86AudioNext exec urxvt -e emacsclient -e "(emms-next)"; ratpoison -c "echo EMMS >> Next song"
@@ -165,7 +165,7 @@ definekey top XF86AudioNext exec urxvt -e emacsclient -e "(emms-next)"; ratpoiso
 
 Get the scripts [[https://raw2.github.com/ivoarch/bin/master/mail/gmail.sh][gmail.sh]], [[https://raw2.github.com/ivoarch/bin/master/system/touchpad_toggle][touchpad_toggle]], [[https://raw2.github.com/ivoarch/bin/master/system/run-skype.sh][run-skype]]
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 alias edit exec emacs $HOME/.ratpoisonrc
 alias mail exec ~/bin/mail/gmail.sh
 alias skype exec ~/bin/system/run-skype.sh
@@ -178,7 +178,7 @@ alias poweroff exec systemctl poweroff
 
 * Initial commands.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.ratpoisonrc
 exec urxvt -e screen -RD
 exec conkeror
 #+end_src

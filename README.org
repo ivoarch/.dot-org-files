@@ -3,7 +3,7 @@
 * Dotfiles, Emacs + Org-mode and Literate programming.
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/packages.org][packages.org]]
-- List of installed packages and restore them in a clean install.
+- List of installed packages.
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/todo.org][todo.org]]
 - Tasks with unclassified time period.

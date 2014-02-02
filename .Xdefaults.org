@@ -2,7 +2,7 @@
 
 * XFT settings.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.Xdefaults :padline yes
 Xft.dpi: 96
 Xft.antialias: 1
 Xft.hinting: 1
@@ -14,7 +14,7 @@ Xft.rgba: rgb
 
 ** Start Urxvt as a login shell.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.Xdefaults :padline no
 URxvt*loginShell: true
 #+end_src
 
@@ -22,13 +22,13 @@ URxvt*loginShell: true
 
 I use gnu-screen so this is helpful.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.Xdefaults :padline no
 URxvt*termName: screen-256color
 #+end_src
 
 ** Scrolling/mouse wheel improvments.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.Xdefaults :padline no
 URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: true
 #+end_src
@@ -37,7 +37,7 @@ URxvt*mouseWheelScrollPage: true
 
 Install [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]] from Arch/community repo.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.Xdefaults :padline yes
 URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
 URxvt.url-select.launcher:  conkeror
 URxvt.url-select.underline: true
@@ -48,7 +48,7 @@ URxvt.keysym.M-s:           perl:keyboard-select:search
 
 ** Font Appearance.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.Xdefaults :padline yes
 URxvt*letterSpace: -1
 URxvt*font: xft:DejaVu Sans Mono-10
 URxvt*boldFont: xft:DejaVu Sans Mono-10
@@ -58,7 +58,7 @@ URxvt*boldItalicFont: xft:DejaVu Sans Mono-10
 
 ** Zenburn color-scheme.
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.Xdefaults :padline yes
 URxvt*background: #3F3F3F
 URxvt*foreground: #DCDCCC
 URxvt*cursorColor: #DCDCCC
@@ -96,7 +96,7 @@ URxvt*color15: #FFFFFF
 
 * XMESSAGE
 
-#+begin_src bash
+#+begin_src sh :tangle ~/.Xdefaults :padline yes
 Xmessage*font: -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 Xmessage*background: red
 Xmessage*foreground: yellow
