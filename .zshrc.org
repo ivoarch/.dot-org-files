@@ -206,7 +206,7 @@ zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 #+end_src
 
-** Jobs/control/events
+** Starting and Stopping Processes: Signals, Job Control
 
 *** Options
 #+begin_src sh :tangle ~/.zshrc
@@ -314,6 +314,8 @@ setopt share_history      # Share command history data
 
 *** dircolors
 
+Configure the color of =ls= directory.
+
 #+begin_src sh :tangle ~/.zshrc
 eval `dircolors ~/.dircolors`
 #+end_src
@@ -340,6 +342,7 @@ alias e='emacsclient -a -t'
 alias eq='emacs -nw --quick'
 alias eamcs='emacs'
 alias emcs='emacs'
+alias em='emacsclient -n -a ""'
 alias nano='e'
 alias vim='emacs'
 alias vi='emacs'

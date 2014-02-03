@@ -2,11 +2,16 @@
 
 ** Disable "Welcome" message.
 
+I disabled the default welcome message on start up RP.
+
 #+begin_src sh :tangle ~/.ratpoisonrc
 startup_message off
 #+end_src
 
 ** Unmanaged window list.
+
+Add name to the list of unmanaged windows. Thus, windows of this name will not be managed but allowed to
+choose their position themselves.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 unmanage xmessage
@@ -15,7 +20,7 @@ unmanage MPlayer
 
 ** RP "The best wm for smaller screens!"
 
-Disable borders/panels etc..
+I use Ratpoison on tiny 10 inch screen. So I disabled borders/panels etc..
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 set padding 0 0 0 0
@@ -24,6 +29,8 @@ set border 0
 #+end_src
 
 ** Default font.
+
+I prefer XFT fonts for information stuff.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 set font "DejaVu Sans Mono-10"
@@ -55,6 +62,11 @@ set waitcursor 0
 ** Rudeness.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
+# Rudeness is a bitwise or of the following values:
+# 1 Transient windows may raise.
+# 2 Normal windows may raise.
+# 4 New transient windows end up in the foreground.
+# 8 New normal windows end up in the foreground.
 rudeness 12
 #+end_src
 
@@ -177,6 +189,8 @@ alias poweroff exec systemctl poweroff
 #+end_src
 
 ** Initial commands.
+
+List of programs that start when ratpoison starts.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 exec urxvt -e screen -RD
