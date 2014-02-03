@@ -21,4 +21,7 @@
 - Gnu Screen RC configuration file.
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/.zshrc.org][.zshrc]]
-- Powerful shell configuration.
+- My Zshell RC configuration file.
+
+[[https://github.com/ivoarch/.dot-org-files/blob/master/.conkerorrc.org][.conkerorrc]]
+- Conkeror RC configuration file.
