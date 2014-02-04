@@ -1,0 +1,23 @@
+#+TITLE: My .gtkrc-2.0 file
+
+** Emacs keybindings everywhere
+
+#+BEGIN_SRC sh :tangle ~/.gtkrc-2.0
+gtk-key-theme-name = "Emacs"
+#+END_SRC
+
+** Kill scrollbars
+
+This method eliminates all scrollbars, see [[http://conkeror.org/HideScrollbars][HideScrollbars]].
+
+#+BEGIN_SRC sh :tangle ~/.gtkrc-2.0
+style "noscrollbars" {
+  GtkScrollbar::slider-width=0
+  GtkScrollbar::trough-border=0
+  GtkScrollbar::has-backward-stepper=0
+  GtkScrollbar::has-forward-stepper=0
+  GtkScrollbar::has-secondary-backward-stepper=0
+  GtkScrollbar::has-secondary-forward-stepper=0
+}
+widget "MozillaGtkWidget.*" style "noscrollbars"
+#+END_SRC

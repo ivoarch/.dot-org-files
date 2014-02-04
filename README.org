@@ -8,6 +8,9 @@
 [[https://github.com/ivoarch/.dot-org-files/blob/master/todo.org][todo.org]]
 - Tasks with unclassified time period.
 
+[[https://github.com/ivoarch/.dot-org-files/blob/master/.gtkrc-2.0.org][.gtkrc-2.0]]
+- My configuration file for Gtk.
+
 [[https://github.com/ivoarch/.dot-org-files/blob/master/.Xdefaults.org][.Xdefaults]]
 - Settings for multiple X programs.
 
