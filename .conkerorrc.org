@@ -1,9 +1,22 @@
 #+TITLE: My Conkeror browser config
 
-** Disable gif animation.
+** Disable gif animation on startup.
+
+For some reasons I have disabled the gif animation on startup.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 session_pref("image.animation_mode", "none");
+#+END_SRC
+
+I have a simple function to enable gif animation with =f6= or typing =M-x enable-gif-animation=.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+interactive("enable-gif-animation",
+    "Enable gif animation",
+    function (I) {
+       session_pref("image.animation_mode", "normal");
+    });
+define_key(default_global_keymap, "f6", "enable-gif-animation");
 #+END_SRC
 
 ** Load urls from the command line in new buffers instead of new windows.
@@ -134,8 +147,8 @@ view_source_use_external_editor = true;
 
 ** Extensions
 
-1. Installing xpi files from unknown sites.
-2. Disable extension compatability checking.
+1. Disable extension compatability checking.
+2. Allow installing extension from any source.
 3. Enable security updates.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
