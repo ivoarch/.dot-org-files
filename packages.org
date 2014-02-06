@@ -31,7 +31,6 @@
 - *Internet* conkeror-git cower-git transmission-gtk2
 - *Mail* mu-git
 - *Utilities* stint-git
-- *Widget* tango-icon-theme gtk-clearlooks-zenburn
 - *X11* ratpoison-git
 
 ** Custom Build
