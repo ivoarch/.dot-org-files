@@ -72,8 +72,14 @@ rudeness 12
 
 ** When the hook is run, command will be executed.
 
+1. =C-t b= when you switch to a different window in the current frame.
+2. Display information about the current window when you switch to a different window.
+3. Display information about the current window when you switch to a different frame.
+
 #+begin_src sh :tangle ~/.ratpoisonrc
 addhook switchwin banish
+addhook switchwin info [%n] %t
+addhook switchframe info [%n] %t
 #+end_src
 
 ** Key bindings.
