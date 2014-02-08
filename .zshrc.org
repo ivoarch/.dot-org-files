@@ -358,7 +358,7 @@ alias E='es'
 #+begin_src sh :tangle ~/.zshrc
 alias sl="screen -list"  # GNU/Screen
 alias wiki='wiki-search' # Archlinux-Wiki
-alias rat='ratpoison -c' # Ratpoison
+alias rat='ratpoison'    # Ratpoison
 #+end_src
 
 **** PACMAN/AUR
