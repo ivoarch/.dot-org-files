@@ -28,7 +28,7 @@
 ** AUR
 - *Administration* kernel-netbook profile-sync-daemon profile-cleaner speedtest-cli
 - *Cloud* dropbox dropbox-cli
-- *Internet* conkeror-git cower-git transmission-gtk2
+- *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload
 - *Mail* mu-git
 - *Utilities* stint-git
 - *X11* ratpoison-git
@@ -36,6 +36,8 @@
 ** Custom Build
 
 ** Deps
+- *perl-config-general* (needed for itmages-upload) via *aur*
+- *perl-getopt-long-descriptive* (needed for itmages-upload) via *aur*
 - *dialog* (needed for the wifi-menu) via *pacman*
 - *ghostscript* (needed for emacs/doc-view mode) via *pacman*
 - *yajl* (needed for cower) via *pacman*
