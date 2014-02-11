@@ -10,6 +10,7 @@
 - *Development* git python-pip sbcl
 - *Display* xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-xfontsel
 - *Document/Editor* emacs
+- *Driver* xf86-video-intel xf86-input-synaptics
 - *Fonts* ttf-dejavu xorg-xlsfonts terminus-font
 - *Games* ?
 - *Graphics* gimp imagemagick scrot
@@ -22,7 +23,6 @@
 - *Sound* alsa-oss alsa-plugins alsa-utils
 - *Terminal* rxvt-unicode urxvt-perls xterm screen zsh
 - *Utilities* acpi lsof moreutils p7zip unrar unzip zip xclip xdotool xdg-user-dirs xorg-xmessage
-- *Video* xf86-video-intel
 - *Wireless/Network* wget wpa_supplicant
 
 ** AUR
@@ -34,7 +34,6 @@
 - *X11* ratpoison-git
 
 ** Custom Build
-
 ** Deps
 - *perl-config-general* (needed for itmages-upload) via *aur*
 - *perl-getopt-long-descriptive* (needed for itmages-upload) via *aur*
