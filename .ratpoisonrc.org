@@ -101,8 +101,10 @@ Get the runorraise script form [[https://raw2.github.com/ivoarch/bin/master/ratp
 #+begin_src sh :tangle ~/.ratpoisonrc
 bind a exec ~/bin/ratpoison/rat_info.sh
 bind c exec ~/bin/ratpoison/runorraise.pl URxvt 'urxvt'
-bind e exec ~/bin/ratpoison/runorraise.pl Emacs 'emacsclient -ca emacs'
-bind w exec ~/bin/ratpoison/runorraise.pl Conkeror 'conkeror'
+alias emacs exec ~/bin/ratpoison/runorraise.pl Emacs 'emacsclient -ca emacs'
+bind e emacs
+alias conkeror exec ~/bin/ratpoison/runorraise.pl Conkeror 'conkeror'
+bind w conkeror
 #+end_src
 
 *** Function
