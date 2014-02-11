@@ -192,7 +192,7 @@ definekey top XF86AudioNext exec urxvt -e emacsclient -e "(emms-next)"; ratpoiso
 
 ** Aliases.
 
-Get the scripts [[https://raw2.github.com/ivoarch/bin/master/mail/gmail.sh][gmail.sh]], [[https://raw2.github.com/ivoarch/bin/master/system/touchpad_toggle][touchpad_toggle]], [[https://raw2.github.com/ivoarch/bin/master/system/run-skype.sh][run-skype]]
+Get the scripts [[https://raw2.github.com/ivoarch/bin/master/mail/gmail.sh][gmail.sh]], [[https://raw2.github.com/ivoarch/bin/master/system/run-skype.sh][run-skype]]
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 alias edit exec emacs $HOME/.ratpoisonrc
