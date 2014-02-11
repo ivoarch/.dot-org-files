@@ -198,8 +198,6 @@ Get the scripts [[https://raw2.github.com/ivoarch/bin/master/mail/gmail.sh][gmai
 alias edit exec emacs $HOME/.ratpoisonrc
 alias mail exec ~/bin/mail/gmail.sh
 alias skype exec ~/bin/system/run-skype.sh
-alias ratoff exec ~/bin/system/touchpad_toggle
-alias raton exec ~/bin/system/touchpad_toggle
 alias enote exec emacsclient -c --eval '(deft)'
 alias reboot exec systemctl reboot
 alias poweroff exec systemctl poweroff
