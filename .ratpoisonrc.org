@@ -147,7 +147,7 @@ bind Pause screensaver
 
 Toggle =on|off= touchpad.
 
-Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/touchpad_toggle.sh][here]].
+Get the script from [[https://raw2.github.com/ivoarch/bin/master/system/touchpad_toggle][here]].
 
 #+BEGIN_SRC sh :tangle ~/.ratpoisonrc
 alias toggletouchpad exec ~/bin/system/touchpad_toggle
