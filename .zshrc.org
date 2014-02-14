@@ -367,7 +367,7 @@ alias itmages='itmages-upload' # Picture uploade script for ITmages.ru
 #+begin_src sh :tangle ~/.zshrc
 alias pacman='pacman --color=always'
 alias cower='cower --color=always'
-alias cowerd='cower --download --force --target=/home/ivo/Packages/arch/aur/'
+alias cowerd='cower --download --force --target=/home/ivo/abs'
 alias updates='checkupdates && cower -u'
 #+end_src
 
