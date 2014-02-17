@@ -119,7 +119,7 @@ download_buffer_automatic_open_target=OPEN_NEW_BUFFER_BACKGROUND;
 
 ** External programs for handling various mime types in conkeror
 
-I set up a mailto handler in Conkeror with Emacs. For more info see this [[http://www.emacswiki.org/emacs/MailtoHandler][link]].
+I set up a mailto handler with Emacs. Get the script from [[https://raw2.github.com/ivoarch/bin/master/mail/emacs-mailto-handler.sh][here]].
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 set_protocol_handler("mailto", make_file("~/bin/mail/emacs-mailto-handler.sh"));
