@@ -94,6 +94,13 @@ bind d dedicate
 bind g groups
 #+end_src
 
+Temporarily gives control over to [[https://github.com/ivoarch/calavera-wm][Calavera]] window manager and regains control once it has terminated.
+I use this when I have to use floating windows.
+
+#+BEGIN_SRC sh :tangle ~/.ratpoisonrc
+bind W tmpwm calavera-wm
+#+END_SRC
+
 *** Run-or-raise
 
 Get the runorraise script form [[https://raw2.github.com/ivoarch/bin/master/ratpoison/runorraise.pl][here]].
@@ -127,15 +134,6 @@ Get the ratpoison-info script from [[https://raw2.github.com/ivoarch/bin/master/
 
 #+begin_src sh :tangle ~/.ratpoisonrc :padline no
 bind a exec ~/bin/ratpoison/rat_info.sh
-#+end_src
-
-Show *root* window.
-
-#+begin_src sh :tangle ~/.ratpoisonrc :padline no
-alias showroot exec ratpoison -c fdump > FOO; ratpoison -c 'select -' -c only
-alias unshowroot exec ratpoison -c "frestore `cat FOO`"
-bind B showroot
-bind M-B unshowroot
 #+end_src
 
 Toggle =on|off= energy saving.
