@@ -95,7 +95,7 @@ bind g groups
 #+end_src
 
 Temporarily gives control over to [[https://github.com/ivoarch/calavera-wm][Calavera]] window manager and regains control once it has terminated.
-I use this when I have to use floating windows.
+I use this when I have to play with floating windows.
 
 #+BEGIN_SRC sh :tangle ~/.ratpoisonrc
 bind W tmpwm calavera-wm
