@@ -387,15 +387,12 @@ alias msf='makepkg --source -f'
 
 #+begin_src sh :tangle ~/.zshrc
 alias ctl='sudo systemctl'
-alias start='sudo systemctl start'
-alias stop='sudo systemctl stop'
-alias status='sudo systemctl status'
-alias restart='sudo systemctl restart'
-alias reboot='sudo systemctl start reboot.target'
-#alias enable='sudo systemctl enable' # problematic on my pc and zsh 5.0.5
-alias disable='sudo systemctl disable'
-alias units='systemctl list-unit-files'
-alias targets='systemctl list-units --type=target'
+startd() { ctl start $1.service; ctl status $1.service; }
+stopd() { ctl stop $1.service; ctl status $1.service; }
+restartd() { ctl restart $1.service; ctl status $1.service; }
+statusd() { ctl status $1.service; }
+enabled() { ctl enable $1.service; listd; }
+disabled() { ctl disable $1.service; listd; }
 #+end_src
 
 **** Maintenance
