@@ -4,10 +4,18 @@
 I use [[https://github.com/zsh-users/antigen][antigen]] as plugin manager for my zsh.
 
 #+begin_src sh :tangle ~/.zshrc
-source ~/.antigen/antigen.zsh
+source /usr/share/zsh/scripts/antigen/antigen.zsh
 #+end_src
 
 ** Enable extra/plugins/modules
+
+*** The "command not found" hook.
+
+Automatically search the official repositories, if you enter an unrecognized command.
+
+#+BEGIN_SRC sh :tangle ~/.zshrc
+source /usr/share/doc/pkgfile/command-not-found.zsh
+#+END_SRC
 
 *** Fish shell like syntax highlighting for Zsh.
 
@@ -182,6 +190,8 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 #+end_src
 
 *** Activate menu selection
+
+Autocompletion with an arrow-key driven interface.
 
 #+begin_src sh :tangle ~/.zshrc
 zstyle ':completion:*' menu select=2
