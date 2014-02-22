@@ -1,7 +1,7 @@
 #+TITLE: List of packages
 #+KEYWORDS: archlinux,pacman,packages,aur,git,build,netbook
 
-* This document defines and describes the suite of programs used to create my shell working environment.
+* Suite of programs used to create my shell working environment on my Archlinux netbook.
 
 ** Pacman
 - *Administration* abs arch-wiki-lite htop pkgstats reflector
@@ -30,14 +30,26 @@
 - *Cloud* dropbox dropbox-cli
 - *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload
 - *Mail* mu-git
-- *Utilities* stint-git
+- *Utilities* stint-git xbanish
 - *X11* ratpoison-git
 
 ** Custom Build
+
+** Emacs Apps
+
+- *Aurel* (Search and download AUR packages from Emacs.) via *melpa*
+- *Elfeed* (Emacs web feeds client.) via *magit*
+- *Deft* (Quickly browse, filter, and edit plain text notes.) via *melpa*
+- *Emms* (The Emacs Multimedia System.) via *melpa*
+- *Mu4e* (E-mail client for emacs.) via *Magit*
+- *Multi-term* (Managing multiple terminal buffers in Emacs.) via *melpa*
+
 ** Deps
+- *emacs* (needed for Emacs Apps) via *pacman*
 - *perl-config-general* (needed for itmages-upload) via *aur*
 - *perl-getopt-long-descriptive* (needed for itmages-upload) via *aur*
 - *dialog* (needed for the wifi-menu) via *pacman*
 - *ghostscript* (needed for emacs/doc-view mode) via *pacman*
+- *mu-git* (needed for emacs apps - mu4e) via *aur*
 - *yajl* (needed for cower) via *pacman*
 - *xulrunner* (needed for conkeror-git) via *pacman*
