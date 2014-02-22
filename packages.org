@@ -39,6 +39,7 @@
 
 - *Aurel* (Search and download AUR packages from Emacs.) via *melpa*
 - *Elfeed* (Emacs web feeds client.) via *melpa*
+- *Elscreen* (Emacs window session manager.)
 - *Deft* (Quickly browse, filter, and edit plain text notes.) via *melpa*
 - *Emms* (The Emacs Multimedia System.) via *melpa*
 - *Mu4e* (E-mail client for emacs.) via *manual*
