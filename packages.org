@@ -41,7 +41,7 @@
 - *Elfeed* (Emacs web feeds client.) via *melpa*
 - *Deft* (Quickly browse, filter, and edit plain text notes.) via *melpa*
 - *Emms* (The Emacs Multimedia System.) via *melpa*
-- *Mu4e* (E-mail client for emacs.) via *melpa*
+- *Mu4e* (E-mail client for emacs.) via *manual*
 - *Multi-term* (Managing multiple terminal buffers in Emacs.) via *melpa*
 
 ** Deps
