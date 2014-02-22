@@ -4,7 +4,7 @@
 * Suite of programs used to create my shell working environment on my Archlinux netbook.
 
 ** Pacman
-- *Administration* abs arch-wiki-lite htop pkgstats reflector
+- *Administration* abs arch-wiki-lite htop pkgstats pkgfile reflector
 - *Bootloader* syslinux
 - *Codecs* gstreamer0.10 gstreamer0.10-plugins gstreamer
 - *Development* git python-pip sbcl
@@ -30,7 +30,7 @@
 - *Cloud* dropbox dropbox-cli
 - *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload
 - *Mail* mu-git
-- *Utilities* stint-git xbanish
+- *Utilities* stint-git xbanish antigen-git
 - *X11* ratpoison-git
 
 ** Custom Build
