@@ -105,7 +105,7 @@ bind W tmpwm calavera-wm
 
 Emulate stumpwms run-or-raise with ratpoison.
 
-Get the run-or-raise script form [[https://raw2.github.com/ivoarch/bin/master/ratpoison/runorraise.pl][here]].
+Get the run-or-raise script form [[https://raw.github.com/ivoarch/bin/master/ratpoison/rp-run-or-raise.sh][here]].
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 bind a exec ~/bin/ratpoison/rat_info.sh
