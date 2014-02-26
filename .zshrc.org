@@ -364,6 +364,7 @@ alias sl="screen -list"  # GNU/Screen
 alias wiki='wiki-search' # Archlinux-Wiki
 alias rat='ratpoison'    # Ratpoison
 alias itmages='itmages-upload' # Picture uploade script for ITmages.ru
+alias stinth='printf "#%02X%02X%02X" $(stint)""' # suckless-style color grabber
 #+end_src
 
 **** PACMAN/AUR
