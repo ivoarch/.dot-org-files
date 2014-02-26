@@ -103,14 +103,16 @@ bind W tmpwm calavera-wm
 
 *** Run-or-raise
 
-Get the runorraise script form [[https://raw2.github.com/ivoarch/bin/master/ratpoison/runorraise.pl][here]].
+Emulate stumpwms run-or-raise with ratpoison.
+
+Get the run-or-raise script form [[https://raw2.github.com/ivoarch/bin/master/ratpoison/runorraise.pl][here]].
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 bind a exec ~/bin/ratpoison/rat_info.sh
-bind c exec ~/bin/ratpoison/runorraise.pl URxvt 'urxvt'
-alias emacs exec ~/bin/ratpoison/runorraise.pl Emacs 'emacsclient -ca emacs'
+bind c exec ~/bin/ratpoison/rp-run-or-raise.sh URxvt 'urxvt'
+alias emacs exec ~/bin/ratpoison/rp-run-or-raise.sh Emacs 'emacsclient -ca emacs'
 bind e emacs
-alias conkeror exec ~/bin/ratpoison/runorraise.pl Conkeror 'conkeror'
+alias conkeror exec ~/bin/ratpoison/rp-run-or-raise.sh Conkeror 'conkeror'
 bind w conkeror
 #+end_src
 
@@ -190,7 +192,13 @@ definekey top XF86AudioNext exec urxvt -e emacsclient -e "(emms-next)"; ratpoiso
 
 ** Aliases.
 
-Get the scripts [[https://raw2.github.com/ivoarch/bin/master/mail/gmail.sh][gmail.sh]], [[https://raw2.github.com/ivoarch/bin/master/system/run-skype.sh][run-skype]], [[https://raw2.github.com/ivoarch/bin/master/system/poweroff.sh][poweroff.sh]]
+1. Edit the ratpoison(rc) config file (requiere emacs).
+2. Quickly checks if I have new (g)mail (requiere xmessage).
+3. Run skype with GSPCA webcams video support.
+4. Create Note (requiere emacs-deft-mode).
+5. Start shutdown/reboot menu (requiere xmessage).
+
+Get the scripts (2) [[https://raw2.github.com/ivoarch/bin/master/mail/gmail.sh][gmail.sh]], (3) [[https://raw2.github.com/ivoarch/bin/master/system/run-skype.sh][run-skype]], (5) [[https://raw2.github.com/ivoarch/bin/master/system/poweroff.sh][poweroff.sh]]
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 alias edit exec emacs $HOME/.ratpoisonrc
