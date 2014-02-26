@@ -348,16 +348,10 @@ alias pipr='pip install --no-deps --ignore-installed'
 #+begin_src sh :tangle ~/.zshrc
 alias emacs='emacsclient -ca'
 alias ec='emacsclient -c'
-alias e='emacsclient -a -t'
-alias eq='emacs -nw --quick'
+alias et='emacsclient -t'
 alias eamcs='emacs'
 alias emcs='emacs'
 alias em='emacsclient -n -a ""'
-alias nano='e'
-alias vim='emacs'
-alias vi='emacs'
-alias leafpad='ec'
-alias gedit='ec'
 # http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
 alias es="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 alias E='es'
