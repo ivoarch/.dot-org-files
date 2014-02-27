@@ -6,7 +6,7 @@
 ** Pacman
 - *Administration* abs arch-wiki-lite htop pkgstats pkgfile reflector
 - *Bootloader* syslinux
-- *Codecs* gstreamer0.10 gstreamer0.10-plugins gstreamer
+- *Codecs* gstreamer0.10 gstreamer
 - *Development* git python-pip sbcl
 - *Display* xorg-server xorg-xinit xorg-utils xorg-server-utils xorg-xfontsel
 - *Document/Editor* emacs
@@ -17,7 +17,7 @@
 - *Hardware* dosfstools rfkill wireless_tools
 - *Internet* w3m
 - *Mail* offlineimap
-- *Media* ffmpeg mplayer youtube.dl
+- *Media* ffmpeg mplayer youtube-dl
 - *Plugin* flashplugin
 - *Server* openssh
 - *Sound* alsa-oss alsa-plugins alsa-utils
