@@ -28,3 +28,6 @@
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/.conkerorrc.org][.conkerorrc]]
 - Conkeror RC configuration file.
+
+All my ~/.dot-org-files are Open Source.
+See the UNLICENSE file for details.
