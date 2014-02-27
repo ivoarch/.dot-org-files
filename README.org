@@ -28,3 +28,9 @@
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/.conkerorrc.org][.conkerorrc]]
 - Conkeror RC configuration file.
+
+**** Installation
+
+#+BEGIN_SRC sh
+$> makepkg --syncdeps --clean
+#+END_SRC
