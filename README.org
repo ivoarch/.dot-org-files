@@ -29,7 +29,7 @@
 [[https://github.com/ivoarch/.dot-org-files/blob/master/.conkerorrc.org][.conkerorrc]]
 - Conkeror RC configuration file.
 
-**** Installation
+*** Installation
 
 - Clone this repo.
 
