@@ -1,8 +1,8 @@
 # $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
 # Maintainer: <ivo@arch>
 pkgname=dot-org-files
-pkgver=ff06822
-pkgrel=1
+pkgver=f8e1e05
+pkgrel=2
 epoch=
 pkgdesc="A package to set up my archlinux working environment"
 arch=('i686')
@@ -68,7 +68,7 @@ depends=("abs"
          "ghostscript"
          "dialog"
          "xulrunner"
-         "yajl")
+         "yajl"
          "kernel-netbook"
 	 "profile-sync-daemon"
 	 "profile-cleaner"
@@ -84,6 +84,8 @@ depends=("abs"
 	 "xbanish"
 	 "antigen-git"
          "ratpoison-git"
+         "perl-config-general"
+         "perl-getopt-long-descriptive")
 makedepends=('git')
 checkdepends=()
 optdepends=()
