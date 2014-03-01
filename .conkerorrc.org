@@ -1,5 +1,13 @@
 #+TITLE: My Conkeror browser config
 
+** Appearance
+
+Load [[https://github.com/smabie/zenburn-conkeror][zenburn-theme]]
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+theme_load("/home/ivo/zenburn-conkeror");
+#+END_SRC
+
 ** Disable gif animation on startup.
 
 For some reasons I have disabled the gif animation on startup.
@@ -290,6 +298,20 @@ interactive("rgc-goto-buffer", "switches to buffer",
             }
 );
 define_key(content_buffer_normal_keymap, "M-g M-g", "rgc-goto-buffer");
+#+END_SRC
+
+Ask before closing the window.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+add_hook("window_before_close_hook",
+         function () {
+             var w = get_recent_conkeror_window();
+             var result = (w == null) ||
+                 "y" == (yield w.minibuffer.read_single_character_option(
+                     $prompt = "Quit Conkeror? (y/n)",
+                     $options = ["y", "n"]));
+             yield co_return(result);
+         });
 #+END_SRC
 
 Restore killed buffer Url.
