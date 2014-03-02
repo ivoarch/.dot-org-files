@@ -34,12 +34,14 @@
 - Clone this repo.
 
 #+BEGIN_SRC sh
+$> cd $HOME
 $> git clone https://github.com/ivoarch/.dot-org-files
 #+END_SRC
 
 - Install all dependecies (for Arch users only).
 
 #+BEGIN_SRC sh
+$> cd ~/.dot-org-files
 $> makepkg --syncdeps --clean
 #+END_SRC
 

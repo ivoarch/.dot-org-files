@@ -28,12 +28,13 @@
 ** AUR
 - *Administration* kernel-netbook profile-sync-daemon profile-cleaner speedtest-cli
 - *Cloud* dropbox dropbox-cli
-- *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload
+- *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload.git
 - *Mail* mu-git
 - *Utilities* stint-git xbanish antigen-git
 - *X11* ratpoison-git
 
 ** Custom Build
+- ?
 
 ** Emacs Apps
 
@@ -54,3 +55,6 @@
 - *mu-git* (needed for emacs apps - mu4e) via *aur*
 - *yajl* (needed for cower) via *pacman*
 - *xulrunner* (needed for conkeror-git) via *pacman*
+
+** Optdeps
+- ?
