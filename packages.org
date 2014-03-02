@@ -46,7 +46,7 @@
 - *Mu4e* (E-mail client for emacs.) via *manual*
 - *Multi-term* (Managing multiple terminal buffers in Emacs.) via *melpa*
 
-** Deps
+** Depends
 - *emacs* (needed for Emacs Apps) via *pacman*
 - *perl-config-general* (needed for itmages-upload) via *aur*
 - *perl-getopt-long-descriptive* (needed for itmages-upload) via *aur*
@@ -56,5 +56,5 @@
 - *yajl* (needed for cower) via *pacman*
 - *xulrunner* (needed for conkeror-git) via *pacman*
 
-** Optdeps
+** Optdepends
 - ?
