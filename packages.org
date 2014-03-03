@@ -45,6 +45,7 @@
 - *Emms* (The Emacs Multimedia System.) via *melpa*
 - *Mu4e* (E-mail client for emacs.) via *manual*
 - *Multi-term* (Managing multiple terminal buffers in Emacs.) via *melpa*
+- *Xkcd* (Read Xkcd form emacs) via *melpa*
 
 ** Depends
 - *emacs* (needed for Emacs Apps) via *pacman*
