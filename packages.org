@@ -30,7 +30,7 @@
 - *Cloud* dropbox dropbox-cli
 - *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload.git
 - *Mail* mu-git
-- *Utilities* stint-git xbanish antigen-git
+- *Utilities* stint-git xbanish antigen-git trash-cli-git
 - *X11* ratpoison-git
 
 ** Custom Build

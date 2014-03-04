@@ -410,9 +410,19 @@ alias journalctl-error='sudo journalctl -b --priority 0..3'
 
 Clear Conkeror Profile.
 
-#+begin_src shell-script
+#+begin_src sh :tangle ~/.zshrc
 alias pc='profile-cleaner ck'
 #+end_src
+
+Trashes files.
+
+1. Trash a file
+2. Remove all files from the trashcan
+
+#+BEGIN_SRC sh :tangle ~/.zshrc
+alias rm='trash-put'
+alias trash='trash-empty'
+#+END_SRC
 
 **** Auto extension stuff
 
