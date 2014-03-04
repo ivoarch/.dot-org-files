@@ -1,7 +1,7 @@
 # $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
 # Maintainer: <ivo@arch>
 pkgname=dot-org-files
-pkgver=01337a5
+pkgver=d81a587
 pkgrel=1
 epoch=
 pkgdesc="A package to set up my archlinux working environment"
@@ -69,24 +69,30 @@ depends=("abs"
          "dialog"
          "xulrunner"
          "yajl"
-         "kernel-netbook"
-	 "profile-sync-daemon"
-	 "profile-cleaner"
-	 "speedtest-cli"
-         "dropbox"
-	 "dropbox-cli"
-         "conkeror-git"
-	 "cower-git"
-	 "transmission-gtk2"
-	 "itmages-upload.git"
-         "mu-git"
-         "stint-git"
-	 "xbanish"
-         "trash-cli-git"
-	 "antigen-git"
-         "ratpoison-git"
-         "perl-config-general"
-         "perl-getopt-long-descriptive")
+# warning:
+# Pacman can not resolve dependencies only found in the AUR for you.
+# Look at using an AUR helper to automatically install dependencies from the AUR.
+#
+# From the AUR:
+#        "kernel-netbook"
+#	 "profile-sync-daemon"
+#	 "profile-cleaner"
+#	 "speedtest-cli"
+#        "dropbox"
+#	 "dropbox-cli"
+#        "conkeror-git"
+#	 "cower-git"
+#	 "transmission-gtk2"
+#	 "itmages-upload.git"
+#        "mu-git"
+#        "stint-git"
+#	 "xbanish"
+#        "trash-cli-git"
+#	 "antigen-git"
+#        "ratpoison-git"
+#        "perl-config-general"
+#        "perl-getopt-long-descriptive"
+)
 makedepends=('git')
 checkdepends=()
 optdepends=()
