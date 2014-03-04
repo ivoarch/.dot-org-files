@@ -1,7 +1,7 @@
 # $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
 # Maintainer: <ivo@arch>
 pkgname=dot-org-files
-pkgver=3a04eb0
+pkgver=01337a5
 pkgrel=1
 epoch=
 pkgdesc="A package to set up my archlinux working environment"

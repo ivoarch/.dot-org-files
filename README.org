@@ -31,21 +31,31 @@
 
 *** Installation
 
-- Clone this repo.
+**** Automated
+
+If you're using curl type the following command:
 
 #+BEGIN_SRC sh
-$> cd $HOME
-$> git clone https://github.com/ivoarch/.dot-org-files
+curl -L https://github.com/ivoarch/.dot-org-files/raw/master/install.sh | sh
 #+END_SRC
 
-- Install all dependecies (for Arch users only).
+**** Manual
+
+- Clone this repo:
 
 #+BEGIN_SRC sh
-$> cd ~/.dot-org-files
-$> makepkg --syncdeps --clean
+~$ cd $HOME
+~$ git clone https://github.com/ivoarch/.dot-org-files
 #+END_SRC
 
-- Tangle config files.
+- Install all dependecies (for Arch users only):
+
+#+BEGIN_SRC sh
+~$ cd ~/.dot-org-files
+~$ makepkg --syncdeps --clean
+#+END_SRC
+
+- Tangle config files:
 
 =C-c C-v f= or =M-x org-babel-tangle-file=
 
