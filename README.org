@@ -8,25 +8,25 @@
 [[https://github.com/ivoarch/.dot-org-files/blob/master/todo.org][todo.org]]
 - Tasks with unclassified time period.
 
-[[https://github.com/ivoarch/.dot-org-files/blob/master/.gtkrc-2.0.org][gtk]]
+[[https://github.com/ivoarch/.dot-org-files/blob/master/gtk.org][gtk.org]]
 - My configuration file for Gtk.
 
-[[https://github.com/ivoarch/.dot-org-files/blob/master/.Xdefaults.org][Xdefaults]]
+[[https://github.com/ivoarch/.dot-org-files/blob/master/Xdefaults.org][Xdefaults.org]]
 - Settings for multiple X programs.
 
-[[https://github.com/ivoarch/.dot-org-files/blob/master/.xinitrc.org][xinitrc]]
+[[https://github.com/ivoarch/.dot-org-files/blob/master/xinitrc.org][xinitrc.org]]
 - X initialization script.
 
-[[https://github.com/ivoarch/.dot-org-files/blob/master/.ratpoisonrc.org][ratpoison]]
+[[https://github.com/ivoarch/.dot-org-files/blob/master/ratpoison.org][ratpoison.org]]
 - Window manager configuration file.
 
-[[https://github.com/ivoarch/.dot-org-files/blob/master/.screenrc.org][screen]]
+[[https://github.com/ivoarch/.dot-org-files/blob/master/screen.org][screen.org]]
 - Gnu Screen RC configuration file.
 
-[[https://github.com/ivoarch/.dot-org-files/blob/master/.zshrc.org][zsh]]
+[[https://github.com/ivoarch/.dot-org-files/blob/master/zsh.org][zsh.org]]
 - Shell configuration file.
 
-[[https://github.com/ivoarch/.dot-org-files/blob/master/.conkerorrc.org][conkeror]]
+[[https://github.com/ivoarch/.dot-org-files/blob/master/conkeror.org][conkeror.org]]
 - Browser configuration file.
 
 *** Installation
