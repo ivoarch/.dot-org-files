@@ -50,6 +50,8 @@ curl -L https://github.com/ivoarch/.dot-org-files/raw/master/install.sh | sh
 
 - Install all dependecies (for Arch users only):
 
+*warning* Look at using an AUR helper to automatically install dependencies from the AUR.
+
 #+BEGIN_SRC sh
 ~$ cd ~/.dot-org-files
 ~$ makepkg --syncdeps --clean
