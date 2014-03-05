@@ -371,6 +371,7 @@ alias stinth='printf "#%02X%02X%02X" $(stint)""' # suckless-style color grabber
 
 #+begin_src sh :tangle ~/.zshrc
 alias pacman='pacman --color=always'
+alias pachist="awk -F' ' /\(starting\|upgraded\|downgraded\|installed\)/'{print \$1,\$2,\$5,\$6,\$7,\$8}' /var/log/pacman.log | sed 's/.*full.*//'"
 alias cower='cower --color=always'
 alias cowerd='cower --download --force --target=/home/ivo/abs'
 alias updates='checkupdates && cower -u'
