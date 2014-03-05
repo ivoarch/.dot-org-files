@@ -44,18 +44,18 @@ hardstatus off
 
 ** Set the title for all shells.
 
-#+begin_src sh
+#+begin_src sh :tangle ~/.screenrc
 shelltitle "$ |ZSH"
 #+end_src
 
 ** Alternate screen support.
 
-#+begin_src sh
+#+begin_src sh :tangle ~/.screenrc
 altscreen on
 #+end_src
 
 ** Set Escape key.
 
-#+begin_src sh
+#+begin_src sh :tangle ~/.screenrc
 escape ^Zz
 #+end_src

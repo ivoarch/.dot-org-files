@@ -232,6 +232,10 @@ define_webjump("yimages", "http://images.yandex.com/yandsearch?text=%s"); // ima
 define_webjump("yimagesru", "http://images.yandex.ru/yandsearch?text=%s"); // images ru
 define_webjump("ytrans", "http://translate.yandex.com/?lang=en-es&text=%s"); // translate en -> es
 
+// - Kaldata
+define_webjump("kaldata",
+    "http://www.kaldata.com/forums/index.php?app=core&module=search&do=search&fromMainBar=1&search_term=%s");
+
 // - DuckDuckGo
 define_webjump("ddg", "http://duckduckgo.com/?q=%s");
 
