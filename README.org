@@ -48,15 +48,6 @@ curl -L https://github.com/ivoarch/.dot-org-files/raw/master/install.sh | sh
 ~$ git clone https://github.com/ivoarch/.dot-org-files
 #+END_SRC
 
-- Install all dependecies (for Arch users only):
-
-*warning* Take a look at the PKGBUILD for details.
-
-#+BEGIN_SRC sh
-~$ cd ~/.dot-org-files
-~$ makepkg --syncdeps --clean
-#+END_SRC
-
 - Tangle config files:
 
 =C-c C-v f= or =M-x org-babel-tangle-file=

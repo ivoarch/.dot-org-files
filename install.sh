@@ -14,11 +14,11 @@ else
 fi
 }
 
-function install_deps() {
-    echo "Installing depends..."
-    makepkg --syncdeps --clean
-    rm -rf .dot-org-files
-}
+#function install_deps() {
+#    echo "Installing depends..."
+#    makepkg --syncdeps --clean
+#    rm -rf .dot-org-files
+#}
 
 function tangle_files() {
     echo "Tangle config files with org-mode..."
@@ -46,7 +46,7 @@ function tangle_files() {
 clone_repo
 
 # Install depends
-install_deps
+#install_deps
 
 # tangle config files
 tangle_files
