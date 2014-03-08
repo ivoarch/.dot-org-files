@@ -167,9 +167,10 @@ zstyle ':completion:*:default' list-prompt'%S%M matches%s'
 zstyle ':completion:*:prefix:*' add-space true
 #+end_src
 
-*** Enable command caching
+*** Speed up zsh completion
 
 #+begin_src sh :tangle ~/.zshrc
+zstyle ':completion:*:paths' accept-exact '*(N)'
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 #+end_src
