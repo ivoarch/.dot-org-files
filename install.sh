@@ -8,7 +8,7 @@ if [ -e $DOT_ORG_DIR ] ; then
     cd $DOT_ORG_DIR
     git pull
 else
-    echo "Cloning dot-org-files..."
+    echo "Cloning .dot-org-files..."
     git clone https://github.com/ivoarch/.dot-org-files.git $DOT_ORG_DIR
     cd $DOT_ORG_DIR
 fi
