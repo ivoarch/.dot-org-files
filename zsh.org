@@ -327,7 +327,7 @@ setopt share_history      # Share command history data
 
 Configure the color of =ls= directory.
 
-#+begin_src sh :tangle ~/.zshrc
+#+begin_src sh :tangle no :results silent
 eval `dircolors ~/.dircolors`
 #+end_src
 
@@ -510,14 +510,13 @@ alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 #+end_src
 
-**** functions
-
+*** functions
 **** Packing in the archive
 
 #+begin_src sh :tangle ~/.zshrc
 pk () {
     if [ $1 ] ; then
-case $1 in
+        case $1 in
             tbz) tar cjvf $2.tar.bz2 $2 ;;
             tgz) tar czvf $2.tar.gz $2 ;;
             tar) tar cpvf $2.tar $2 ;;
@@ -527,8 +526,8 @@ case $1 in
             7z) 7z a $2.7z $2 ;;
             *) echo "'$1' cannot be packed via pk()" ;;
         esac
-else
-echo "'$1' is not a valid file"
+    else
+        echo "'$1' is not a valid file"
     fi
 }
 #+end_src
@@ -538,7 +537,7 @@ echo "'$1' is not a valid file"
 #+begin_src sh :tangle ~/.zshrc
 extract () {
     if [ -f $1 ] ; then
-case $1 in
+        case $1 in
             *.tar.bz2) tar xvjf $1 ;;
             *.tar.gz) tar xvzf $1 ;;
             *.bz2) bunzip2 $1 ;;
@@ -552,9 +551,9 @@ case $1 in
             *.7z) 7z x $1 ;;
             *) echo "don't know how to extract '$1′…" ;;
         esac
-else
-echo "'$1′ is not a valid file!"
-    fi
+     else
+        echo "'$1′ is not a valid file!"
+     fi
 }
 #+end_src
 
