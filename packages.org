@@ -49,7 +49,6 @@
 
 ** Depends
 - *emacs* (needed for Emacs Apps) via *pacman*
-- *calavera-wm* (needed for ratpoison) via *git*
 - *perl-config-general* (needed for itmages-upload) via *aur*
 - *perl-getopt-long-descriptive* (needed for itmages-upload) via *aur*
 - *dialog* (needed for the wifi-menu) via *pacman*
@@ -59,4 +58,4 @@
 - *xulrunner* (needed for conkeror-git) via *pacman*
 
 ** Optdepends
-- ?
+- *calavera-wm* (opcional for ratpoison) via *git*
