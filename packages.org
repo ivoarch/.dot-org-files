@@ -34,7 +34,7 @@
 - *X11* ratpoison-git
 
 ** Custom Build
-- ?
+- *calavera-wm* via *git*
 
 ** Emacs Apps
 
@@ -49,6 +49,7 @@
 
 ** Depends
 - *emacs* (needed for Emacs Apps) via *pacman*
+- *calavera-wm* (needed for ratpoison) via *git*
 - *perl-config-general* (needed for itmages-upload) via *aur*
 - *perl-getopt-long-descriptive* (needed for itmages-upload) via *aur*
 - *dialog* (needed for the wifi-menu) via *pacman*
