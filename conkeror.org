@@ -291,6 +291,32 @@ undefine_key(content_buffer_normal_keymap, "left", "cmd_scrollLeft");
 undefine_key(content_buffer_normal_keymap, "right", "cmd_scrollRight");
 #+END_SRC
 
+Big hints.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+hints_display_url_panel = true;
+hint_background_color = 'white';
+active_hint_background_color = '#00ccff';
+register_user_stylesheet(
+    "data:text/css," +
+        escape(
+	            "@namespace url(\"http://www.w3.org/1999/xhtml\");\n" +
+            "span.__conkeror_hint {\n"+
+            " font-size: 14px !important;\n"+
+            " line-height: 14px !important;\n"+
+            "}"));
+register_user_stylesheet(
+    "data:text/css," +
+        escape (
+            "span.__conkeror_hint {" +
+            " border: 1px solid #dddddd !important;" +
+            " color: white !important;" +
+            " background-color: black !important;" +
+            "}"));
+
+require("casual-spelling");
+#+END_SRC
+
 Conkeror goto-buffer.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
