@@ -296,7 +296,7 @@ Big hints.
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 hints_display_url_panel = true;
 hint_background_color = 'white';
-active_hint_background_color = '#00ccff';
+active_hint_background_color = 'yellow';
 register_user_stylesheet(
     "data:text/css," +
         escape(
