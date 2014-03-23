@@ -31,7 +31,7 @@
 - *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload.git
 - *Mail* mu-git
 - *Media* mps-youtube-git
-- *Utilities* stint-git xbanish antigen-git trash-cli-git
+- *Utilities* stint-git antigen-git trash-cli-git
 - *X11* ratpoison-git
 
 ** Custom Build
