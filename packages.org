@@ -30,6 +30,7 @@
 - *Cloud* dropbox dropbox-cli
 - *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload.git
 - *Mail* mu-git
+- *Media* mps-youtube-git
 - *Utilities* stint-git xbanish antigen-git trash-cli-git
 - *X11* ratpoison-git
 
@@ -49,6 +50,7 @@
 
 ** Depends
 - *emacs* (needed for Emacs Apps) via *pacman*
+- *python-pafy-git* (needed for mps-youtube-git) via *aur*
 - *perl-config-general* (needed for itmages-upload) via *aur*
 - *perl-getopt-long-descriptive* (needed for itmages-upload) via *aur*
 - *dialog* (needed for the wifi-menu) via *pacman*
