@@ -4,6 +4,7 @@
 
 #+BEGIN_SRC sh :tangle ~/.gtkrc-2.0
 gtk-key-theme-name = "Emacs"
+include "/usr/share/themes/Emacs/gtk-2.0-key/gtkrc"
 #+END_SRC
 
 ** Kill scrollbars
