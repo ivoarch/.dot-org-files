@@ -6,10 +6,10 @@ Necessary to improve the xft fonts.
 
 #+begin_src sh :tangle ~/.Xdefaults :padline yes
 Xft.dpi: 96
-Xft.antialias: 1
-Xft.hinting: 1
-Xft.hintstyle: hintfull
+Xft.antialias: true
 Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
 #+end_src
 
 ** URxvt Customization and Optimization.
@@ -53,14 +53,15 @@ URxvt.keysym.M-s:           perl:keyboard-select:search
 
 *** Font Appearance.
 
-I got best results with these settings.
+I use Menlo as my font choice.
 
 #+begin_src sh :tangle ~/.Xdefaults :padline yes
 URxvt*letterSpace: -1
-URxvt*font: xft:DejaVu Sans Mono-10
-URxvt*boldFont: xft:DejaVu Sans Mono-10
-URxvt*italicFont: xft:DejaVu Sans Mono-10
-URxvt*boldItalicFont: xft:DejaVu Sans Mono-10
+URxvt*font:                 xft:Menlo:style=regular:size=10
+URxvt*imFont:               xft:Menlo:style=regular:size=10
+URxvt*boldFont:             xft:Menlo:style=bold:size=10
+URxvt*italicFont:           xft:Menlo:style=italic:size=10
+URxvt*boldItalicFont:       xft:Menlo:style=bold:italic:size=10
 #+end_src
 
 *** Zenburn color-scheme.
