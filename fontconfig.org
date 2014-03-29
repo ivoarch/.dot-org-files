@@ -1,0 +1,59 @@
+#+TITLE: fontconfig
+
+This is my =~/.config/fontconfig/fonts.conf= configuration file.
+
+#+BEGIN_SRC xml :tangle ~/.config/fontconfig/fonts.conf :padline no
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+
+  <match target="font">
+    <edit name="rgba" mode="assign"><const>rgb</const></edit>
+    <edit name="antialias" mode="assign"><bool>true</bool></edit>
+    <edit name="hinting" mode="assign"><bool>true</bool></edit>
+    <edit name="hintstyle" mode="assign"><const>hintslight</const></edit>
+    <edit name="lcdfilter" mode="assign"><const>lcddefault</const></edit>
+  </match>
+
+  <alias>
+    <family>serif</family>
+    <prefer>
+      <family>DejaVu Serif</family>
+      <family>Bitstream Vera Serif</family>
+      <family>Times New Roman</family>
+    </prefer>
+  </alias>
+
+  <alias>
+    <family>sans-serif</family>
+    <prefer>
+      <family>DejaVu Sans</family>
+      <family>Ubuntu</family>
+      <family>Droid Sans</family>
+      <family>Helvetica</family>
+    </prefer>
+  </alias>
+
+  <alias>
+    <family>monospace</family>
+    <prefer>
+      <family>Menlo</family>
+      <family>DejaVu Sans Mono</family>
+      <family>Inconsolata</family>
+      <family>Bitstream Vera Sans Mono</family>
+    </prefer>
+  </alias>
+
+  <!-- Reject bitmap fonts in favour of Truetype, Postscript, etc. -->
+  <selectfont>
+    <rejectfont>
+      <pattern>
+        <patelt name="scalable">
+          <bool>false</bool>
+        </patelt>
+      </pattern>
+    </rejectfont>
+  </selectfont>
+
+</fontconfig>
+#+END_SRC

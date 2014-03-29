@@ -14,6 +14,9 @@
 [[https://github.com/ivoarch/.dot-org-files/blob/master/Xdefaults.org][Xdefaults.org]]
 - Settings for multiple X programs.
 
+[[https://github.com/ivoarch/.dot-org-files/blob/master/fontconfig.org][fontconfig]]
+- Fonts setup.
+
 [[https://github.com/ivoarch/.dot-org-files/blob/master/xinitrc.org][xinitrc.org]]
 - X initialization script.
 
