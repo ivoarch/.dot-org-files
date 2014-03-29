@@ -2,10 +2,10 @@
 
 ** Appearance
 
-Load [[https://github.com/smabie/zenburn-conkeror][zenburn-theme]]
+Load theme [[https://github.com/ivoarch/conkeror-theme-zenburn][conkeror-theme-zenburn]]
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
-theme_load("/home/ivo/zenburn-conkeror");
+theme_load("/home/ivo/conkeror-theme-zenburn");
 #+END_SRC
 
 ** Disable gif animation on startup.
@@ -72,7 +72,6 @@ Components.classes['@mozilla.org/login-manager;1']
 #+END_SRC
 
 ** Modeline
-
 *** Widgets
 
 I disabled only the clock widget, everything else is enabled.
@@ -99,12 +98,43 @@ add_hook("mode_line_hook", mode_line_adder(buffer_icon_widget), true);
 read_buffer_show_icons = true;
 #+END_SRC
 
-*** Other
+*** Hinting
 
 Displaying the url of a link in hints mode.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 hints_display_url_panel = true;
+#+END_SRC
+
+Display information about the currently selected hint.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+hints_minibuffer_annotation_mode(true);
+#+END_SRC
+
+Big Hint Numbers.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+hint_background_color = 'white';
+active_hint_background_color = 'yellow';
+register_user_stylesheet(
+    "data:text/css," +
+        escape(
+	            "@namespace url(\"http://www.w3.org/1999/xhtml\");\n" +
+            "span.__conkeror_hint {\n"+
+            " font-size: 14px !important;\n"+
+            " line-height: 14px !important;\n"+
+            "}"));
+register_user_stylesheet(
+    "data:text/css," +
+        escape (
+            "span.__conkeror_hint {" +
+            " border: 1px solid #dddddd !important;" +
+            " color: white !important;" +
+            " background-color: black !important;" +
+            "}"));
+
+require("casual-spelling");
 #+END_SRC
 
 ** Set default download directory
@@ -123,7 +153,6 @@ Don't use a new window for downloads.
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 download_buffer_automatic_open_target=OPEN_NEW_BUFFER_BACKGROUND;
 #+END_SRC
-
 
 ** External programs for handling various mime types in conkeror
 
@@ -289,32 +318,6 @@ undefine_key(content_buffer_normal_keymap, "up", "cmd_scrollLineUp");
 undefine_key(content_buffer_normal_keymap, "down", "cmd_scrollLineDown");
 undefine_key(content_buffer_normal_keymap, "left", "cmd_scrollLeft");
 undefine_key(content_buffer_normal_keymap, "right", "cmd_scrollRight");
-#+END_SRC
-
-Big hints.
-
-#+BEGIN_SRC js :tangle ~/.conkerorrc
-hints_display_url_panel = true;
-hint_background_color = 'white';
-active_hint_background_color = 'yellow';
-register_user_stylesheet(
-    "data:text/css," +
-        escape(
-	            "@namespace url(\"http://www.w3.org/1999/xhtml\");\n" +
-            "span.__conkeror_hint {\n"+
-            " font-size: 14px !important;\n"+
-            " line-height: 14px !important;\n"+
-            "}"));
-register_user_stylesheet(
-    "data:text/css," +
-        escape (
-            "span.__conkeror_hint {" +
-            " border: 1px solid #dddddd !important;" +
-            " color: white !important;" +
-            " background-color: black !important;" +
-            "}"));
-
-require("casual-spelling");
 #+END_SRC
 
 Conkeror goto-buffer.
