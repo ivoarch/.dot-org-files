@@ -5,5 +5,5 @@
 ** Tasks with unclassified time period
 *** TODO Emacs (multi-term) keybinds + zsh - have to work better
 *** CANCELLED Emacs (multiple-term) does not recognize ~/.dircolors
-*** CANCELLED Zenburn color-scheme configured for everything.
+*** DONE Zenburn color-scheme configured for everything.
 *** DONE A minimal console based workflow with editing, org mode, email, shell...
