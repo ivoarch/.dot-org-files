@@ -37,15 +37,14 @@ This is my =~/.config/fontconfig/fonts.conf= configuration file.
   <alias>
     <family>monospace</family>
     <prefer>
-      <family>Menlo</family>
       <family>DejaVu Sans Mono</family>
       <family>Inconsolata</family>
       <family>Bitstream Vera Sans Mono</family>
     </prefer>
   </alias>
 
-  <!-- Reject bitmap fonts in favour of Truetype, Postscript, etc. -->
-  <selectfont>
+<!-- Reject bitmap fonts in favour of Truetype, Postscript, etc. -->
+ <selectfont>
     <rejectfont>
       <pattern>
         <patelt name="scalable">

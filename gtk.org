@@ -1,15 +1,22 @@
 #+TITLE: My .gtkrc-2.0 file
 
-** Emacs keybindings everywhere
+** Completely remove icons from buttons and menus
+
+#+BEGIN_SRC sh :tangle ~/.gtkrc-2.0
+gtk-button-images = 0
+gtk-menu-images = 0
+#+END_SRC
+
+** Use emacs keybindings everywhere
 
 #+BEGIN_SRC sh :tangle ~/.gtkrc-2.0
 gtk-key-theme-name = "Emacs"
 include "/usr/share/themes/Emacs/gtk-2.0-key/gtkrc"
 #+END_SRC
 
-** Kill scrollbars
+** Remove/Kill all scrollbars
 
-This method eliminates all scrollbars, see [[http://conkeror.org/HideScrollbars][HideScrollbars]].
+This method eliminates all scrollbars in GTK apps, see [[http://conkeror.org/HideScrollbars][HideScrollbars]].
 
 #+BEGIN_SRC sh :tangle ~/.gtkrc-2.0
 style "noscrollbars" {
