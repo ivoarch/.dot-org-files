@@ -28,7 +28,7 @@
 ** AUR
 - *Administration* kernel-netbook profile-sync-daemon profile-cleaner speedtest-cli
 - *Cloud* dropbox dropbox-cli
-- *Fonts* ttf-mac
+- *Fonts* ttf-monaco
 - *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload.git
 - *Mail* mu-git
 - *Media* mps-youtube-git
@@ -57,7 +57,6 @@
 - *dialog* (needed for the wifi-menu) via *pacman*
 - *ghostscript* (needed for emacs/doc-view mode) via *pacman*
 - *mu-git* (needed for emacs apps - mu4e) via *aur*
-- *fondu* (needed for ttf-mac) via *aur*
 - *yajl* (needed for cower) via *pacman*
 - *xulrunner* (needed for conkeror-git) via *pacman*
 

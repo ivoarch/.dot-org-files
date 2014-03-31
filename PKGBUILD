@@ -1,7 +1,7 @@
 # $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
 # Maintainer: <ivo@arch>
 pkgname=dot-org-files
-pkgver=022ec05
+pkgver=325ee22
 pkgrel=1
 epoch=
 pkgdesc="A package to set up my archlinux working environment"
@@ -88,8 +88,7 @@ depends=("abs"
 #        "stint-git"
 #        "trash-cli-git"
 #        "python-pafy-git"
-#        "ttf-mac"
-#        "fondu"
+#        "ttf-monaco"
 #        "mps-youtube-git"
 #	 "antigen-git"
 #        "ratpoison-git"
