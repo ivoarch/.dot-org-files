@@ -327,7 +327,7 @@ setopt share_history      # Share command history data
 
 Configure the color of =ls= directory.
 
-#+begin_src sh :tangle no :results silent
+#+begin_src sh :tangle ~/.zshrc
 eval `dircolors ~/.dircolors`
 #+end_src
 
