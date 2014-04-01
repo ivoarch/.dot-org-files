@@ -10,6 +10,8 @@ Xft.antialias: true
 Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintfull
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
 #+end_src
 
 ** URxvt Customization and Optimization.

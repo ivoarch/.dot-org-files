@@ -54,5 +54,15 @@ This is my =~/.config/fontconfig/fonts.conf= configuration file.
     </rejectfont>
   </selectfont>
 
+<!-- Substitute truetype fonts for bitmap ones -->
+ <match target="font">
+         <edit name="prefer_outline"><bool>true</bool></edit>
+ </match>
+
+<!-- Prevent Gnome from using embedded bitmaps in fonts like Calibri -->
+ <match target="font">
+	 <edit name="embeddedbitmap" mode="assign"><bool>false</bool></edit>
+ </match>
+
 </fontconfig>
 #+END_SRC
