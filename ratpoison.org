@@ -8,7 +8,7 @@ I disabled the default welcome message on start up RP.
 startup_message off
 #+end_src
 
-** Unmanaged window list.
+** Unmanaged windows.
 
 Add name to the list of unmanaged windows. Thus, windows of this name will not be managed but allowed to
 choose their position themselves.
@@ -16,24 +16,6 @@ choose their position themselves.
 #+begin_src sh :tangle ~/.ratpoisonrc
 unmanage xmessage
 unmanage MPlayer
-#+end_src
-
-** RP "The best wm for smaller screens!"
-
-I use Ratpoison on tiny 10 inch screen. So I disabled borders/panels etc..
-
-#+begin_src sh :tangle ~/.ratpoisonrc
-set padding 0 0 0 0
-set barborder 0
-set border 0
-#+end_src
-
-** Default font.
-
-I prefer XFT fonts for information stuff.
-
-#+begin_src sh :tangle ~/.ratpoisonrc
-set font "DejaVu Sans Mono-10"
 #+end_src
 
 ** Appearance.
@@ -45,16 +27,36 @@ set wingravity c
 set maxsizegravity c
 #+end_src
 
-** Bar's timeout in seconds.
+*** RP "The best wm for smaller screens!"
+
+I use Ratpoison on tiny 10 inch screen. So I disabled borders/panels etc..
+
+#+begin_src sh :tangle ~/.ratpoisonrc
+set padding 0 0 0 0
+set barborder 0
+set border 0
+#+end_src
+
+*** Default font.
+
+I prefer XFT fonts for information stuff.
+
+#+begin_src sh :tangle ~/.ratpoisonrc
+set font "DejaVu Sans Mono-10"
+#+end_src
+
+** Other commands.
+
+Don't change the cursor into a square when waiting for a key.
+
+#+begin_src sh :tangle ~/.ratpoisonrc :padline no
+set waitcursor 0
+#+end_src
+
+Bar's timeout in seconds.
 
 #+begin_src sh :tangle ~/.ratpoisonrc :padline no
 msgwait 5
-#+end_src
-
-** Don't change the cursor into a square when waiting for a key.
-
-#+begin_src sh :tangle ~/.ratpoisonrc
-set waitcursor 0
 #+end_src
 
 ** Rudeness.
@@ -68,7 +70,7 @@ set waitcursor 0
 rudeness 12
 #+end_src
 
-** When the hook is run, command will be executed.
+** Hooks.
 
 1. Warp the rat to corner of the screen every time you press a top level bound key.
 2. Display information about the current window when you switch to a different window.
@@ -82,7 +84,7 @@ addhook switchframe info [%n] %t
 
 ** Key bindings.
 
-*** Windows/Frames
+*** Groups/Windows/Frames
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 bind z windows
@@ -91,6 +93,12 @@ bind u undo
 bind d dedicate
 bind g groups
 #+end_src
+
+*** Using Other Window Managers
+
+#+BEGIN_QUOTE
+Use at your own risk ☠!!!
+#+END_QUOTE
 
 Temporarily gives control over to [[https://github.com/ivoarch/calavera-wm][Calavera]] window manager and regains control once it has terminated.
 I use this when I have to play with floating windows.
@@ -177,7 +185,6 @@ Abort keystrokes.
 #+begin_src sh :tangle ~/.ratpoisonrc
 definekey root Escape abort
 #+end_src
-
 
 *** Multimedia keys.
 
