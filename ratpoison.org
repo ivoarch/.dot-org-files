@@ -41,9 +41,7 @@ set font "DejaVu Sans Mono-10"
 #+begin_src sh :tangle ~/.ratpoisonrc
 set winfmt [%n] %s %t
 set winname class
-set winliststyle column
 set wingravity c
-set bargravity ne
 set maxsizegravity c
 #+end_src
 
@@ -72,12 +70,12 @@ rudeness 12
 
 ** When the hook is run, command will be executed.
 
-1. =C-t b= when you switch to a different window in the current frame.
+1. Warp the rat to corner of the screen every time you press a top level bound key.
 2. Display information about the current window when you switch to a different window.
 3. Display information about the current window when you switch to a different frame.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
-addhook switchwin banish
+addhook key banish
 addhook switchwin info [%n] %t
 addhook switchframe info [%n] %t
 #+end_src
@@ -130,12 +128,21 @@ Show Dropbox status.
 bind D exec ratpoison -c "echo `dropbox status`"
 #+end_src
 
+Displays the date with a calendar indicating today.
+
+The script comes in the RP contrib dir ([[http://git.savannah.gnu.org/cgit/ratpoison.git/plain/contrib/ratdate.sh][here]]).
+
+#+BEGIN_SRC sh :tangle ~/.ratpoisonrc :padline no
+alias time exec /usr/share/ratpoison/ratdate.sh
+bind t time
+#+END_SR
+
 Show info script.
 
 Get the ratpoison-info script from [[https://raw2.github.com/ivoarch/bin/master/ratpoison/rat_info.sh][here]].
 
 #+begin_src sh :tangle ~/.ratpoisonrc :padline no
-bind a exec ~/bin/ratpoison/rat_info.sh
+bind I exec ~/bin/ratpoison/rat_info.sh
 #+end_src
 
 Toggle =on|off= energy saving.
