@@ -135,7 +135,7 @@ The script comes in the RP contrib dir ([[http://git.savannah.gnu.org/cgit/ratpo
 #+BEGIN_SRC sh :tangle ~/.ratpoisonrc :padline no
 alias time exec /usr/share/ratpoison/ratdate.sh
 bind t time
-#+END_SR
+#+END_SRC
 
 Show info script.
 
