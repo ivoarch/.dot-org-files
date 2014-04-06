@@ -1,4 +1,7 @@
-#+TITLE: My Conkeror browser config
+#+TITLE: My browser config
+
+#+ATTR_HTML: :alt conkeror.png image :title conkeror :align left :width 380px :hight 280px
+file:images/conkeror.png
 
 ** Appearance
 
