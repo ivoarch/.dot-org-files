@@ -1,4 +1,7 @@
-#+TITLE: My ratpoison configuration
+#+TITLE: My window manager configuration
+
+#+ATTR_HTML: :alt ratpoison.png image :title ratpoison :align left :width 480px :hight 280px
+[[file:images/ratpoison.png]]
 
 ** Disable "Welcome" message.
 
