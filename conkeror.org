@@ -2,10 +2,14 @@
 
 ** Appearance
 
-Load theme [[https://github.com/ivoarch/conkeror-theme-zenburn][conkeror-theme-zenburn]]
+1. Set path for themes.
+2. Unload "Default" theme.
+3. Load theme [[https://github.com/ivoarch/conkeror-theme-zenburn][conkeror-theme-zenburn]].
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
-theme_load("/home/ivo/conkeror-theme-zenburn");
+theme_load_paths.unshift("~/.conkeror/themes/");
+theme_unload("default");
+theme_load("conkeror-theme-zenburn");
 #+END_SRC
 
 ** Disable gif animation on startup.
