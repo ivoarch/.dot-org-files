@@ -356,6 +356,7 @@ alias em='emacsclient -n -a ""'
 # http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
 alias es="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 alias E='es'
+alias magit='ec -e "(magit-status \"$(pwd)\")"'
 #+end_src
 
 **** Apps
