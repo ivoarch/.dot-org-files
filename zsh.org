@@ -353,10 +353,11 @@ alias et='emacsclient -t'
 alias eamcs='emacs'
 alias emcs='emacs'
 alias em='emacsclient -n -a ""'
-# http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
 alias es="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 alias E='es'
-alias magit='ec -e "(magit-status \"$(pwd)\")"'
+alias magit='et -e "(magit-status \"$(pwd)\")"'
+alias top='et -e "(proced)"'
+alias efm='et -e "(dired-jump \"$(pwd)\")"'
 #+end_src
 
 **** Apps
