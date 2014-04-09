@@ -358,6 +358,7 @@ alias E='es'
 alias magit='et -e "(magit-status \"$(pwd)\")"'
 alias top='et -e "(proced)"'
 alias efm='et -e "(dired-jump \"$(pwd)\")"'
+alias emacs_compile="emacs -batch -f batch-byte-compile"
 #+end_src
 
 **** Apps
