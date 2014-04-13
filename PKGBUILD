@@ -1,7 +1,7 @@
 # $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
 # Maintainer: <ivo@arch>
 pkgname=dot-org-files
-pkgver=940ed13
+pkgver=fae2f06
 pkgrel=1
 epoch=
 pkgdesc="A package to set up my archlinux working environment"
@@ -26,6 +26,7 @@ depends=("abs"
 	 "xorg-utils"
 	 "xorg-server-utils"
 	 "xorg-xfontsel"
+         "xorg-xlsfonts"
 	 "emacs"
 	 "xf86-video-intel"
 	 "xf86-input-synaptics"
