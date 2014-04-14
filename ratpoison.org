@@ -230,7 +230,6 @@ alias poweroff exec ~/bin/system/poweroff.sh
 List of programs that start when ratpoison starts.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
-exec xsetroot -cursor_name left_ptr -fg white -bg black
 exec urxvt -e screen -RD
 exec conkeror
 #+end_src

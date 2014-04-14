@@ -34,10 +34,17 @@ xset r rate 200 50 &
 xset m 3 1 &
 #+end_src
 
-** Adding path to terminus font.
+** Set cursor theme
+
+#+BEGIN_SRC sh :tangle ~/.xinitrc
+xsetroot -cursor_name left_ptr
+#+END_SRC
+** Adding path to fonts.
 
 #+begin_src sh :tangle ~/.xinitrc
 xset +fp /usr/share/fonts/local
+xset +fp /usr/share/fonts/TTF
+xset +fp /usr/share/fonts/misc
 xset fp rehash
 #+end_src
 
