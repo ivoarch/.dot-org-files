@@ -55,15 +55,15 @@ URxvt.keysym.M-s:           perl:keyboard-select:search
 
 *** Font Appearance.
 
-I use Monaco as my font choice.
+I use Anonymous Pro as my font choice.
 
 #+begin_src sh :tangle ~/.Xdefaults :padline yes
 URxvt*letterSpace: -1
-URxvt*font:                 xft:Monaco:style=regular:size=10
-URxvt*imFont:               xft:Monaco:style=regular:size=10
-URxvt*boldFont:             xft:Monaco:style=bold:size=10
-URxvt*italicFont:           xft:Monaco:style=italic:size=10
-URxvt*boldItalicFont:       xft:Monaco:style=bold:italic:size=10
+URxvt*font:                 xft:Anonymous Pro:regular:size=13
+URxvt*imFont:               xft:Anonymous Pro:regular:size=13
+URxvt*boldFont:             xft:Anonymous Pro:bold:size=13
+URxvt*italicFont:           xft:Anonymous Pro:italic:size=13
+URxvt*boldItalicFont:       xft:Anonymous Pro:bold:italic:size=13
 #+end_src
 
 *** Zenburn color-scheme.
