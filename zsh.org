@@ -585,16 +585,19 @@ fi
 
 ** Profile
 
-*** My Preferred programs
+*** ENV
 
 #+begin_src sh :tangle ~/.zshrc
 export EDITOR="emacs"
 export CC="/usr/bin/gcc"
 export BROWSER="conkeror"
 export HOMEPAGE="https://bbs.archlinux.org/search.php?action=show_new"
+export SDL_AUDIODRIVER='alsa'
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+export XDG_CONFIG_HOME="$HOME/.config"
 #+end_src
 
-*** Encoding
+**** Encoding
 
 #+begin_src sh :tangle ~/.zshrc
 export LANG="en_US.UTF-8"
@@ -610,7 +613,7 @@ export LC_TELEPHONE=$LANG
 export LESSCHARSET="UTF-8"
 #+end_src
 
-*** Add ~/bin to path
+**** Add ~/bin to path
 
 #+begin_src sh :tangle ~/.zshrc
 export PATH="$HOME/bin:$PATH"
