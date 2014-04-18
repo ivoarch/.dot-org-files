@@ -163,6 +163,13 @@ download_buffer_automatic_open_target=OPEN_NEW_BUFFER_BACKGROUND;
 
 ** External programs for handling various mime types in conkeror
 
+Automatically open pdf files with Xpdf.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+content_handlers.set("application/pdf", content_handler_open_default_viewer);
+external_content_handlers.set("application/pdf", "xpdf");
+#+END_SRC
+
 I set up a mailto handler with Emacs. Get the script from [[https://raw2.github.com/ivoarch/bin/master/mail/emacs-mailto-handler.sh][here]].
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc

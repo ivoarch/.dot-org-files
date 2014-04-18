@@ -97,6 +97,8 @@ depends=("abs"
 #        "perl-config-general"
 #        "perl-getopt-long-descriptive"
 #        "lc-git"
+#        "xpdf"
+#        "imlibsetroot"
 )
 makedepends=('git')
 checkdepends=()
