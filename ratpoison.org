@@ -116,13 +116,13 @@ Emulate stumpwm run-or-raise with ratpoison.
 
 Get the run-or-raise script form [[https://raw.github.com/ivoarch/bin/master/ratpoison/rp-run-or-raise.sh][here]].
 
-1. =C-t c= run-or-raise Urxvt (Screen)
+1. =C-t c= run-or-raise to the Urxvt inside Screen session *(Ugly Hack? - Please fix me!)*. Set window 0 for default shell
 2. =C-t E= run-or-raise Emacs GUI
-3. =C-t e= run-or-raise to the Emacs inside screen session *(Ugly Hack? - Please fix me!)*. Set window 1 for emacs in your =.screenrc= config.
+3. =C-t e= run-or-raise to the Emacs inside Screen session *(Ugly Hack? - Please fix me!)*. Set window 1 for emacs in your =.screenrc= config.
 4. =C-t w= run-or-raise Conkeror
 
 #+begin_src sh :tangle ~/.ratpoisonrc
-bind c exec ~/bin/ratpoison/rp-run-or-raise.sh URxvt 'urxvt'
+bind c exec screen -Q select 0; exec ~/bin/ratpoison/rp-run-or-raise.sh URxvt 'urxvt'
 alias emacs exec ~/bin/ratpoison/rp-run-or-raise.sh Emacs 'emacsclient -ca emacs'
 bind E emacs
 alias escreen exec screen -Q select 1; exec ~/bin/ratpoison/rp-run-or-raise.sh URxvt 'urxvt'
