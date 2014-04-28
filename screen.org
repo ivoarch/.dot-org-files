@@ -42,11 +42,17 @@ defscrollback 10000
 hardstatus off
 #+end_src
 
-** Set the title for all shells.
+** Create default windows.
 
-#+begin_src sh :tangle ~/.screenrc
-shelltitle "$ |ZSH"
-#+end_src
+1. window 0 is default shell
+2. window 1 is for emacs
+3. start screen from 0 my default shell
+
+#+BEGIN_SRC sh :tangle ~/.screenrc
+screen
+screen -t emacs emacsclient -t
+select 0
+#+END_SRC
 
 ** Alternate screen support.
 
@@ -55,6 +61,8 @@ altscreen on
 #+end_src
 
 ** Set Escape key.
+
+Emacs uses =C-a= for ‘beginning-of-line’, so =C-a= is too important to me to remap
 
 #+begin_src sh :tangle ~/.screenrc
 escape ^Zz
