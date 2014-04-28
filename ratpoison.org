@@ -112,14 +112,13 @@ bind W tmpwm calavera-wm
 
 *** Run-or-raise
 
-Emulate stumpwms run-or-raise with ratpoison.
+Emulate stumpwm run-or-raise with ratpoison.
 
 Get the run-or-raise script form [[https://raw.github.com/ivoarch/bin/master/ratpoison/rp-run-or-raise.sh][here]].
 
 1. =C-t c= run-or-raise Urxvt (Screen)
 2. =C-t E= run-or-raise Emacs GUI
-3. =C-t e= run-or-raise to the Emacs inside screen session **(Ugly Hack? - Please fix me!)** Set window 1 for emacs
-in your =.screenrc= config.
+3. =C-t e= run-or-raise to the Emacs inside screen session *(Ugly Hack? - Please fix me!)*. Set window 1 for emacs in your =.screenrc= config.
 4. =C-t w= run-or-raise Conkeror
 
 #+begin_src sh :tangle ~/.ratpoisonrc
@@ -128,7 +127,6 @@ alias emacs exec ~/bin/ratpoison/rp-run-or-raise.sh Emacs 'emacsclient -ca emacs
 bind E emacs
 alias escreen exec screen -Q select 1; exec ~/bin/ratpoison/rp-run-or-raise.sh URxvt 'urxvt'
 bind e escreen
-alias conkeror exec ~/bin/ratpoison/rp-run-or-raise.sh Conkeror 'conkeror'
 alias conkeror exec ~/bin/ratpoison/rp-run-or-raise.sh Conkeror 'conkeror'
 bind w conkeror
 #+end_src
