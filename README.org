@@ -32,6 +32,9 @@
 [[https://github.com/ivoarch/.dot-org-files/blob/master/conkeror.org][conkeror.org]]
 - Browser configuration file.
 
+[[https://github.com/ivoarch/.dot-org-files/blob/master/mplayer.org][mplayer.org]]
+- MPlayer configuration file.
+
 *** Installation
 
 **** Automated

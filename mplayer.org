@@ -1,0 +1,43 @@
+#+TITLE: MPlayer configuration file
+
+** Video
+#+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
+vo=xv
+monitoraspect=16:9 # 16:9 or 4:3
+dvd-device=/dev/sr0
+#+END_SRC
+
+** Audio
+#+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
+ao=pulse,alsa
+mixer-channel="Master"
+#+END_SRC
+
+** Fullscreen
+#+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
+fs=yes
+#+END_SRC
+
+** Buffer
+#+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
+nocache=1
+#+END_SRC
+
+** Subs
+#+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
+alang =bg,en,eng,english
+slang =bg,en,eng,english
+subcp =cp1251
+#+END_SRC
+
+** Disable mouse
+#+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
+mouse-movements=no
+nomouseinput=yes
+#+END_SRC
+
+** Colorized terminal output
+#+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
+msgmodule=1
+msgcolor=1
+#+END_SRC
