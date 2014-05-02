@@ -23,7 +23,9 @@ unmanage xmessage
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 set font "Anonymous Pro-13"
+set bgcolor LightGray
 set bargravity nw
+set barpadding 5 0
 set winliststyle row
 set winfmt [%n] %s %t
 set winname class
@@ -36,7 +38,7 @@ set maxsizegravity c
 I use Ratpoison on tiny 10 inch screen. So I disabled borders/panels etc..
 
 #+begin_src sh :tangle ~/.ratpoisonrc
-set padding 0 0 0 0
+set padding 0 0 0
 set barborder 0
 set border 0
 #+end_src
