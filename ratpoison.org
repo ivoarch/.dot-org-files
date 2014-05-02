@@ -38,7 +38,7 @@ set maxsizegravity c
 I use Ratpoison on tiny 10 inch screen. So I disabled borders/panels etc..
 
 #+begin_src sh :tangle ~/.ratpoisonrc
-set padding 0 0 0
+set padding 0 0 0 0
 set barborder 0
 set border 0
 #+end_src
