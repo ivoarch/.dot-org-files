@@ -13,17 +13,18 @@ startup_message off
 
 ** Unmanaged windows.
 
-Add name to the list of unmanaged windows. Thus, windows of this name will not be managed but allowed to
-choose their position themselves.
+List of unmanaged windows.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
 unmanage xmessage
-unmanage MPlayer
 #+end_src
 
 ** Appearance.
 
 #+begin_src sh :tangle ~/.ratpoisonrc
+set font "Anonymous Pro-13"
+set bargravity nw
+set winliststyle row
 set winfmt [%n] %s %t
 set winname class
 set wingravity c
@@ -40,14 +41,6 @@ set barborder 0
 set border 0
 #+end_src
 
-*** Default font.
-
-I prefer XFT fonts for information stuff.
-
-#+begin_src sh :tangle ~/.ratpoisonrc
-set font "DejaVu Sans Mono-10"
-#+end_src
-
 ** Other commands.
 
 Don't change the cursor into a square when waiting for a key.
@@ -56,7 +49,7 @@ Don't change the cursor into a square when waiting for a key.
 set waitcursor 0
 #+end_src
 
-Bar's timeout in seconds.
+I like 5 seconds for messages.
 
 #+begin_src sh :tangle ~/.ratpoisonrc :padline no
 msgwait 5
@@ -97,7 +90,7 @@ bind d dedicate
 bind g groups
 #+end_src
 
-*** Using Other Window Managers
+*** Using Other Window Manager
 
 #+BEGIN_QUOTE
 Use at your own risk ☠!!!
@@ -116,9 +109,9 @@ Emulate stumpwm run-or-raise with ratpoison.
 
 Get the run-or-raise script form [[https://raw.github.com/ivoarch/bin/master/ratpoison/rp-run-or-raise.sh][here]].
 
-1. =C-t c= run-or-raise to the Urxvt inside Screen session *(Ugly Hack? - Please fix me!)*. Set window 0 for default shell
+1. =C-t c= run-or-raise to the Urxvt inside Screen session *(Ugly Hack? - Please fix me!)*. Set window 0 for default shell in your =~/.screenrc= config.
 2. =C-t E= run-or-raise Emacs GUI
-3. =C-t e= run-or-raise to the Emacs inside Screen session *(Ugly Hack? - Please fix me!)*. Set window 1 for emacs in your =.screenrc= config.
+3. =C-t e= run-or-raise to the Emacs inside Screen session *(Ugly Hack? - Please fix me!)*. Set window 1 for emacs in your =~/.screenrc= config.
 4. =C-t w= run-or-raise Conkeror
 
 #+begin_src sh :tangle ~/.ratpoisonrc
@@ -194,6 +187,12 @@ Abort keystrokes.
 #+begin_src sh :tangle ~/.ratpoisonrc
 definekey root Escape abort
 #+end_src
+
+Prevent accidental closes.
+
+#+BEGIN_SRC sh :tangle ~/.ratpoisonrc
+unbind k
+#+END_SRC
 
 *** Multimedia keys.
 
