@@ -24,7 +24,7 @@ unmanage xmessage
 #+begin_src sh :tangle ~/.ratpoisonrc
 set font "Anonymous Pro-13"
 set bgcolor LightGray
-set bargravity nw
+set bargravity ne
 set barpadding 5 0
 set winliststyle row
 set winfmt [%n] %s %t
@@ -51,10 +51,10 @@ Don't change the cursor into a square when waiting for a key.
 set waitcursor 0
 #+end_src
 
-I like 5 seconds for messages.
+I like 3 seconds for messages.
 
 #+begin_src sh :tangle ~/.ratpoisonrc :padline no
-msgwait 5
+msgwait 3
 #+end_src
 
 ** Rudeness.
