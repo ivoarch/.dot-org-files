@@ -310,11 +310,6 @@ interactive("open-gmail", "Go to gmail", "follow-new-buffer",
            $browser_object = "http://gmail.com/");
 define_key(content_buffer_normal_keymap, "f1 g", "open-gmail");
 
-// - Hardcore radio
-interactive("radio", "Go to hardcore-radio", "follow-new-buffer",
-           $browser_object = "http://www.hardcoreradio.nl/player/");
-define_key(content_buffer_normal_keymap, "f1 r", "radio");
-
 // - Ebay
 define_webjump("ebay", "http://search.ebay.es/search/search.dll?query=%s");
 
@@ -433,4 +428,29 @@ var user_agents = { "conkeror": "Mozilla/5.0 (X11; Linux x86_64; rv:8.0.1) " +
                     $completer = agent_completer));
                 set_user_agent(user_agents[ua]);
             });
+#+END_SRC
+
+Start Hardcore radio.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+interactive("radio", "Start hardcore-radio", "follow-new-buffer",
+           $browser_object = "http://www.hardcoreradio.nl/player/");
+define_key(content_buffer_normal_keymap, "f1 r", "radio");
+#+END_SRC
+
+Go to the buffer that has radio (hardcore-radio).
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+interactive("to-radio-buffer", "Shortcut to the buffer that has radio",
+            function (I) {
+                var buffers = I.window.buffers.buffer_list;
+                for (i in buffers) {
+                    if (buffers[i].current_uri.spec.substr(0, 35) ==
+                        'http://www.hardcoreradio.nl/player/') {
+                        switch_to_buffer(I.window, buffers[i]);
+                        return;
+                    }
+                }
+            });
+define_key(content_buffer_normal_keymap, "C-x r", "to-radio-buffer");
 #+END_SRC

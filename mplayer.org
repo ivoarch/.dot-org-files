@@ -3,7 +3,6 @@
 ** Video
 #+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
 vo=xv
-monitoraspect=16:9 # 16:9 or 4:3
 dvd-device=/dev/sr0
 #+END_SRC
 
@@ -23,11 +22,14 @@ fs=yes
 nocache=1
 #+END_SRC
 
-** Subs
+** Display and subtitles
 #+BEGIN_SRC conf :tangle ~/.mplayer/config :mkdirp true
+double="yes"
 alang =bg,en,eng,english
 slang =bg,en,eng,english
 subcp =cp1251
+framedrop="0"
+monitoraspect=16:9 # 16:9 or 4:3
 #+END_SRC
 
 ** Disable mouse
