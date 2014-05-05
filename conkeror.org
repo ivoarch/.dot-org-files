@@ -170,6 +170,29 @@ content_handlers.set("application/pdf", content_handler_open_default_viewer);
 external_content_handlers.set("application/pdf", "xpdf");
 #+END_SRC
 
+Automatically open documents with Libreoffice.
+
+For a complete list checkout this TechNet [[http://technet.microsoft.com/en-us/library/ee309278%2528office.12%2529.aspx][article]] .
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+external_content_handlers.set(
+      "application/vnd.ms-excel",
+      "libreoffice"
+);
+external_content_handlers.set(
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "libreoffice"
+);
+external_content_handlers.set(
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "libreoffice"
+);
+external_content_handlers.set(
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "libreoffice"
+);
+#+END_SRC
+
 I set up a mailto handler with Emacs. Get the script from [[https://raw2.github.com/ivoarch/bin/master/mail/emacs-mailto-handler.sh][here]].
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
@@ -249,10 +272,12 @@ require("adblockplus");
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 // - Archlinux
-define_webjump("arch", "http://bbs.archlinux.org");
-define_webjump("archwiki", "http://wiki.archlinux.org/index.php?search=%s");
-define_webjump("aur", "http://aur.archlinux.org/packages.php?O=0&K=%s");
-
+define_webjump("arch/forums", "http://bbs.archlinux.org");
+define_webjump("arch/wiki", "http://wiki.archlinux.org/index.php?search=%s");
+define_webjump("arch/aur", "http://aur.archlinux.org/packages.php?O=0&K=%s");
+define_webjump("arch/packages",
+               "https://www.archlinux.org/packages/?sort=&q=%s&limit=50",
+               $alternative="https://packages.archlinux.org");
 // - Questions
 define_webjump("linux-questions","http://www.linuxquestions.org/questions/");
 define_webjump("gmane", "http://gmane.org/find.php?list=%s");
