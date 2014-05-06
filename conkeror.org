@@ -403,12 +403,12 @@ interactive("restore-killed-buffer-url", "Loads url from a previously killed buf
                 if (killed_buffer_urls.length !== 0) {
                     var url = yield I.minibuffer.read(
                         $prompt = "Restore killed url:",
-                        $completer = all_word_completer($completions = killed_buffer_urls),
+                        $completer = new all_word_completer($completions = killed_buffer_urls),
                         $default_completion = killed_buffer_urls[killed_buffer_urls.length - 1],
                         $auto_complete = "url",
                         $auto_complete_initial = true,
                         $auto_complete_delay = 0,
-                        $match_required);
+                        $require_match = true);
 
                     load_url_in_new_buffer(url);
                 } else {
