@@ -35,6 +35,9 @@
 [[https://github.com/ivoarch/.dot-org-files/blob/master/mplayer.org][mplayer.org]]
 - MPlayer configuration file.
 
+[[https://github.com/ivoarch/.dot-org-files/blob/master/stumpwm.org][stumpwm.org]]
+- StumpWM configuration file.
+
 *** Installation
 
 **** Automated

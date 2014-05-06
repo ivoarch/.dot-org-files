@@ -1,0 +1,229 @@
+#+TITLE: Stumpwm configuration
+
+** Header.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+;; -*- Mode:p Lisp -*-
+;;; .stumpwmrc --- StumpWM Init File
+#+END_SRC
+
+** Code.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(in-package :stumpwm)
+#+END_SRC
+
+** Set Contrib Dir.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(set-contrib-dir "/home/ivo/.stumpwm-contrib/")
+#+END_SRC
+
+** Disable "Welcome!" message.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setf *startup-message* nil)
+#+END_SRC
+
+** Configure Swank.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(load "~/.emacs.d/elpa/slime-20140420.33/swank-loader.lisp")
+(swank-loader:init)
+(defcommand swank () ()
+  "Creates a swank server in the stumpwm lisp process"
+  (setf stumpwm:*top-level-error-action* :break)
+  (swank:create-server :port 4005
+           :style swank:*communication-style*
+           :dont-close t)
+(echo-string (current-screen)
+         "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm)."))
+#+END_SRC
+
+** Modeline setup.
+
+*** Default timeout
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setf *mode-line-timeout* 1)
+#+END_SRC
+
+*** Start modeline
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(if (not (head-mode-line (current-head)))
+    (toggle-mode-line (current-screen) (current-head)))
+#+END_SRC
+
+*** BG time
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(defun pretty-time ()
+  "Returns the date formatted as '17:19:51 Неделя, 27 Април 2014'."
+  (defun stringify-dow (dow)
+    (nth dow '("Понеделник" "Вторник" "Сряда" "Четвъртък" "Петъk" "Събота" "Неделя")))
+  (defun stringify-mon (mon)
+    (nth (- mon 1) '("Януари" "Февруари" "Март" "Април"
+                     "Май" "Юни" "Юли" "Август"
+                     "Септември" "Октомври" "Ноември" "Декември")))
+(multiple-value-bind (sec min hr date mon yr dow dst-p tz)
+      (get-decoded-time)
+    (format NIL "~2,'0d:~2,'0d:~2,'0d ~a, ~d ~a ~d (GMT ~@d)"
+            hr min sec
+            (stringify-dow dow)
+            date (stringify-mon mon)
+             yr (- tz))))
+#+END_SRC
+
+*** Modeline format
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setf *screen-mode-line-format*
+      (list "[^B%n^b] %W " ; groups/windows
+            "^>" ; right align
+            " ^7* " '(:eval (pretty-time)); date
+            ))
+#+END_SRC
+
+** Defaults.
+
+Set the font for the message bar and input bar.
+
+1. Load module for xft fonts.
+2. Set xft font.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(load-module "ttf-fonts")
+(set-font (make-instance 'xft:font :family "Anonymous Pro" :subfamily "Regular" :size 13))
+#+END_SRC
+
+Group/window format
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setf *group-format* "%s [%n] %t ")
+(setf *window-format* "%m%n%s%c")
+#+END_SRC
+
+Window gravity
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setf *message-window-gravity* :top-right)
+(setf *input-window-gravity* :top-right)
+#+END_SRC
+
+Ignore size hints
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setq *ignore-wm-inc-hints* t)
+#+END_SRC
+
+Default border style
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setq *window-border-style* :thin)
+#+END_SRC
+
+I like 3 seconds for messages.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setf *timeout-wait* 5)
+#+END_SRC
+
+Mouse focus by click.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setf *mouse-focus-policy* :click)
+#+END_SRC
+
+Create groups
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setf (group-name (first (screen-groups (current-screen)))) "Default")
+(gnewbg-float "Float")
+#+END_SRC
+
+Shell program used by =run-shell-command=
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(setq *shell-program* (stumpwm::getenv "SHELL"))
+#+END_SRC
+
+** Commands.
+
+1. run-or-raise - emacs
+2. run-or-raise - conkeror
+3. run-or-raise - urxvt/screen
+4. show dropbox status
+5. toggle =on=|=off= modeline
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(defcommand emacs () ()
+  "run-or-raise emacs"
+  (run-or-raise "emacsclient -ca emacs" '(:class "Emacs")))
+(define-key *root-map* (kbd "e") "emacs")
+
+(defcommand browser () ()
+  "run or raise conkeror"
+  (run-or-raise "conkeror" '(:class "Conkeror")))
+(define-key *root-map* (kbd "w") "browser")
+
+(defcommand terminal () ()
+  "run or raise urxvt"
+  (run-or-raise "urxvt -e screen" '(:class "URxvt")))
+(define-key *root-map* (kbd "c") "terminal")
+
+(defcommand dropbox-status () ()
+  (run-shell-command "dropbox status"))
+
+(defcommand mode-line-toggle () ()
+  "Toggles the mode-line"
+  (toggle-mode-line (current-screen) (current-head)))
+(define-key *top-map* (kbd "M-m") "mode-line-toggle")
+#+END_SRC
+
+** Keys.
+
+*** Multimedia keys
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer set Master 5%-")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer set Master 5%+")
+(define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
+#+END_SRC
+
+*** Windows/Frames
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(define-key *root-map* (kbd "o") "only")
+(define-key *root-map* (kbd "z") "windows")
+
+(define-key *root-map* (kbd "C-Up") "move-window up")
+(define-key *root-map* (kbd "C-Left") "move-window left")
+(define-key *root-map* (kbd "C-Down") "move-window down")
+(define-key *root-map* (kbd "C-Right") "move-window right")
+#+END_SRC
+
+Screenshot of the screen =using PrtSc=
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(define-key *top-map* (kbd "Print")
+  "exec import -window root png:$HOME/Pictures/Screenshots/stumpwm-$(date +%s)$$.png")
+#+END_SRC
+
+** Start Commands.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+(terminal)
+(browser)
+#+END_SRC
+
+** Stumpwmrc ends here.
+
+#+BEGIN_SRC lisp :tangle ~/.stumpwmrc
+;; Local Variables:
+;; coding: utf-8
+;; mode: lisp
+;; End:
+
+;;; stumpwmrc ends here
+#+END_SRC
