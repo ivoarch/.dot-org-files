@@ -5,7 +5,7 @@
 ** Tasks with unclassified time period
 *** TODO Make function to open man-pages in Conkeror
 *** TODO Make function to take a full-length screenshot of a web page.
-*** TODO Make function to switch to the buffer that has radio.
+*** DONE Make function to switch to the buffer that has radio.
 *** TODO Emacs (multi-term) keybinds + zsh - have to work better
 *** CANCELLED Emacs (multiple-term) does not recognize ~/.dircolors
 *** DONE Zenburn color-scheme configured for everything.
