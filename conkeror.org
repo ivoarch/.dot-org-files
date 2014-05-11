@@ -15,25 +15,6 @@ theme_unload("default");
 theme_load("conkeror-theme-zenburn");
 #+END_SRC
 
-** Disable gif animation on startup.
-
-For some reasons I have disabled the gif animation on startup.
-
-#+BEGIN_SRC js :tangle ~/.conkerorrc
-session_pref("image.animation_mode", "none");
-#+END_SRC
-
-I have a simple function to enable gif animation with =f6= or typing =M-x enable-gif-animation=.
-
-#+BEGIN_SRC js :tangle ~/.conkerorrc
-interactive("enable-gif-animation",
-    "Enable gif animation",
-    function (I) {
-       session_pref("image.animation_mode", "normal");
-    });
-define_key(default_global_keymap, "f6", "enable-gif-animation");
-#+END_SRC
-
 ** Load urls from the command line in new buffers instead of new windows.
 
 I need this for open URLs from GNU Emacs in Conkeror in a new buffer. See [[http://www.emacswiki.org/emacs/BrowseUrl][this link for more info.]]
@@ -162,15 +143,14 @@ download_buffer_automatic_open_target=OPEN_NEW_BUFFER_BACKGROUND;
 #+END_SRC
 
 ** External programs for handling various mime types in conkeror
-
-Automatically open pdf files with Xpdf.
+*** Automatically open pdf files with Xpdf.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 content_handlers.set("application/pdf", content_handler_open_default_viewer);
 external_content_handlers.set("application/pdf", "xpdf");
 #+END_SRC
 
-Automatically open documents with Libreoffice.
+*** Automatically open documents with Libreoffice.
 
 For a complete list checkout this TechNet [[http://technet.microsoft.com/en-us/library/ee309278%2528office.12%2529.aspx][article]] .
 
@@ -193,26 +173,26 @@ external_content_handlers.set(
 );
 #+END_SRC
 
-I set up a mailto handler with Emacs. Get the script from [[https://raw2.github.com/ivoarch/bin/master/mail/emacs-mailto-handler.sh][here]].
+*** Open mailto links with Emacs. Get the script from [[https://raw2.github.com/ivoarch/bin/master/mail/emacs-mailto-handler.sh][here]].
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 set_protocol_handler("mailto", make_file("~/bin/mail/emacs-mailto-handler.sh"));
 #+END_SRC
 
-Open magnet links with Transmission.
+*** Open magnet links with Transmission.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 set_protocol_handler("magnet", find_file_in_path("transmission-gtk"));
 #+END_SRC
 
-Automatically open torrent files with Transmission.
+*** Automatically open torrent files with Transmission.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 content_handlers.set("application/x-bittorrent", content_handler_open);
 external_content_handlers.set("application/x-bittorrent", "transmission-gtk");
 #+END_SRC
 
-View source in emacs.
+*** View source in emacs.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 editor_shell_command="emacsclient -ca emacs";
@@ -269,76 +249,95 @@ require("adblockplus");
 #+END_SRC
 
 ** My webjumps
-
+*** Arch linux
 #+BEGIN_SRC js :tangle ~/.conkerorrc
-// - Archlinux
 define_webjump("arch/forums", "http://bbs.archlinux.org");
 define_webjump("arch/wiki", "http://wiki.archlinux.org/index.php?search=%s");
 define_webjump("arch/aur", "http://aur.archlinux.org/packages.php?O=0&K=%s");
 define_webjump("arch/packages",
                "https://www.archlinux.org/packages/?sort=&q=%s&limit=50",
                $alternative="https://packages.archlinux.org");
-// - Questions
+#+END_SRC
+
+*** Questions
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("linux-questions","http://www.linuxquestions.org/questions/");
 define_webjump("gmane", "http://gmane.org/find.php?list=%s");
 define_webjump("hackernews", "http://searchyc.com/%s", $alternative = "http://news.ycombinator.com/");
 define_webjump("stackoverflow",  "http://stackoverflow.com/search?q=%s", $alternative = "http://stackoverflow.com/");
 define_webjump("superuser", "http://superuser.com/search?q=%s", $alternative = "http://superuser.com/");
+#+END_SRC
 
-// - Emacs
+*** Emacs
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("emacswiki",
    "http://www.google.com/cse?cx=004774160799092323420%3A6-ff2s0o6yi"+
        "&q=%s&sa=Search&siteurl=emacswiki.org%2F",
    $alternative="http://www.emacswiki.org/"); // emacswiki
 
 define_webjump("marmalade", "http://marmalade-repo.org/packages?q=%s"); // emacs marmalade repo
+#+END_SRC
 
-// - Yandex
+*** Yandex
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("yandex", "http://yandex.com/yandsearch?text=%s"); // text
 define_webjump("yandex.ru", "https://yandex.ru/yandsearch?text=%s"); // text ru
 define_webjump("yimages", "http://images.yandex.com/yandsearch?text=%s"); // images
 define_webjump("yimagesru", "http://images.yandex.ru/yandsearch?text=%s"); // images ru
 define_webjump("ytrans", "http://translate.yandex.com/?lang=en-es&text=%s"); // translate en -> es
+#+END_SRC
 
-// - Kaldata
+*** Kaldata
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("kaldata",
     "http://www.kaldata.com/forums/index.php?app=core&module=search&do=search&fromMainBar=1&search_term=%s");
+#+END_SRC
 
-// - Distrowatch (Search Distributions)
+*** Distrowatch (Search Distributions)
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("distrowatch", "http://distrowatch.com/table.php?distribution=%s");
+#+END_SRC
 
-// - DuckDuckGo
+*** DuckDuckGo
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("ddg", "http://duckduckgo.com/?q=%s");
+#+END_SRC
 
-// - Google
+*** Google
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("trans", "http://translate.google.com/translate_t#auto|en|%s");
 define_webjump("imagesgoogle", "http://www.google.com/images?q=%s", $alternative = "http://www.google.com/imghp");
+#+END_SRC
 
-// - Popular
+*** Popular
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("wordpress", "http://wordpress.org/search/%s");
 define_webjump("youtube", "http://www.youtube.com/results?search_query=%s&search=Search");
 define_webjump("deviantart", "http://browse.deviantart.com/?q=%s", $alternative="http://www.deviantart.com");
 define_webjump("flickr", "http://www.flickr.com/search/?q=%s", $alternative="http://www.flickr.com");
+#+END_SRC
 
-// - GIT
+*** GIT
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("github", "http://github.com/search?q=%s&type=Everything");
 define_webjump("savannah", "https://savannah.gnu.org/search/?words=%s&type_of_search=soft");
 define_webjump("gitorious", "http://gitorious.org/search?q=%s");
+#+END_SRC
 
-// - Global
+*** Wikipedia
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 require("page-modes/wikipedia.js");
 wikipedia_webjumps_format = "wp-%s"; // controls the names of the webjumps.  default is "wikipedia-%s".
 define_wikipedia_webjumps("en", "es", "bg"); // For English, Spain and Bulgarian.
+#+END_SRC
 
-// - Gmail
-interactive("open-gmail", "Go to gmail", "follow-new-buffer",
-           $browser_object = "http://gmail.com/");
-define_key(content_buffer_normal_keymap, "f1 g", "open-gmail");
-
-// - Ebay
+*** Ebay
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 define_webjump("ebay", "http://search.ebay.es/search/search.dll?query=%s");
+#+END_SRC
 
-// - Remove unused webjumps
+*** Remove unused webjumps
+#+BEGIN_SRC js :tangle ~/.conkerorrc
 var unused_webjumps = ['answers', 'buildd','buildd-ports','clhs','cliki','clusty','creativecommons','debbugs','debfile','debpkg','debpopcon','debpts','debqa','freshmeat','kuro5hin','launchpad','lucky','ratpoisonwiki','sadelicious','scholar','sdelicious','slashdot','sourceforge','stumpwmwiki','ubuntubugs','ubuntufile','ubuntupkg','wiktionary','yahoo'];
 
 for (var i=0; i<unused_webjumps.length; i++) {
@@ -346,9 +345,18 @@ for (var i=0; i<unused_webjumps.length; i++) {
 }
 #+END_SRC
 
-** Functions
+** Keyboard
 
-Disable the arrow keys in conkeror (use Emacs alternatives instead).
+*** Caps Lock
+
+Override the state of caps lock for command bindings, and force typed characters
+to upper-case or lower-case based on whether shift was pressed with the character.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+key_bindings_ignore_capslock = true;
+#+END_SRC
+
+*** Disable the arrow keys in conkeror (use Emacs alternatives instead).
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 undefine_key(content_buffer_normal_keymap, "up", "cmd_scrollLineUp");
@@ -357,7 +365,27 @@ undefine_key(content_buffer_normal_keymap, "left", "cmd_scrollLeft");
 undefine_key(content_buffer_normal_keymap, "right", "cmd_scrollRight");
 #+END_SRC
 
-Conkeror goto-buffer.
+** Functions
+*** Disable gif animation on startup.
+
+For some reasons I have disabled the gif animation on startup.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+session_pref("image.animation_mode", "none");
+#+END_SRC
+
+I have a simple function to enable gif animation with =f6= or typing =M-x enable-gif-animation=.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+interactive("enable-gif-animation",
+    "Enable gif animation",
+    function (I) {
+       session_pref("image.animation_mode", "normal");
+    });
+define_key(default_global_keymap, "f6", "enable-gif-animation");
+#+END_SRC
+
+*** Conkeror goto-buffer.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 // - source http://puntoblogspot.blogspot.com.es/2013/08/conkeror-go-to-buffer.html
@@ -370,7 +398,7 @@ interactive("rgc-goto-buffer", "switches to buffer",
 define_key(content_buffer_normal_keymap, "M-g M-g", "rgc-goto-buffer");
 #+END_SRC
 
-Ask before closing the window.
+*** Ask before closing the window.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 add_hook("window_before_close_hook",
@@ -384,7 +412,7 @@ add_hook("window_before_close_hook",
          });
 #+END_SRC
 
-Restore killed buffer Url.
+*** Restore killed buffer Url.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 var kill_buffer_original = kill_buffer_original || kill_buffer;
@@ -417,7 +445,7 @@ interactive("restore-killed-buffer-url", "Loads url from a previously killed buf
             });
 #+END_SRC
 
-Clear conkeror history.
+*** Clear conkeror history.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 function history_clear () {
@@ -431,31 +459,7 @@ interactive("history-clear",
             history_clear);
 #+END_SRC
 
-User agent switcher.
-
-#+BEGIN_SRC js :tangle ~/.conkerorrc
-// source from https://github.com/technomancy/dotfiles/blob/master/.conkerorrc
-var user_agents = { "conkeror": "Mozilla/5.0 (X11; Linux x86_64; rv:8.0.1) " +
-                    "Gecko/20100101 conkeror/1.0pre",
-                    "chromium": "Mozilla/5.0 (X11; U; Linux x86_64; en-US) " +
-                    "AppleWebKit/534.3 (KHTML, like Gecko) Chrome/6.0.472.63" +
-                    "Safari/534.3",
-                    "firefox": "Mozilla/5.0 (X11; Linux x86_64; rv:8.0.1) " +
-                    "Gecko/20100101 Firefox/8.0.1",
-                    "android": "Mozilla/5.0 (Linux; U; Android 2.2; en-us; " +
-                    "Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like " +
-                    "Gecko) Version/4.0 Mobile Safari/533.1"};
-  var agent_completer = prefix_completer($completions = Object.keys(user_agents));
- interactive("user-agent", "Pick a user agent from the list of presets",
-            function(I) {
-                var ua = (yield I.window.minibuffer.read(
-                    $prompt = "Agent:",
-                    $completer = agent_completer));
-                set_user_agent(user_agents[ua]);
-            });
-#+END_SRC
-
-Start Hardcore radio.
+*** Start Hardcore radio.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 interactive("radio", "Start hardcore-radio", "follow-new-buffer",
@@ -478,4 +482,28 @@ interactive("to-radio-buffer", "Shortcut to the buffer that has radio",
                 }
             });
 define_key(content_buffer_normal_keymap, "C-x r", "to-radio-buffer");
+#+END_SRC
+
+*** User agent switcher.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+// source from https://github.com/technomancy/dotfiles/blob/master/.conkerorrc
+var user_agents = { "conkeror": "Mozilla/5.0 (X11; Linux x86_64; rv:8.0.1) " +
+                    "Gecko/20100101 conkeror/1.0pre",
+                    "chromium": "Mozilla/5.0 (X11; U; Linux x86_64; en-US) " +
+                    "AppleWebKit/534.3 (KHTML, like Gecko) Chrome/6.0.472.63" +
+                    "Safari/534.3",
+                    "firefox": "Mozilla/5.0 (X11; Linux x86_64; rv:8.0.1) " +
+                    "Gecko/20100101 Firefox/8.0.1",
+                    "android": "Mozilla/5.0 (Linux; U; Android 2.2; en-us; " +
+                    "Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like " +
+                    "Gecko) Version/4.0 Mobile Safari/533.1"};
+  var agent_completer = prefix_completer($completions = Object.keys(user_agents));
+ interactive("user-agent", "Pick a user agent from the list of presets",
+            function(I) {
+                var ua = (yield I.window.minibuffer.read(
+                    $prompt = "Agent:",
+                    $completer = agent_completer));
+                set_user_agent(user_agents[ua]);
+            });
 #+END_SRC
