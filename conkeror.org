@@ -100,31 +100,6 @@ Display information about the currently selected hint.
 hints_minibuffer_annotation_mode(true);
 #+END_SRC
 
-Big Hint Numbers.
-
-#+BEGIN_SRC js :tangle ~/.conkerorrc
-hint_background_color = 'white';
-active_hint_background_color = 'yellow';
-register_user_stylesheet(
-    "data:text/css," +
-        escape(
-	            "@namespace url(\"http://www.w3.org/1999/xhtml\");\n" +
-            "span.__conkeror_hint {\n"+
-            " font-size: 14px !important;\n"+
-            " line-height: 14px !important;\n"+
-            "}"));
-register_user_stylesheet(
-    "data:text/css," +
-        escape (
-            "span.__conkeror_hint {" +
-            " border: 1px solid #dddddd !important;" +
-            " color: white !important;" +
-            " background-color: black !important;" +
-            "}"));
-
-require("casual-spelling");
-#+END_SRC
-
 ** Set default download directory
 
 This sets the default download directory to =~/Downloads=.
