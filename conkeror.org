@@ -15,7 +15,7 @@ theme_unload("default");
 theme_load("conkeror-theme-zenburn");
 #+END_SRC
 
-** Load urls from the command line in new buffers instead of new windows.
+** New buffers instead of new windows.
 
 I need this for open URLs from GNU Emacs in Conkeror in a new buffer. See [[http://www.emacswiki.org/emacs/BrowseUrl][this link for more info.]]
 
@@ -338,6 +338,14 @@ undefine_key(content_buffer_normal_keymap, "up", "cmd_scrollLineUp");
 undefine_key(content_buffer_normal_keymap, "down", "cmd_scrollLineDown");
 undefine_key(content_buffer_normal_keymap, "left", "cmd_scrollLeft");
 undefine_key(content_buffer_normal_keymap, "right", "cmd_scrollRight");
+#+END_SRC
+
+*** Enable eye-guide scrolling
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+require('eye-guide.js');
+define_key(content_buffer_normal_keymap, "space", "eye-guide-scroll-down");
+define_key(content_buffer_normal_keymap, "back_space", "eye-guide-scroll-up");
 #+END_SRC
 
 ** Functions
