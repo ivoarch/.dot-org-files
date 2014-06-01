@@ -1,7 +1,7 @@
 # $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
 # Maintainer: <ivo@arch>
 pkgname=dot-org-files
-pkgver=8694e64
+pkgver=b310c7e
 pkgrel=1
 epoch=
 pkgdesc="A package to set up my archlinux working environment"
@@ -69,6 +69,7 @@ depends=("abs"
    "dialog"
    "xulrunner"
    "yajl"
+   "pkgbuild-introspection"
 # warning:
 # Pacman can not resolve dependencies only found in the AUR for you.
 # Look at using an AUR helper to automatically install dependencies from the AUR.

@@ -4,7 +4,7 @@
 * Suite of programs used to create my shell working environment on my Archlinux netbook.
 
 ** Pacman
-- *Administration* abs arch-wiki-lite htop pkgstats pkgfile reflector
+- *Administration* abs arch-wiki-lite htop pkgstats pkgfile pkgbuild-introspection reflector
 - *Bootloader* syslinux
 - *Codecs* gstreamer0.10 gstreamer
 - *Development* git python-pip sbcl
@@ -26,7 +26,7 @@
 - *Wireless/Network* wget wpa_supplicant
 
 ** AUR
-- *Administration* kernel-netbook profile-sync-daemon profile-cleaner speedtest-cli pkgbuild-introspection-git
+- *Administration* kernel-netbook profile-sync-daemon profile-cleaner speedtest-cli
 - *Cloud* dropbox dropbox-cli
 - *Fonts* ttf-monaco ttf-anonymous-pro
 - *Internet* conkeror-git cower-git transmission-gtk2 itmages-upload.git
