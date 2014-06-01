@@ -82,6 +82,12 @@ addhook switchframe info [%n] %t
 
 ** Key bindings.
 
+*** Ratpoison Escape key
+
+#+BEGIN_SRC sh :tangle ~/.ratpoisonrc
+escape C-a
+#+END_SRC
+
 *** Groups/Windows/Frames
 
 #+begin_src sh :tangle ~/.ratpoisonrc
@@ -91,6 +97,15 @@ bind u undo
 bind d dedicate
 bind g groups
 #+end_src
+
+*** GnuScreen like keys for split frames
+
+#+BEGIN_SRC sh :tangle ~/.ratpoisonrc
+bind s hsplit
+bind C-s hsplit
+bind S split
+bind C-S split
+#+END_SRC
 
 *** Using Other Window Manager
 
