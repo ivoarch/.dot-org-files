@@ -34,6 +34,12 @@ xset r rate 200 50 &
 xset m 3 1 &
 #+end_src
 
+Swap Left Control and Caps Lock.
+
+#+BEGIN_SRC sh :tangle ~/.xinitrc
+setxkbmap -option ctrl:swapcaps
+#+END_SRC
+
 ** Set cursor theme
 
 #+BEGIN_SRC sh :tangle ~/.xinitrc
