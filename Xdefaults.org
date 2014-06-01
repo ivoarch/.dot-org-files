@@ -58,7 +58,6 @@ URxvt.keysym.M-s:           perl:keyboard-select:search
 I use Anonymous Pro as my font choice.
 
 #+begin_src conf :tangle ~/.Xdefaults :padline yes
-URxvt*letterSpace: -1
 URxvt*font:                 xft:Anonymous Pro:regular:size=13
 URxvt*imFont:               xft:Anonymous Pro:regular:size=13
 URxvt*boldFont:             xft:Anonymous Pro:bold:size=13
