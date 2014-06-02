@@ -1,5 +1,8 @@
 #+TITLE: My .xinitrc file
 
+#+ATTR_HTML: :alt xlogo.png image :title X :align left :width 480px :hight 280px
+[[file:images/xlogo.png]]
+
 ** Enable DPMS energy saving.
 
 When I want to disable the energy saving, I use a shell script to toggle =on|off= via ratpoison key bindings.
