@@ -100,6 +100,14 @@ Display information about the currently selected hint.
 hints_minibuffer_annotation_mode(true);
 #+END_SRC
 
+** Hinting
+
+I want to use letters instead of numbers.
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+hint_digits="asdfghjkl";
+#+END_SRC
+
 ** Set default download directory
 
 This sets the default download directory to =~/Downloads=.
