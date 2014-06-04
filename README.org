@@ -1,6 +1,13 @@
 #+TITLE: My dot-org-files
 
 * Table of Contents 																										:TOC:
+ - [[#about][About]]
+ - [[#org-files][Org files]]
+ - [[#installation][Installation]]
+     - [[#automated][Automated]]
+     - [[#manual][Manual]]
+ - [[#license][License]]
+
 * About
 
 Dotfiles, Emacs + Org-mode with babel and Literate programming.
