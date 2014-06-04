@@ -1,6 +1,6 @@
-#+TITLE: My dot-org-file
+#+TITLE: My dot-org-files
 
-*** Table of Contents																										:TOC:
+*** Table of Contents                                       :TOC:
 
 *** About
 
