@@ -1,12 +1,11 @@
 #+TITLE: My dot-org-files
 
-*** Table of Contents                                       :TOC:
-
-*** About
+* Table of Contents 																										:TOC:
+* About
 
 Dotfiles, Emacs + Org-mode with babel and Literate programming.
 
-*** Org files
+* Org files
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/packages.org][packages.org]]
 - List of packages.
@@ -44,9 +43,9 @@ Dotfiles, Emacs + Org-mode with babel and Literate programming.
 [[https://github.com/ivoarch/.dot-org-files/blob/master/stumpwm.org][stumpwm.org]]
 - StumpWM configuration file.
 
-*** Installation
+* Installation
 
-**** Automated
+** Automated
 
 If you're using curl type the following command:
 
@@ -54,7 +53,7 @@ If you're using curl type the following command:
 curl -L https://github.com/ivoarch/.dot-org-files/raw/master/install.sh | sh
 #+END_SRC
 
-**** Manual
+** Manual
 
 - Clone this repo:
 
@@ -67,6 +66,6 @@ curl -L https://github.com/ivoarch/.dot-org-files/raw/master/install.sh | sh
 
 =C-c C-v f= or =M-x org-babel-tangle-file=
 
-*** License
+* License
 
 - Unlicense - http://unlicense.org/
