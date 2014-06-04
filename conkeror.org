@@ -319,6 +319,12 @@ define_wikipedia_webjumps("en", "es", "bg"); // For English, Spain and Bulgarian
 define_webjump("ebay", "http://search.ebay.es/search/search.dll?query=%s");
 #+END_SRC
 
+*** Lingvo
+
+#+BEGIN_SRC js :tangle ~/.conkerorrc
+define_webjump("lingvo", "http://www.lingvo-online.ru/en/Translate/en-es/%s");
+#+END_SRC
+
 *** Remove unused webjumps
 #+BEGIN_SRC js :tangle ~/.conkerorrc
 var unused_webjumps = ['answers', 'buildd','buildd-ports','clhs','cliki','clusty','creativecommons','debbugs','debfile','debpkg','debpopcon','debpts','debqa','freshmeat','kuro5hin','launchpad','lucky','ratpoisonwiki','sadelicious','scholar','sdelicious','slashdot','sourceforge','stumpwmwiki','ubuntubugs','ubuntufile','ubuntupkg','wiktionary','yahoo'];
