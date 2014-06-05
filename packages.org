@@ -22,7 +22,7 @@
 - *Server* openssh
 - *Sound* alsa-oss alsa-plugins alsa-utils
 - *Terminal* urxvt-perls xterm screen zsh
-- *Utilities* acpi lsof moreutils p7zip unrar unzip zip xclip xdotool xdg-user-dirs xorg-xmessage xorg-xlsfonts
+- *Utilities* acpi lsof moreutils mlocate p7zip unrar unzip zip xclip xdotool xdg-user-dirs xorg-xmessage xorg-xlsfonts
 - *Wireless/Network* wget wpa_supplicant
 
 ** AUR
