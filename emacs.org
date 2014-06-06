@@ -1,0 +1,1316 @@
+#+TITLE: My emacs configuration file
+#+ATTR_HTML: :alt emacs.png image :title emacs :align left :width 380px :hight 280px
+[[file:images/emacs.png]]
+
+** Set up load path
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq load-path
+      (append
+       (list
+        (expand-file-name "~/.emacs.d")
+        (expand-file-name "~/.emacs.d/elisp"))
+       load-path))
+#+END_SRC
+
+** Common lisp primitives.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'cl)
+#+END_SRC
+
+** Packages
+
+Following code adapted from [[https://github.com/bbatsov/prelude][emacs-prelude]] - [[http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/][package-management-in-emacs]] (The Good, the Bad and the Ugly).
+
+Activate all the packages.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'package)
+(package-initialize)
+#+END_SRC
+
+List of repositories containing packages.
+
+1. [[http://melpa.milkbox.net/#/][melpa]] repo - contains packages updated daily.
+2. [[http://melpa-stable.milkbox.net/#/][melpa-stable]] repo - [alternative to [[http://marmalade-repo.org/][Marmalade]]] It offers stable packages built automatically from git tags.
+3. [[http://orgmode.org/elpa/][org]] repo - Org's package repository.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives
+             '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/"))
+#+END_SRC
+
+List of packages used in this configuration.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq required-packages
+      (list
+       'ac-slime ; auto-complete plugin for Slime.
+       'ace-window ; GNU Emacs package for selecting a window to switch to
+       'ace-jump-mode ; a quick cursor jump mode for emacs
+       'auto-complete ; auto-completion extension for GNU Emacs.
+       'auto-complete-clang ; nice C & C++ autocomplete for Emacs.
+       'autopair ; automagically pair braces and quotes.
+       'aurel ; Search and download AUR packages from Emacs.
+       'deft ; mode for quickly browsing, filtering, and editing directories of plain text notes.
+       'dired-details ; hide/show the details of each file or directory in DiredMode.
+       'emms ; Emacs multimedia system.
+       'elfeed ; An Emacs web feeds client.
+       'elscreen ; GNU Emacs window session manager.
+       'flycheck ; fly syntax checking for GNU Emacs.
+       'flx-ido ; Fuzzy matching for Emacs ... a la Sublime Text.
+       'guru-mode ; The Emacs guru way
+       'htmlize ; Convert buffer text and decorations to HTML.
+       'ido-vertical-mode ; makes ido-mode display vertically.
+       'js2-mode ; javascript-mode for emacs.
+       'magit ; Emacs mode for Git.
+       'markdown-mode ; Emacs mode for Markdown-formatted files.
+       'mu4e-maildirs-extension ; adds a maildir summary in mu4e-main-view.
+       'multi-term ; managing multiple terminal buffers in Emacs.
+       'multiple-cursors ; Multiple cursors for emacs.
+       'org ; an Emacs Mode for Notes, Planning, and Authoring.
+       'org-plus-contrib ; contrib files for org.
+       'paredit ; minor mode for editing parentheses.
+       'pkgbuild-mode ; Major mode for editing PKGBUILD files.
+       'rainbow-mode ; Colorize color names in buffers.
+       'rainbow-delimiters ; rainbow delimiters mode.
+       'recentf ; is a minor mode that builds a list of recently opened files.
+       'slime ; Emacs mode for Common Lisp development.
+       'smex ; M-x enhancement for Emacs. Built on top of IDO.
+       'xkcd ; Read xkcd from emacs.
+       'volatile-highlights ; highlights changes to the buffer.
+       'zenburn-theme ; The Zenburn colour theme ported to Emacs.
+       ))
+#+END_SRC
+
+Check if all packages are installed.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun packages-installed-p ()
+  (loop for p in required-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+;; if not all packages are installed, check one by one and install the missing ones.
+(unless (packages-installed-p)
+  ;; check for new packages (package versions)
+  (message "%s" "Emacs is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p required-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+#+END_SRC
+
+** Appearance
+
+I turn =off= mouse interface early in startup to avoid momentary display.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'blink-cursor-mode) (blink-cursor-mode -1))
+(if (fboundp 'use-file-dialog) (setq use-file-dialog nil))
+(if (fboundp 'use-dialog-box) (setq use-dialog-box nil))
+#+END_SRC
+
+For the most part I prefer to disable Emacs' fringe.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(fringe-mode '(0 . 0))
+#+END_SRC
+
+I have simple function to =Enable|Disable= fringe.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun enable-fringe ()
+  (interactive)
+  (fringe-mode '(nil . nil) ))
+
+(defun disable-fringe ()
+  (interactive)
+  (fringe-mode '(0 . 0) ))
+#+END_SRC
+
+Set font for all windows.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-to-list 'default-frame-alist
+                '(font . "DejaVu Sans Mono-10"))
+#+END_SRC
+
+Load theme [[https://github.com/bbatsov/zenburn-emacs][zenburn]].
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(load-theme 'zenburn t)
+#+END_SRC
+
+Cursor style.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq-default cursor-type 'bar)
+#+END_SRC
+
+Highlight the current line
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-hl-line-mode +1)
+#+END_SRC
+
+Hide mouse cursor while typing.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq make-pointer-invisible t)
+#+END_SRC
+
+Highlight matching parentheses when the point is on them.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(show-paren-mode t)
+(setq show-paren-delay 0)
+#+END_SRC
+
+Do not break lines
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(set-default 'truncate-lines t)
+#+END_SRC
+
+** Defaults
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq initial-scratch-message ";; scratch buffer created -- Happy Hacking ivo!!"
+      inhibit-startup-message t       ; No splash screen please.
+      auto-image-file-mode 1          ; open graphic files such as JPEG/PNG format files.
+      doc-view-continuous t           ; At page edge goto next/previous.
+      ; show the full file name in the title
+      frame-title-format '(buffer-file-name "%f" ("%b"))
+      echo-keystrokes 0.1)            ; Show keystrokes in progress.
+#+END_SRC
+
+** Modeline settings
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(line-number-mode t)
+(column-number-mode t)
+(size-indication-mode t)
+#+END_SRC
+
+Making buffer names unique.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
+#+END_SRC
+
+Hide the mode-line in the current buffer.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; http://bzg.fr/emacs-hide-mode-line.html
+(defvar-local hidden-mode-line-mode nil)
+
+(define-minor-mode hidden-mode-line-mode
+  "Minor mode to hide the mode-line in the current buffer."
+  :init-value nil
+  :global nil
+  :variable hidden-mode-line-mode
+  :group 'editing-basics
+  (if hidden-mode-line-mode
+      (setq hide-mode-line mode-line-format
+            mode-line-format nil)
+    (setq mode-line-format hide-mode-line
+          hide-mode-line nil))
+  (when (and (called-interactively-p 'interactive)
+             hidden-mode-line-mode)
+    (run-with-idle-timer
+     0 nil 'message
+     (concat "Hidden Mode Line Mode enabled. "
+             "Use M-x hidden-mode-line-mode RET to make the mode-line appear."))))
+#+END_SRC
+
+** Clipboard
+
+Enable copy/paste from emacs to other apps.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq
+ interprogram-cut-function 'x-select-text
+ interprogram-paste-function 'x-selection-value
+ save-interprogram-paste-before-kill t
+ select-active-regions t
+ x-select-enable-clipboard t
+ x-select-enable-primary t)
+#+END_SRC
+
+** Files
+
+Use y/n instead of yes/no in confirmation dialogs.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+Set UTF Encoding.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(set-language-environment 'UTF-8)
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8-unix)
+#+END_SRC
+
+[[http://emacsredux.com/blog/2014/05/16/opening-large-files/][Opening Large Files]] - Warn when opening files bigger than 100MB.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq large-file-warning-threshold 100000000)
+#+END_SRC
+
+Enable global-auto-revert-mode
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-auto-revert-mode 1)
+(setq auto-revert-verbose nil)
+(setq global-auto-revert-non-file-buffers t)
+#+END_SRC
+
+Remove ^M symbols
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-hook 'comint-output-filter-functions
+          'comint-strip-ctrl-m)
+#+END_SRC
+
+[[http://emacsredux.com/blog/2013/05/09/keep-backup-and-auto-save-files-out-of-the-way/][Keep Backup and Auto-save Files Out of the Way]]
+
+Store all backup and autosave files in the tmp/ dir.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+#+END_SRC
+
+Move files to trash when deleting.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq delete-by-moving-to-trash t)
+#+END_SRC
+
+Automatically make scripts starting with =#!= executable.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+#+END_SRC
+
+Lines.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq require-final-newline t
+      kill-whole-line t
+      indicate-empty-lines t)
+#+END_SRC
+
+Every buffer would be cleaned up before it’s saved.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-hook 'before-save-hook 'whitespace-cleanup)
+#+END_SRC
+
+Whitespaces.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'whitespace)
+(global-whitespace-mode)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face tabs empty trailing lines-tail))
+#+END_SRC
+
+1. Always use spaces for indentation
+2. Default to 2-space tabs
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq indent-tabs-mode nil)
+(setq-default tab-width 2)
+#+END_SRC
+
+** Ido
+
+Interactive do (or ido-mode) changes the way you switch buffers and open files/directories.
+Instead of writing complete file paths and buffer names you can write a part of it
+and select one from a list of possibilities.
+Using ido-vertical-mode changes the way possibilities are displayed, and flx-ido-mode enables fuzzy matching.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'ido-vertical-mode)
+(require 'flx-ido)
+
+(dolist (mode
+         '(ido-mode ; Interactivly do.
+           ido-everywhere ; Use Ido for all buffer/file reading.
+           ido-vertical-mode ; Makes ido-mode display vertically.
+           flx-ido-mode)) ; Toggle flx ido mode.
+  (funcall mode 1))
+
+(setq ido-vertical-define-keys 'C-n-C-p-up-down)
+#+END_SRC
+
+** Autocomplete
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'auto-complete-config)
+(ac-config-default)
+(setq ac-auto-show-menu 0.5)
+(setq ac-quick-help-height 50)
+(setq ac-quick-help-delay 1)
+(setq ac-use-fuzzy t)
+(setq ac-disable-faces nil)
+(setq ac-quick-help-prefer-x nil)
+
+(define-key ac-completing-map (kbd "C-n") 'ac-next)
+(define-key ac-completing-map (kbd "C-p") 'ac-previous)
+#+END_SRC
+
+** Setup Smex
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+#+END_SRC
+
+** Setup Recenf
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'recentf)
+(recentf-mode 1)
+
+(defun ido-recentf-open ()
+  "Use `ido-completing-read' to \\[find-file] a recent file"
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
+
+(setq recentf-max-saved-items 50)
+
+(global-set-key (kbd "C-c f") 'ido-recentf-open)
+#+END_SRC
+
+** Emacs server
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+#+END_SRC
+
+** Flycheck mode
+
+[[https://github.com/flycheck/flycheck][Flycheck]]
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-hook 'php-mode-hook 'flycheck-mode)
+(add-hook 'sh-mode-hook 'flycheck-mode)
+(add-hook 'json-mode-hook 'flycheck-mode)
+(add-hook 'nxml-mode-hook 'flycheck-mode)
+(add-hook 'emacs-lisp 'flycheck-mode)
+(add-hook 'ruby-mode-hook 'flycheck-mode)
+(add-hook 'sass 'flycheck-mode)
+(add-hook 'scss 'flycheck-mode)
+#+END_SRC
+
+** Markdown
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+#+END_SRC
+
+** Org mode
+
+Enable org-mode for .org, .org_archive and .txt files by default.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
+#+END_SRC
+
+Notes / Tasks / TODOs
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+#+END_SRC
+
+Org publish.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'htmlize)
+(setq org-html-htmlize-output-type 'inline-css)
+(setq org-html-validation-link nil)
+
+(setq org-export-default-language "bg"
+      org-export-html-extension "html"
+)
+
+(setq org-publish-project-alist
+      '(("blog"
+         :components ("blog-content" "blog-static"))
+        ("blog-content"
+         ;; Directory for source files in org format
+         :base-directory "~/Dropbox/blog/org/"
+         :base-extension "org"
+         ;; Path to exported HTML files
+         :publishing-directory "~/Dropbox/blog/public_html/"
+         ;;:publishing-function org-publish-org-to-html
+         :publishing-function org-html-publish-to-html
+         :recursive t
+         :htmlized-source t
+         :headline-levels 4
+;; :html-head "<link rel='stylesheet' href='css/blog.css' />"
+         :auto-preamble t
+         :auto-sitemap t
+         :sitemap-title "Sitemap"
+         :sitemap-filename "sitemap.org"
+         :sitemap-sort-files anti-chronologically
+         ;;:sitemap-file-entry-format "%t (%d)"
+         )
+        ;; Path to Static files
+        ("blog-static"
+         :base-directory "~/Dropbox/blog/files/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/Dropbox/blog/public_html/files/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )))
+#+END_SRC
+
+
+Org babel
+
+Enable yntax highlighting in src blocks.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq-default org-src-fontify-natively t)
+#+END_SRC
+
+List of languages that may be evaluated in Org documents.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (C .t)
+   (sh . t)
+   (python . t)
+   (R . t)
+   (ruby . t)
+   (emacs-lisp . t)
+   (lisp .t)
+   (scheme . t)
+   (haskell . t)
+   (perl . t)
+   (js . t)
+   ))
+#+END_SRC
+
+** Slime
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'ac-slime)
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'slime-repl-mode))
+#+END_SRC
+
+** Js mode
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+#+END_SRC
+
+** cc-mode
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; c++
+(add-hook 'c++-mode-hook
+          '(lambda()
+             (setq indent-tabs-mode nil)
+             (c-set-style "cc-mode")
+             (setq c-indent-level 4)
+             (setq c-tab-width 4)
+             (setq tab-width 4)
+             (setq c-basic-offset tab-width)))
+;; c
+(add-hook 'c-mode-hook
+          '(lambda()
+             (setq indent-tabs-mode nil)
+             (c-set-style "k&r") ;; What Kernighan and Ritchie, the authors of C used in their book
+             (setq c-indent-level 4)
+             (setq c-tab-width 4)
+             (setq tab-width 4)
+             (setq c-basic-indent 2)
+             (setq c-basic-offset tab-width)))
+
+(define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
+
+(require 'autopair)
+(autopair-global-mode 1)
+;; tells autopair to automatically wrap the selection region with the delimiters you’re trying to insert.
+(setq autopair-autowrap t)
+
+(require 'auto-complete-clang)
+(define-key c++-mode-map (kbd "C-S-<return>") 'ac-complete-clang)
+#+END_SRC
+
+** Setup Dired mode
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'dired)
+
+;; refresh buffers
+(setq-default dired-auto-revert-buffer t)
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+
+;; listing options
+(setq ired-listing-switches "-alhv --group-directories-first")
+
+;; Move files between split panes
+(setq dired-dwim-target t)
+
+;; Delete or copy a whole directory
+;;(setq dired-recursive-copies 'always) ; Always means no asking
+;;(setq dired-recursive-deletes 'top) ; Top means ask once for top dir only
+
+;; No confirmation on file delete - clever hack
+;;(setq dired-deletion-confirmer '(lambda (x) t))
+
+(require 'dired-details)
+(setq-default dired-details-hidden-string "..> ")
+(define-key dired-mode-map (kbd "TAB") 'dired-details-toggle)
+
+;; enable some really cool extensions like C-x C-j(dired-jump)
+(require 'dired-x)
+
+;; hide uninteresting files, such as backup files and AutoSave files
+(setq-default dired-omit-mode t
+dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
+#+END_SRC
+
+** Setup Window managers
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'ratpoison)
+(add-to-list 'auto-mode-alist '("\\.stumpwmrc$" . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.ratpoisonrc$" . ratpoisonrc-mode))
+(add-to-list 'auto-mode-alist '("\\.emacsrc$" . emacs-lisp-mode))
+#+END_SRC
+
+** Setup Term
+
+Use Emacs terminfo, not system terminfo
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; tic -o ~/.terminfo /usr/share/emacs/24.3/etc/e/eterm-color.ti
+(setq system-uses-terminfo nil)
+#+END_SRC
+
+Multi-term.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; http://www.emacswiki.org/emacs/MultiTerm
+(when (require 'multi-term nil t)
+  (global-set-key [f1] 'multi-term)
+  (global-set-key (kbd "C-c n") 'multi-term-next)
+  (global-set-key (kbd "C-c p") 'multi-term-prev)
+      (setq multi-term-buffer-name "eterm"
+      multi-term--program "/bin/zsh"))
+
+;; Turn off current-line-highlighting and auto-pair.
+(defadvice term-char-mode (after term-char-mode-fixes ())
+  (autopair-mode -1)
+  (set (make-local-variable 'hl-line-mode) nil)
+  (set (make-local-variable 'global-hl-line-mode) nil))
+(ad-activate 'term-char-mode)
+
+;; fix copy/paste
+(add-hook
+ 'term-mode-hook
+ (lambda ()
+   (define-key term-raw-map (kbd "C-y") 'term-paste)
+   (define-key term-raw-map (kbd "C-v") 'term-paste)
+   (define-key term-raw-map (kbd "s-v") 'term-paste)))
+
+;; unlimited terminal buffer
+(add-hook 'term-mode-hook
+          (lambda ()
+            (setq term-buffer-maximum-size 0)))
+#+END_SRC
+
+** Setup Zsh
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq shell-file-name "/bin/zsh")
+(add-to-list 'auto-mode-alist '("\\.zsh\\'" . shell-script-mode))
+#+END_SRC
+
+** Useful functions
+
+slick-copy: make copy-past a bit more intelligent.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; from: http://www.emacswiki.org/emacs/SlickCopy
+(defadvice kill-ring-save (before slick-copy activate compile)
+    "When called interactively with no active region, copy a single
+line instead."
+    (interactive
+     (if mark-active (list (region-beginning) (region-end))
+       (message "Copied line")
+       (list (line-beginning-position)
+             (line-beginning-position 2)))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defadvice kill-region (before slick-cut activate compile)
+    "When called interactively with no active region, kill a single
+line instead."
+    (interactive
+     (if mark-active (list (region-beginning) (region-end))
+       (list (line-beginning-position)
+             (line-beginning-position 2)))))
+#+END_SRC
+
+enable slime with slime helper.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;;(condition-case ex ; if slime-helper is not installed do not give an error
+;; (progn
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+
+      ;; Replace "sbcl" with the path to your implementation
+;; (setq inferior-lisp-program "sbcl")
+
+      ;; connect slime automatically
+      ;; when slime-mode is opened
+;; (defun cliki:start-slime ()
+;; (unless (slime-connected-p)
+;; (save-excursion (slime))))
+      ;; add full linking set
+;; (add-hook 'slime-mode-hook 'cliki:start-slime))
+;; ('error (message "slime could not be loaded")))
+#+END_SRC
+
+Search in Google.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; from @bbatsov
+(defun google ()
+  "Google the selected region if any, display a query prompt otherwise."
+  (interactive)
+  (browse-url
+   (concat
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
+    (url-hexify-string (if mark-active
+                           (buffer-substring (region-beginning) (region-end))
+                         (read-string "Google: "))))))
+#+END_SRC
+
+Search in Youtube.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; http://emacsredux.com/blog/2013/08/26/search-youtube/
+(defun youtube ()
+  "Search YouTube with a query or region if any."
+  (interactive)
+  (browse-url
+   (concat
+    "http://www.youtube.com/results?search_query="
+    (url-hexify-string (if mark-active
+                           (buffer-substring (region-beginning) (region-end))
+                         (read-string "Search YouTube: "))))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun kill-emacs-or-frame (arg)
+  (interactive "P")
+  (if (not server-buffer-clients)
+      (if (and (not arg) (> (length (visible-frame-list)) 1))
+          (delete-frame)
+        (save-buffers-kill-emacs))
+    (save-buffer)
+    (server-buffer-done (current-buffer))))
+#+END_SRC
+
+rename buffer and file opened in emacs.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file name new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+                    (set-buffer-modified-p nil))))))
+#+END_SRC
+
+Delete the current file, and kill the buffer.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; from @purcell
+(defun delete-this-file ()
+  "Delete the current file, and kill the buffer."
+  (interactive)
+  (or (buffer-file-name) (error "No file is currently being edited"))
+  (when (yes-or-no-p (format "Really delete '%s'?"
+                             (file-name-nondirectory buffer-file-name)))
+    (delete-file (buffer-file-name))
+    (kill-this-buffer)))
+#+END_SRC
+
+Move line =up|down=.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; http://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/
+;; also check https://github.com/rejeep/drag-stuff.el
+(defun move-line-up ()
+  "Move up the current line."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun move-line-down ()
+  "Move down the current line."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+#+END_SRC
+
+Insert date.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun insert-date ()
+  "Insert the current date."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%dT%T%z")))
+#+END_SRC
+
+Show line numbers temporarily, while prompting for the line number input.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; from @magnars https://gist.github.com/magnars/3292872
+(defun goto-line-with-feedback (&optional line)
+  "Show line numbers temporarily, while prompting for the line number input"
+  (interactive "P")
+  (if line
+      (goto-line line)
+    (unwind-protect
+        (progn
+          (linum-mode 1)
+          (goto-line (read-number "Goto line: ")))
+      (linum-mode -1))))
+#+END_SRC
+
+Kill other buffers.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; http://www.emacswiki.org/emacs/KillingBuffers
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
+(defun kill-all-dired-buffers ()
+      "Kill all dired buffers."
+      (interactive)
+      (save-excursion
+        (let ((count 0))
+          (dolist (buffer (buffer-list))
+            (set-buffer buffer)
+            (when (equal major-mode 'dired-mode)
+              (setq count (1+ count))
+              (kill-buffer buffer)))
+          (message "Killed %i dired buffer(s)." count))))
+#+END_SRC
+
+Create all the intermediate dirs if they weren't existing when save a file.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; https://stackoverflow.com/posts/6830894/revisions
+(add-hook 'before-save-hook
+          (lambda ()
+            (let ((dir (file-name-directory buffer-file-name)))
+              (unless (file-exists-p dir)
+                (make-directory dir t)))))
+#+END_SRC
+
+Sudo edit.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun sudo-edit (&optional arg)
+  "Open the current buffer (or prompt for file if ARG is non-nill) using sudo to edit as root."
+  (interactive "p")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo::" (ido-read-file-name "File: ")))
+    (find-alternate-file (concat "/sudo::" buffer-file-name))))
+#+END_SRC
+
+Insert a lorem ipsum.
+
+#+BEGIN_SRC emacs-lisp :tagnle ~/.emacsrc
+(defun lorem ()
+  "Insert a lorem ipsum."
+  (interactive)
+  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim"
+          "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+          "culpa qui officia deserunt mollit anim id est laborum."))
+#+END_SRC
+
+Translate the following region in lingvo.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; from @snosov1
+(defun lingvo-it ()
+  "Translate the following region in lingvo, display a query
+prompt otherwise."
+  (interactive)
+  (browse-url
+   (concat
+    "http://lingvopro.abbyyonline.com/en/Translate/en-es/"
+    (url-hexify-string (if mark-active
+                           (buffer-substring (region-beginning) (region-end))
+                         (read-string "Lingvo: "))))))
+#+END_SRC
+
+Edit the shell init file in another window.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; http://emacsredux.com/blog/page/2/
+(defun find-shell-init-file ()
+  "Edit the shell init file in another window."
+  (interactive)
+  (let* ((shell (car (reverse (split-string (getenv "SHELL") "/"))))
+         (shell-init-file (cond
+                           ((string-equal "zsh" shell) ".zshrc")
+                           ((string-equal "bash" shell) ".bashrc")
+                           (t (error "Unknown shell")))))
+    (find-file-other-window (expand-file-name shell-init-file (getenv "HOME")))))
+(global-set-key (kbd "C-c S") 'find-shell-init-file)
+#+END_SRC
+
+** Emacs Apps
+*** Arch linux
+
+Search, vote and download AUR packages from Emacs.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'aurel)
+
+;;; autoloads for the interactive functions.
+(autoload 'aurel-package-info "aurel" nil t)
+(autoload 'aurel-package-search "aurel" nil t)
+(autoload 'aurel-maintainer-search "aurel" nil t)
+(autoload 'aurel-installed-packages "aurel" nil t)
+
+;;; directory where the packages will be downloaded.
+(setq aurel-download-directory "~/abs")
+
+(global-set-key [f6] 'aurel-package-search)
+#+END_SRC
+
+Edit PKGBUILD files in emacs.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'pkgbuild-mode)
+
+;; enable autoloading of pkgbuild-mode and auto-recognition of "PKGBUILD" files:
+(autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
+(setq auto-mode-alist (append '(("/PKGBUILD$" . pkgbuild-mode))
+                              auto-mode-alist))
+#+END_SRC
+
+*** Conkeror
+
+Open URLs from GNU Emacs in Conkeror in a new buffer.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "conkeror"
+      ido-handle-duplicate-virtual-buffers 2)
+#+END_SRC
+
+Dired function to view a file in a web browser.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun my-dired-browser-find-file ()
+  "Dired function to view a file in a web browser"
+  (interactive)
+  (browse-url (browse-url-file-url (dired-get-filename))))
+
+;; Bind a Key in Emacs's Dired-Mode to View a File in the Default Browser
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (define-key dired-mode-map "b" 'my-dired-browser-find-file)))
+#+END_SRC
+
+Edit conkeror-rc as Js-mode.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-to-list 'auto-mode-alist '(".conkerorrc" . js-mode))
+#+END_SRC
+
+*** Deft
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(when (require 'deft nil 'noerror)
+  (setq
+     deft-use-filename-as-title t
+     deft-extension "org"
+     deft-directory "~/Dropbox/Enotes/"
+     deft-text-mode 'org-mode))
+
+(global-set-key [f8] 'deft)
+#+END_SRC
+
+*** Elfeed
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'elfeed)
+
+(setq-default elfeed-search-filter "-junk @1-week-ago +unread")
+
+;;; My Feed list
+(setq elfeed-feeds
+      '(("http://rss.gmane.org/gmane.comp.misc.suckless" dwm)
+        ("http://rss.gmane.org/gmane.comp.window-managers.ratpoison.devel" gmane ratpoison)
+        ("http://rss.gmane.org/gmane.comp.window-managers.stumpwm.devel" gmane stumpwm)
+        ("http://onethingwell.org/rss" software)
+        ("https://aur.archlinux.org/rss" archlunux software)
+        ("http://news.ycombinator.com/rss" news)
+        ("http://nullprogram.com/feed/" emacs)
+        ("http://planet.emacsen.org/atom.xml" emacs )
+        ("http://www.masteringemacs.org/feed" emacs)
+        ("http://feeds.sachachua.com/sachac" emacs)
+        ("http://emacsrocks.com/atom.xml" emacs)
+        ("http://emacs-fu.blogspot.com/feeds/posts/default" emacs)))
+
+(global-set-key [f7] 'elfeed)
+#+END_SRC
+
+Show selected title in Ratpoison.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun rat-message (message)
+  "Show MSG in Ratpoison"
+  (call-process "ratpoison" nil 0 nil "-c" (concat "echo " (or message))))
+
+(defun elfeed-ratpoison-message ()
+  (interactive)
+  (let ((entry (elfeed-search-selected :single)))
+    (rat-message (elfeed-entry-title entry))))
+
+(define-key elfeed-search-mode-map "x" #'elfeed-ratpoison-message)
+#+END_SRC
+*** Emms
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'emms-setup)
+(require 'emms-streams)
+(require 'emms-info)
+(require 'emms-info-mp3info)
+(require 'emms-browser)
+(emms-standard)
+(emms-default-players)
+
+;; When asked for emms-play-directory, always start from this one
+(setq emms-source-file-default-directory "/home/ivo/Music/")
+(add-to-list 'emms-info-functions 'emms-info-mp3info)
+
+;; Show the current track each time EMMS
+;; starts to play a track with "NP : "
+(add-hook 'emms-player-started-hook 'emms-show)
+        (setq emms-show-format "NP: %s"
+              emms-repeat-playlist t)
+
+;; Buffer name
+(setq emms-playlist-buffer-name "*EMMS Playlist*"
+      emms-playlist-mode-open-playlists t)
+#+END_SRC
+
+*** Mu4e
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'mu4e)
+
+;; Mu4e maildirs extension
+(require 'mu4e-maildirs-extension)
+(mu4e-maildirs-extension)
+(setq mu4e-maildirs-extension-title " Maildirs\n"
+      mu4e-maildirs-extension-insert-before-str "\n Misc"
+      mu4e-maildirs-extension-maildir-separator "\n\t» "
+      mu4e-maildirs-extension-submaildir-separator "\t | ")
+
+;; default's mu4e
+(setq mu4e-maildir "~/Maildir"
+      mu4e-drafts-folder "/[Gmail].Drafts"
+      mu4e-sent-folder "/[Gmail].Sent Mail"
+      mu4e-trash-folder "/[Gmail].Trash"
+      ;; allow for updating mail using 'U' in the main view:
+      mu4e-get-mail-command "offlineimap"
+      ;; Number of seconds between automatic calls to retrieve mail and update the database:
+      mu4e-update-interval 60
+      ;; allow the mu4e user to disable the confirmation message when quitting mu4e
+      mu4e-confirm-quit nil
+      ;; Date format
+      mu4e-headers-date-format "%d/%b/%Y %H:%M"
+      ;; Displaying rich-text messages
+      ;;mu4e-html2text-command "html2text -utf8 -width 72"
+      mu4e-html2text-command "w3m -dump -T text/html"
+      ;; display images
+      mu4e-view-show-images t
+      mu4e-view-image-max-width 800
+      ;; Use fancy chars
+      mu4e-headers-seen-mark '("S" . "☑")
+      mu4e-headers-new-mark '("N" . "✉")
+      mu4e-headers-replied-mark '("R" . "↵")
+      mu4e-headers-passed-mark '("P" . "⇉")
+      mu4e-headers-encrypted-mark '("x" . "⚷")
+      mu4e-headers-signed-mark '("s" . "✍")
+      mu4e-headers-empty-parent-prefix '("-" . "◆")
+      mu4e-headers-first-child-prefix '("\\" . "▶")
+      mu4e-use-fancy-chars t
+      ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+      mu4e-sent-messages-behavior 'delete
+      ;; setup some handy shortcuts
+      ;; you can quickly switch to your Inbox -- press ``ji''
+      ;; then, when you want archive some messages, move them to
+      ;; the 'All Mail' folder by pressing ``ma''.
+      mu4e-maildir-shortcuts
+      '( ("/INBOX" . ?i)
+         ("/[Gmail].Sent Mail" . ?s)
+         ("/[Gmail].Trash" . ?t)
+         ("/[Gmail].All Mail" . ?a))
+)
+
+;; personal
+(setq
+ user-mail-address "ivkuzev@gmail.com"
+ user-full-name "Ivaylo Kuzev"
+ mu4e-compose-signature "Ivaylo Kuzev | @ivo")
+
+;; use imagemagick, if available to display images in mu4e:
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
+;; Setting the default emacs mail program
+(setq mail-user-agent 'mu4e-user-agent)
+
+;; SMTP ;;
+(require 'smtpmail)
+(setq message-send-mail-function 'smtpmail-send-it
+    smtpmail-stream-type 'starttls
+    smtpmail-default-smtp-server "smtp.gmail.com"
+    smtpmail-smtp-server "smtp.gmail.com"
+    smtpmail-smtp-service 587)
+
+;; Org Contacts
+(require 'org)
+(require 'org-contacts)
+(setq mu4e-org-contacts-file "~/Dropbox/Org/contacts.org")
+(add-to-list 'mu4e-headers-actions
+             '("org-contact-add" . mu4e-action-add-org-contact) t)
+(add-to-list 'mu4e-view-actions
+             '("org-contact-add" . mu4e-action-add-org-contact) t)
+#+END_SRC
+** Global key bindings.
+
+[[https://github.com/bbatsov/guru-mode][Guru-mode]]
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'guru-mode)
+(guru-global-mode +1)
+#+END_SRC
+
+Jump from file to containing directory.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-x C-j") 'dired-jump) (autoload 'dired-jump "dired")
+#+END_SRC
+
+Goto line with feedback.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-x g") 'goto-line)
+(global-set-key [remap goto-line] 'goto-line-with-feedback)
+#+END_SRC
+
+Split window.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "M-3") 'split-window-horizontally)
+(global-set-key (kbd "M-2") 'split-window-vertically)
+(global-set-key (kbd "M-1") 'delete-other-windows)
+(global-set-key (kbd "M-0") 'delete-window)
+#+END_SRC
+
+Resize window.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-c <up>") 'shrink-window)
+(global-set-key (kbd "C-c <down>") 'enlarge-window)
+(global-set-key (kbd "C-c <left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-c <right>") 'enlarge-window-horizontally)
+#+END_SRC
+
+Buffer switching.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+#+END_SRC
+
+Move-current-line-up-or-down.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "M-<up>") 'move-line-up)
+(global-set-key (kbd "M-<down>") 'move-line-down)
+#+END_SRC
+
+iBuffer.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(autoload 'ibuffer "ibuffer" "List buffers." t)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+#+END_SRC
+
+Kill buffer without questions.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+#+END_SRC
+
+Kills all buffers, except the current one.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-x M-k") 'kill-other-buffers)
+#+END_SRC
+
+Kill emacs or frame.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key "\C-x\C-c" 'kill-emacs-or-frame)
+#+END_SRC
+
+Set global keys for the most important org commands.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+#+END_SRC
+
+Clipboard.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-w") 'clipboard-kill-region)
+(global-set-key (kbd "M-w") 'clipboard-kill-ring-save)
+(global-set-key (kbd "C-y") 'clipboard-yank)
+#+END_SRC
+
+Delete words with =C-w= and rebind kill region to =C-x C-k=
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-w") 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+#+END_SRC
+
+Files.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-x f") 'ido-find-file)
+(global-set-key (kbd "C-o") 'ido-find-file)
+(global-set-key (kbd "C-x s") 'save-buffer)
+(global-set-key (kbd "C-x C-s") 'save-some-buffers)
+(global-set-key (kbd "C-x c") 'save-buffers-kill-emacs)
+#+END_SRC
+
+=increase|decrease= font size.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
+#+END_SRC
+
+Browse Url.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(define-key global-map (kbd "C-x M-g") 'google)
+(define-key global-map (kbd "C-x M-y") 'youtube)
+(define-key global-map (kbd "C-x M-b") 'browse-url-at-point)
+#+END_SRC
+
+Proced.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key (kbd "C-x p") 'proced)
+#+END_SRC
+
+[[https://github.com/magnars/multiple-cursors.el][Multiple cursors]]
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'multiple-cursors)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+END_SRC
+
+[[https://github.com/abo-abo/ace-window][Ace-window]]
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'ace-window)
+(global-set-key (kbd "C-x o") 'other-window)
+(global-set-key [remap other-window] 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+#+END_SRC
+
+[[https://github.com/winterTTr/ace-jump-mode][Ace-jump-mode]]
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+#+END_SRC
