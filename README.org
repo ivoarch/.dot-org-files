@@ -35,6 +35,9 @@ Dotfiles, Emacs + Org-mode with babel and Literate programming.
 [[https://github.com/ivoarch/.dot-org-files/blob/master/ratpoison.org][ratpoison.org]]
 - Window manager configuration file.
 
+[[file:emacs.org][emacs.org]]
+- My emacs setup.
+
 [[https://github.com/ivoarch/.dot-org-files/blob/master/screen.org][screen.org]]
 - Gnu Screen RC configuration file.
 
