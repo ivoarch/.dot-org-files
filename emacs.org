@@ -1299,6 +1299,13 @@ Proced.
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 #+END_SRC
 
+[[https://github.com/magit/magit][Magit]] status shortcut.
+
+#+BEGIN_SRC emacs-lips :tangle ~/.emacsrc
+(require 'magit)
+(global-set-key [f5] 'magit-status)
+#+END_SRC
+
 [[https://github.com/abo-abo/ace-window][Ace-window]]
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
