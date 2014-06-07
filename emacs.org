@@ -991,7 +991,7 @@ Email client http://www.djcbsoftware.nl/code/mu/mu4e.html
 
 I want to use org-contacts.
 
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsr
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (require 'org)
 (require 'org-contacts)
 (setq mu4e-org-contacts-file "~/Dropbox/Org/contacts.org")
