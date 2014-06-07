@@ -4,6 +4,8 @@
 
 ** Set up load path
 
+The variable =load-path= lists all the directories where Emacs should look for Elisp files.
+
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (setq load-path
       (append
@@ -23,14 +25,14 @@
 
 Following code adapted from [[https://github.com/bbatsov/prelude][emacs-prelude]] - [[http://batsov.com/articles/2012/02/19/package-management-in-emacs-the-good-the-bad-and-the-ugly/][package-management-in-emacs]] (The Good, the Bad and the Ugly).
 
-Activate all the packages.
+*** Activate all the packages.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (require 'package)
 (package-initialize)
 #+END_SRC
 
-List of repositories containing packages.
+*** List of repositories containing packages.
 
 1. [[http://melpa.milkbox.net/#/][melpa]] repo - contains packages updated daily.
 2. [[http://melpa-stable.milkbox.net/#/][melpa-stable]] repo - [alternative to [[http://marmalade-repo.org/][Marmalade]]] It offers stable packages built automatically from git tags.
@@ -45,7 +47,7 @@ List of repositories containing packages.
              '("org" . "http://orgmode.org/elpa/"))
 #+END_SRC
 
-List of packages used in this configuration.
+*** List of packages used in this configuration.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (setq required-packages
@@ -82,13 +84,16 @@ List of packages used in this configuration.
        'recentf ; is a minor mode that builds a list of recently opened files.
        'slime ; Emacs mode for Common Lisp development.
        'smex ; M-x enhancement for Emacs. Built on top of IDO.
+       'web-mode ; web template editing mode for emacs.
        'xkcd ; Read xkcd from emacs.
        'volatile-highlights ; highlights changes to the buffer.
        'zenburn-theme ; The Zenburn colour theme ported to Emacs.
        ))
 #+END_SRC
 
-Check if all packages are installed.
+*** Check if all packages are installed.
+
+if not all packages are installed, check one by one and install the missing ones.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (defun packages-installed-p ()
@@ -108,7 +113,7 @@ Check if all packages are installed.
       (package-install p))))
 #+END_SRC
 
-** Appearance
+** Visual appearance
 
 I turn =off= mouse interface early in startup to avoid momentary display.
 
@@ -152,7 +157,7 @@ Load theme [[https://github.com/bbatsov/zenburn-emacs][zenburn]].
 (load-theme 'zenburn t)
 #+END_SRC
 
-Cursor style.
+Make cursor a vertical bar.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (setq-default cursor-type 'bar)
@@ -177,7 +182,15 @@ Highlight matching parentheses when the point is on them.
 (setq show-paren-delay 0)
 #+END_SRC
 
-Do not break lines
+Volatile-highlight.
+Highlight the latest changes in the buffer (like text inserted from: yank, undo, etc.) until the next command is run.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(when (require 'volatile-highlights nil 'noerror)
+  (volatile-highlights-mode t))
+#+END_SRC
+
+Do not break lines.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (set-default 'truncate-lines t)
@@ -185,13 +198,23 @@ Do not break lines
 
 ** Defaults
 
+*** Prompt Behavior
+
+Use y/n instead of yes/no in confirmation dialogs.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+*** Settings
+
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (setq initial-scratch-message ";; scratch buffer created -- Happy Hacking ivo!!"
       inhibit-startup-message t       ; No splash screen please.
+      visible-bell t                  ; blink instead of beep
       auto-image-file-mode 1          ; open graphic files such as JPEG/PNG format files.
       doc-view-continuous t           ; At page edge goto next/previous.
-      ; show the full file name in the title
-      frame-title-format '(buffer-file-name "%f" ("%b"))
+      frame-title-format '(buffer-file-name "%f" ("%b")) ; show the full file name in the title
       echo-keystrokes 0.1)            ; Show keystrokes in progress.
 #+END_SRC
 
@@ -201,38 +224,6 @@ Do not break lines
 (line-number-mode t)
 (column-number-mode t)
 (size-indication-mode t)
-#+END_SRC
-
-Making buffer names unique.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward)
-#+END_SRC
-
-Hide the mode-line in the current buffer.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-;; http://bzg.fr/emacs-hide-mode-line.html
-(defvar-local hidden-mode-line-mode nil)
-
-(define-minor-mode hidden-mode-line-mode
-  "Minor mode to hide the mode-line in the current buffer."
-  :init-value nil
-  :global nil
-  :variable hidden-mode-line-mode
-  :group 'editing-basics
-  (if hidden-mode-line-mode
-      (setq hide-mode-line mode-line-format
-            mode-line-format nil)
-    (setq mode-line-format hide-mode-line
-          hide-mode-line nil))
-  (when (and (called-interactively-p 'interactive)
-             hidden-mode-line-mode)
-    (run-with-idle-timer
-     0 nil 'message
-     (concat "Hidden Mode Line Mode enabled. "
-             "Use M-x hidden-mode-line-mode RET to make the mode-line appear."))))
 #+END_SRC
 
 ** Clipboard
@@ -251,13 +242,9 @@ Enable copy/paste from emacs to other apps.
 
 ** Files
 
-Use y/n instead of yes/no in confirmation dialogs.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(fset 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
-
 Set UTF Encoding.
+
+Make sure UTF-8 is used everywhere.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (set-language-environment 'UTF-8)
@@ -338,33 +325,24 @@ Whitespaces.
 
 1. Always use spaces for indentation
 2. Default to 2-space tabs
+
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (setq indent-tabs-mode nil)
 (setq-default tab-width 2)
 #+END_SRC
 
-** Ido
-
-Interactive do (or ido-mode) changes the way you switch buffers and open files/directories.
-Instead of writing complete file paths and buffer names you can write a part of it
-and select one from a list of possibilities.
-Using ido-vertical-mode changes the way possibilities are displayed, and flx-ido-mode enables fuzzy matching.
+** Start server
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'ido-vertical-mode)
-(require 'flx-ido)
-
-(dolist (mode
-         '(ido-mode ; Interactivly do.
-           ido-everywhere ; Use Ido for all buffer/file reading.
-           ido-vertical-mode ; Makes ido-mode display vertically.
-           flx-ido-mode)) ; Toggle flx ido mode.
-  (funcall mode 1))
-
-(setq ido-vertical-define-keys 'C-n-C-p-up-down)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 #+END_SRC
 
-** Autocomplete
+** Modes
+*** Autocomplete
+
+Turn on auto complete.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (require 'auto-complete-config)
@@ -380,46 +358,20 @@ Using ido-vertical-mode changes the way possibilities are displayed, and flx-ido
 (define-key ac-completing-map (kbd "C-p") 'ac-previous)
 #+END_SRC
 
-** Setup Smex
+*** Auto-mode
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'smex)
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(add-to-list 'auto-mode-alist '("\\.stumpwmrc$" . lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.emacsrc$" . emacs-lisp-mode))
 #+END_SRC
 
-** Setup Recenf
+*** Flycheck mode
 
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'recentf)
-(recentf-mode 1)
+#+BEGIN_QUOTE
+Modern on the fly syntax checking for GNU Emacs http://flycheck.rtfd.org/
+#+END_QUOTE
 
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to \\[find-file] a recent file"
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
-
-(setq recentf-max-saved-items 50)
-
-(global-set-key (kbd "C-c f") 'ido-recentf-open)
-#+END_SRC
-
-** Emacs server
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-#+END_SRC
-
-** Flycheck mode
-
-[[https://github.com/flycheck/flycheck][Flycheck]]
+The modes where flycheck should be enabled.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (add-hook 'php-mode-hook 'flycheck-mode)
@@ -432,7 +384,25 @@ Using ido-vertical-mode changes the way possibilities are displayed, and flx-ido
 (add-hook 'scss 'flycheck-mode)
 #+END_SRC
 
-** Markdown
+*** Web-mode
+
+#+BEGIN_QUOTE
+web-mode.el is an emacs major mode for editing web templates aka HTML files
+embedding parts (CSS/JavaScript) and blocks (pre rendered by client/server side engines).
+#+END_QUOTE
+
+Github: https://github.com/fxbois/web-mode
+
+Enable web-mode for html buffers.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+#+END_SRC
+
+*** Markdown-mode
+
+I love org-mode, but lots of other systems use markdown, github wiki pages being a very good example.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (require 'markdown-mode)
@@ -440,7 +410,30 @@ Using ido-vertical-mode changes the way possibilities are displayed, and flx-ido
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 #+END_SRC
 
-** Org mode
+*** Rainbow mode
+
+#+BEGIN_QUOTE
+Useful for editing themes and CSS http://julien.danjou.info/rainbow-mode.html
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-hook 'css-mode-hook 'rainbow-mode)
+#+END_SRC
+
+*** Uniquify
+
+#+BEGIN_QUOTE
+Making buffer names unique.
+#+END_QUOTE
+
+When several buffers have the same name, make the name uniqe by including part of path in name.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
+#+END_SRC
+
+*** Org mode
 
 Enable org-mode for .org, .org_archive and .txt files by default.
 
@@ -455,7 +448,18 @@ Notes / Tasks / TODOs
       '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 #+END_SRC
 
-Org publish.
+Set global keys for the most important org commands.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+#+END_SRC
+
+**** Org Publishing
+
+The brilliance of =org-mode= is the ability to publish your notes as HTML files into a web server.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (require 'htmlize)
@@ -498,10 +502,9 @@ Org publish.
          )))
 #+END_SRC
 
+**** Org babel
 
-Org babel
-
-Enable yntax highlighting in src blocks.
+Enable syntax highlighting in src blocks.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (setq-default org-src-fontify-natively t)
@@ -527,7 +530,11 @@ List of languages that may be evaluated in Org documents.
    ))
 #+END_SRC
 
-** Slime
+*** Slime
+
+#+BEGIN_QUOTE
+SLIME, the Superior Lisp Interaction Mode for Emacs, is an Emacs mode for developing Common Lisp applications.
+#+END_QUOTE
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (require 'ac-slime)
@@ -538,15 +545,23 @@ List of languages that may be evaluated in Org documents.
   '(add-to-list 'ac-modes 'slime-repl-mode))
 #+END_SRC
 
-** Js mode
+*** Js2-mode
+
+#+BEGIN_QUOTE
+Improved JavaScript editing mode for GNU Emacs.
+#+END_QUOTE
+
+Github: https://github.com/mooz/js2-mode
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (autoload 'js2-mode "js2-mode" nil t)
+
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+(add-hook 'js2-mode-hook 'flycheck-mode)
 #+END_SRC
 
-** cc-mode
+*** cc-mode
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 ;; c++
@@ -580,7 +595,7 @@ List of languages that may be evaluated in Org documents.
 (define-key c++-mode-map (kbd "C-S-<return>") 'ac-complete-clang)
 #+END_SRC
 
-** Setup Dired mode
+*** Dired mode
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (require 'dired)
@@ -615,16 +630,386 @@ List of languages that may be evaluated in Org documents.
 dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
 #+END_SRC
 
-** Setup Window managers
+*** Ido mode
+
+Interactive do (or ido-mode) changes the way you switch buffers and open files/directories.
+Instead of writing complete file paths and buffer names you can write a part of it
+and select one from a list of possibilities.
+Using ido-vertical-mode changes the way possibilities are displayed, and flx-ido-mode enables fuzzy matching.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'ratpoison)
-(add-to-list 'auto-mode-alist '("\\.stumpwmrc$" . lisp-mode))
-(add-to-list 'auto-mode-alist '("\\.ratpoisonrc$" . ratpoisonrc-mode))
-(add-to-list 'auto-mode-alist '("\\.emacsrc$" . emacs-lisp-mode))
+(require 'ido-vertical-mode)
+(require 'flx-ido)
+
+(dolist (mode
+         '(ido-mode ; Interactivly do.
+           ido-everywhere ; Use Ido for all buffer/file reading.
+           ido-vertical-mode ; Makes ido-mode display vertically.
+           flx-ido-mode)) ; Toggle flx ido mode.
+  (funcall mode 1))
+
+(setq ido-vertical-define-keys 'C-n-C-p-up-down)
 #+END_SRC
 
-** Setup Term
+*** Recenf
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'recentf)
+(recentf-mode 1)
+
+(defun ido-recentf-open ()
+  "Use `ido-completing-read' to \\[find-file] a recent file"
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
+
+(setq recentf-max-saved-items 50)
+
+(global-set-key (kbd "C-c f") 'ido-recentf-open)
+#+END_SRC
+
+*** Aurel
+
+#+BEGIN_QUOTE
+Search, vote and download AUR packages from Emacs.
+#+END_QUOTE
+
+Github: https://github.com/alezost/aurel
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'aurel)
+
+;;; autoloads for the interactive functions.
+(autoload 'aurel-package-info "aurel" nil t)
+(autoload 'aurel-package-search "aurel" nil t)
+(autoload 'aurel-maintainer-search "aurel" nil t)
+(autoload 'aurel-installed-packages "aurel" nil t)
+
+;;; directory where the packages will be downloaded.
+(setq aurel-download-directory "~/abs")
+
+(global-set-key [f6] 'aurel-package-search)
+#+END_SRC
+
+*** Pkgbuild-mode
+
+#+BEGIN_QUOTE
+Major mode for editing PKGBUILD files.
+#+END_QUOTE
+
+Github: https://github.com/juergenhoetzel/pkgbuild-mode
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'pkgbuild-mode)
+
+;; enable autoloading of pkgbuild-mode and auto-recognition of "PKGBUILD" files:
+(autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
+(setq auto-mode-alist (append '(("/PKGBUILD$" . pkgbuild-mode))
+                              auto-mode-alist))
+#+END_SRC
+
+*** Guru-mode
+
+#+BEGIN_QUOTE
+Guru mode disables some common keybindings and suggests the use of the established Emacs alternatives instead.
+#+END_QUOTE
+
+Enable guru-mode globally.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'guru-mode)
+(guru-global-mode +1)
+#+END_SRC
+
+Github: https://github.com/bbatsov/guru-mode
+
+*** Smex
+
+#+BEGIN_QUOTE
+A smart M-x enhancement for Emacs.
+#+END_QUOTE
+
+Built on top of Ido, it provides a convenient interface to your recently and most frequently used commands.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+#+END_SRC
+
+Github: https://github.com/nonsequitur/smex
+
+*** Multiple Cursors
+
+#+BEGIN_QUOTE
+Multiple cursors, for editing multiple lines.
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'multiple-cursors)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+END_SRC
+
+Github: https://github.com/magnars/multiple-cursors.el
+
+*** Magit
+
+magit-status shortcut.
+
+#+BEGIN_SRC emacs-lips :tangle ~/.emacsrc
+(require 'magit)
+(global-set-key [f5] 'magit-status)
+#+END_SRC
+
+*** Ace-window
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'ace-window)
+(global-set-key (kbd "C-x o") 'other-window)
+(global-set-key [remap other-window] 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+#+END_SRC
+
+Github: https://github.com/abo-abo/ace-window
+
+*** Ace-jump-mode
+
+#+BEGIN_QUOTE
+a quick cursor jump mode for emacs.
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+#+END_SRC
+
+Github: https://github.com/winterTTr/ace-jump-mode
+
+*** Conkeror
+
+Every fan of Emacs should use [[http://conkeror.org/][Conkeror]]. No exceptions.
+
+Open URLs from GNU Emacs in Conkeror in a new buffer.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "conkeror"
+      ido-handle-duplicate-virtual-buffers 2)
+#+END_SRC
+
+Dired function to view a file in a web browser.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun my-dired-browser-find-file ()
+  "Dired function to view a file in a web browser"
+  (interactive)
+  (browse-url (browse-url-file-url (dired-get-filename))))
+
+;; Bind a Key in Emacs's Dired-Mode to View a File in the Default Browser
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (define-key dired-mode-map "b" 'my-dired-browser-find-file)))
+#+END_SRC
+
+Edit conkeror-rc as Js-mode.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(add-to-list 'auto-mode-alist '(".conkerorrc" . js-mode))
+#+END_SRC
+
+*** Deft
+
+[[http://jblevins.org/projects/deft/][Deft]] is an Emacs mode for quickly browsing, filtering, and editing directories of plain text notes.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(when (require 'deft nil 'noerror)
+  (setq
+     deft-use-filename-as-title t
+     deft-extension "org"
+     deft-directory "~/Dropbox/Enotes/"
+     deft-text-mode 'org-mode))
+
+(global-set-key [f8] 'deft)
+#+END_SRC
+
+*** Elfeed
+
+#+BEGIN_QUOTE
+Elfeed is an extensible web feed reader for Emacs, supporting both Atom and RSS.
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'elfeed)
+
+(setq-default elfeed-search-filter "-junk @1-week-ago +unread")
+
+;;; My Feed list
+(setq elfeed-feeds
+      '(("http://rss.gmane.org/gmane.comp.misc.suckless" dwm)
+        ("http://rss.gmane.org/gmane.comp.window-managers.ratpoison.devel" gmane ratpoison)
+        ("http://rss.gmane.org/gmane.comp.window-managers.stumpwm.devel" gmane stumpwm)
+        ("http://onethingwell.org/rss" software)
+        ("https://aur.archlinux.org/rss" archlunux software)
+        ("http://news.ycombinator.com/rss" news)
+        ("http://nullprogram.com/feed/" emacs)
+        ("http://planet.emacsen.org/atom.xml" emacs )
+        ("http://www.masteringemacs.org/feed" emacs)
+        ("http://feeds.sachachua.com/sachac" emacs)
+        ("http://emacsrocks.com/atom.xml" emacs)
+        ("http://emacs-fu.blogspot.com/feeds/posts/default" emacs)))
+
+;; global binding for elfeed
+(global-set-key [f7] 'elfeed)
+#+END_SRC
+
+Show selected title in Ratpoison.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(defun rat-message (message)
+  "Show MSG in Ratpoison"
+  (call-process "ratpoison" nil 0 nil "-c" (concat "echo " (or message))))
+
+(defun elfeed-ratpoison-message ()
+  (interactive)
+  (let ((entry (elfeed-search-selected :single)))
+    (rat-message (elfeed-entry-title entry))))
+
+(define-key elfeed-search-mode-map "x" #'elfeed-ratpoison-message)
+#+END_SRC
+*** Emms
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'emms-setup)
+(require 'emms-streams)
+(require 'emms-info)
+(require 'emms-info-mp3info)
+(require 'emms-browser)
+(emms-standard)
+(emms-default-players)
+
+;; When asked for emms-play-directory, always start from this one
+(setq emms-source-file-default-directory "/home/ivo/Music/")
+(add-to-list 'emms-info-functions 'emms-info-mp3info)
+
+;; Show the current track each time EMMS
+;; starts to play a track with "NP : "
+(add-hook 'emms-player-started-hook 'emms-show)
+        (setq emms-show-format "NP: %s"
+              emms-repeat-playlist t)
+
+;; Buffer name
+(setq emms-playlist-buffer-name "*EMMS Playlist*"
+      emms-playlist-mode-open-playlists t)
+#+END_SRC
+
+*** Mu4e
+
+Email client http://www.djcbsoftware.nl/code/mu/mu4e.html
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'mu4e)
+
+;; Mu4e maildirs extension
+(require 'mu4e-maildirs-extension)
+(mu4e-maildirs-extension)
+(setq mu4e-maildirs-extension-title " Maildirs\n"
+      mu4e-maildirs-extension-insert-before-str "\n Misc"
+      mu4e-maildirs-extension-maildir-separator "\n\t» "
+      mu4e-maildirs-extension-submaildir-separator "\t | ")
+
+;; default's mu4e
+(setq mu4e-maildir "~/Maildir"
+      mu4e-drafts-folder "/[Gmail].Drafts"
+      mu4e-sent-folder "/[Gmail].Sent Mail"
+      mu4e-trash-folder "/[Gmail].Trash"
+      ;; allow for updating mail using 'U' in the main view:
+      mu4e-get-mail-command "offlineimap"
+      ;; Number of seconds between automatic calls to retrieve mail and update the database:
+      mu4e-update-interval 60
+      ;; allow the mu4e user to disable the confirmation message when quitting mu4e
+      mu4e-confirm-quit nil
+      ;; Date format
+      mu4e-headers-date-format "%d/%b/%Y %H:%M"
+      ;; Displaying rich-text messages
+      ;;mu4e-html2text-command "html2text -utf8 -width 72"
+      mu4e-html2text-command "w3m -dump -T text/html"
+      ;; display images
+      mu4e-view-show-images t
+      mu4e-view-image-max-width 800
+      ;; Use fancy chars
+      mu4e-headers-seen-mark '("S" . "☑")
+      mu4e-headers-new-mark '("N" . "✉")
+      mu4e-headers-replied-mark '("R" . "↵")
+      mu4e-headers-passed-mark '("P" . "⇉")
+      mu4e-headers-encrypted-mark '("x" . "⚷")
+      mu4e-headers-signed-mark '("s" . "✍")
+      mu4e-headers-empty-parent-prefix '("-" . "◆")
+      mu4e-headers-first-child-prefix '("\\" . "▶")
+      mu4e-use-fancy-chars t
+      ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+      mu4e-sent-messages-behavior 'delete
+      ;; setup some handy shortcuts
+      ;; you can quickly switch to your Inbox -- press ``ji''
+      ;; then, when you want archive some messages, move them to
+      ;; the 'All Mail' folder by pressing ``ma''.
+      mu4e-maildir-shortcuts
+      '( ("/INBOX" . ?i)
+         ("/[Gmail].Sent Mail" . ?s)
+         ("/[Gmail].Trash" . ?t)
+         ("/[Gmail].All Mail" . ?a))
+)
+
+;; personal
+(setq
+ user-mail-address "ivkuzev@gmail.com"
+ user-full-name "Ivaylo Kuzev"
+ mu4e-compose-signature "Ivaylo Kuzev | @ivo")
+
+;; use imagemagick, if available to display images in mu4e:
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
+;; Setting the default emacs mail program
+(setq mail-user-agent 'mu4e-user-agent)
+
+;; SMTP ;;
+(require 'smtpmail)
+(setq message-send-mail-function 'smtpmail-send-it
+    smtpmail-stream-type 'starttls
+    smtpmail-default-smtp-server "smtp.gmail.com"
+    smtpmail-smtp-server "smtp.gmail.com"
+    smtpmail-smtp-service 587)
+#+END_SRC
+
+**** Mu4e and Org Contacts
+
+I want to use org-contacts.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsr
+(require 'org)
+(require 'org-contacts)
+(setq mu4e-org-contacts-file "~/Dropbox/Org/contacts.org")
+(add-to-list 'mu4e-headers-actions
+             '("org-contact-add" . mu4e-action-add-org-contact) t)
+(add-to-list 'mu4e-view-actions
+             '("org-contact-add" . mu4e-action-add-org-contact) t)
+#+END_SRC
+
+**** And a hot key
+
+And we want to be able to switch to mu4e quickly so let’s set =f9= to be the hot key.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(global-set-key [f9] 'mu4e)
+#+END_SRC
+
+*** Multiterm
 
 Use Emacs terminfo, not system terminfo
 
@@ -633,7 +1018,7 @@ Use Emacs terminfo, not system terminfo
 (setq system-uses-terminfo nil)
 #+END_SRC
 
-Multi-term.
+Multiterm setup.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 ;; http://www.emacswiki.org/emacs/MultiTerm
@@ -665,7 +1050,18 @@ Multi-term.
             (setq term-buffer-maximum-size 0)))
 #+END_SRC
 
-** Setup Zsh
+*** Ratpoison
+
+ratpoison support for Emacs.
+
+You have to install [[http://www.nongnu.org/ratpoison/index.html][Ratpoison]] first.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+(require 'ratpoison)
+(add-to-list 'auto-mode-alist '("\\.ratpoisonrc$" . ratpoisonrc-mode))
+#+END_SRC
+
+*** Shell mode
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (setq shell-file-name "/bin/zsh")
@@ -673,6 +1069,31 @@ Multi-term.
 #+END_SRC
 
 ** Useful functions
+
+Hide the mode-line in the current buffer.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
+;; http://bzg.fr/emacs-hide-mode-line.html
+(defvar-local hidden-mode-line-mode nil)
+
+(define-minor-mode hidden-mode-line-mode
+  "Minor mode to hide the mode-line in the current buffer."
+  :init-value nil
+  :global nil
+  :variable hidden-mode-line-mode
+  :group 'editing-basics
+  (if hidden-mode-line-mode
+      (setq hide-mode-line mode-line-format
+            mode-line-format nil)
+    (setq mode-line-format hide-mode-line
+          hide-mode-line nil))
+  (when (and (called-interactively-p 'interactive)
+             hidden-mode-line-mode)
+    (run-with-idle-timer
+     0 nil 'message
+     (concat "Hidden Mode Line Mode enabled. "
+             "Use M-x hidden-mode-line-mode RET to make the mode-line appear."))))
+#+END_SRC
 
 slick-copy: make copy-past a bit more intelligent.
 
@@ -929,238 +1350,7 @@ Edit the shell init file in another window.
 (global-set-key (kbd "C-c S") 'find-shell-init-file)
 #+END_SRC
 
-** Emacs Apps
-*** Arch linux
-
-Search, vote and download AUR packages from Emacs.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'aurel)
-
-;;; autoloads for the interactive functions.
-(autoload 'aurel-package-info "aurel" nil t)
-(autoload 'aurel-package-search "aurel" nil t)
-(autoload 'aurel-maintainer-search "aurel" nil t)
-(autoload 'aurel-installed-packages "aurel" nil t)
-
-;;; directory where the packages will be downloaded.
-(setq aurel-download-directory "~/abs")
-
-(global-set-key [f6] 'aurel-package-search)
-#+END_SRC
-
-Edit PKGBUILD files in emacs.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'pkgbuild-mode)
-
-;; enable autoloading of pkgbuild-mode and auto-recognition of "PKGBUILD" files:
-(autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
-(setq auto-mode-alist (append '(("/PKGBUILD$" . pkgbuild-mode))
-                              auto-mode-alist))
-#+END_SRC
-
-*** Conkeror
-
-Open URLs from GNU Emacs in Conkeror in a new buffer.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "conkeror"
-      ido-handle-duplicate-virtual-buffers 2)
-#+END_SRC
-
-Dired function to view a file in a web browser.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(defun my-dired-browser-find-file ()
-  "Dired function to view a file in a web browser"
-  (interactive)
-  (browse-url (browse-url-file-url (dired-get-filename))))
-
-;; Bind a Key in Emacs's Dired-Mode to View a File in the Default Browser
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (define-key dired-mode-map "b" 'my-dired-browser-find-file)))
-#+END_SRC
-
-Edit conkeror-rc as Js-mode.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(add-to-list 'auto-mode-alist '(".conkerorrc" . js-mode))
-#+END_SRC
-
-*** Deft
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(when (require 'deft nil 'noerror)
-  (setq
-     deft-use-filename-as-title t
-     deft-extension "org"
-     deft-directory "~/Dropbox/Enotes/"
-     deft-text-mode 'org-mode))
-
-(global-set-key [f8] 'deft)
-#+END_SRC
-
-*** Elfeed
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'elfeed)
-
-(setq-default elfeed-search-filter "-junk @1-week-ago +unread")
-
-;;; My Feed list
-(setq elfeed-feeds
-      '(("http://rss.gmane.org/gmane.comp.misc.suckless" dwm)
-        ("http://rss.gmane.org/gmane.comp.window-managers.ratpoison.devel" gmane ratpoison)
-        ("http://rss.gmane.org/gmane.comp.window-managers.stumpwm.devel" gmane stumpwm)
-        ("http://onethingwell.org/rss" software)
-        ("https://aur.archlinux.org/rss" archlunux software)
-        ("http://news.ycombinator.com/rss" news)
-        ("http://nullprogram.com/feed/" emacs)
-        ("http://planet.emacsen.org/atom.xml" emacs )
-        ("http://www.masteringemacs.org/feed" emacs)
-        ("http://feeds.sachachua.com/sachac" emacs)
-        ("http://emacsrocks.com/atom.xml" emacs)
-        ("http://emacs-fu.blogspot.com/feeds/posts/default" emacs)))
-
-(global-set-key [f7] 'elfeed)
-#+END_SRC
-
-Show selected title in Ratpoison.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(defun rat-message (message)
-  "Show MSG in Ratpoison"
-  (call-process "ratpoison" nil 0 nil "-c" (concat "echo " (or message))))
-
-(defun elfeed-ratpoison-message ()
-  (interactive)
-  (let ((entry (elfeed-search-selected :single)))
-    (rat-message (elfeed-entry-title entry))))
-
-(define-key elfeed-search-mode-map "x" #'elfeed-ratpoison-message)
-#+END_SRC
-*** Emms
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'emms-setup)
-(require 'emms-streams)
-(require 'emms-info)
-(require 'emms-info-mp3info)
-(require 'emms-browser)
-(emms-standard)
-(emms-default-players)
-
-;; When asked for emms-play-directory, always start from this one
-(setq emms-source-file-default-directory "/home/ivo/Music/")
-(add-to-list 'emms-info-functions 'emms-info-mp3info)
-
-;; Show the current track each time EMMS
-;; starts to play a track with "NP : "
-(add-hook 'emms-player-started-hook 'emms-show)
-        (setq emms-show-format "NP: %s"
-              emms-repeat-playlist t)
-
-;; Buffer name
-(setq emms-playlist-buffer-name "*EMMS Playlist*"
-      emms-playlist-mode-open-playlists t)
-#+END_SRC
-
-*** Mu4e
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'mu4e)
-
-;; Mu4e maildirs extension
-(require 'mu4e-maildirs-extension)
-(mu4e-maildirs-extension)
-(setq mu4e-maildirs-extension-title " Maildirs\n"
-      mu4e-maildirs-extension-insert-before-str "\n Misc"
-      mu4e-maildirs-extension-maildir-separator "\n\t» "
-      mu4e-maildirs-extension-submaildir-separator "\t | ")
-
-;; default's mu4e
-(setq mu4e-maildir "~/Maildir"
-      mu4e-drafts-folder "/[Gmail].Drafts"
-      mu4e-sent-folder "/[Gmail].Sent Mail"
-      mu4e-trash-folder "/[Gmail].Trash"
-      ;; allow for updating mail using 'U' in the main view:
-      mu4e-get-mail-command "offlineimap"
-      ;; Number of seconds between automatic calls to retrieve mail and update the database:
-      mu4e-update-interval 60
-      ;; allow the mu4e user to disable the confirmation message when quitting mu4e
-      mu4e-confirm-quit nil
-      ;; Date format
-      mu4e-headers-date-format "%d/%b/%Y %H:%M"
-      ;; Displaying rich-text messages
-      ;;mu4e-html2text-command "html2text -utf8 -width 72"
-      mu4e-html2text-command "w3m -dump -T text/html"
-      ;; display images
-      mu4e-view-show-images t
-      mu4e-view-image-max-width 800
-      ;; Use fancy chars
-      mu4e-headers-seen-mark '("S" . "☑")
-      mu4e-headers-new-mark '("N" . "✉")
-      mu4e-headers-replied-mark '("R" . "↵")
-      mu4e-headers-passed-mark '("P" . "⇉")
-      mu4e-headers-encrypted-mark '("x" . "⚷")
-      mu4e-headers-signed-mark '("s" . "✍")
-      mu4e-headers-empty-parent-prefix '("-" . "◆")
-      mu4e-headers-first-child-prefix '("\\" . "▶")
-      mu4e-use-fancy-chars t
-      ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-      mu4e-sent-messages-behavior 'delete
-      ;; setup some handy shortcuts
-      ;; you can quickly switch to your Inbox -- press ``ji''
-      ;; then, when you want archive some messages, move them to
-      ;; the 'All Mail' folder by pressing ``ma''.
-      mu4e-maildir-shortcuts
-      '( ("/INBOX" . ?i)
-         ("/[Gmail].Sent Mail" . ?s)
-         ("/[Gmail].Trash" . ?t)
-         ("/[Gmail].All Mail" . ?a))
-)
-
-;; personal
-(setq
- user-mail-address "ivkuzev@gmail.com"
- user-full-name "Ivaylo Kuzev"
- mu4e-compose-signature "Ivaylo Kuzev | @ivo")
-
-;; use imagemagick, if available to display images in mu4e:
-(when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
-
-;; Setting the default emacs mail program
-(setq mail-user-agent 'mu4e-user-agent)
-
-;; SMTP ;;
-(require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
-    smtpmail-stream-type 'starttls
-    smtpmail-default-smtp-server "smtp.gmail.com"
-    smtpmail-smtp-server "smtp.gmail.com"
-    smtpmail-smtp-service 587)
-
-;; Org Contacts
-(require 'org)
-(require 'org-contacts)
-(setq mu4e-org-contacts-file "~/Dropbox/Org/contacts.org")
-(add-to-list 'mu4e-headers-actions
-             '("org-contact-add" . mu4e-action-add-org-contact) t)
-(add-to-list 'mu4e-view-actions
-             '("org-contact-add" . mu4e-action-add-org-contact) t)
-#+END_SRC
 ** Global key bindings.
-
-[[https://github.com/bbatsov/guru-mode][Guru-mode]]
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'guru-mode)
-(guru-global-mode +1)
-#+END_SRC
 
 Jump from file to containing directory.
 
@@ -1234,15 +1424,6 @@ Kill emacs or frame.
 (global-set-key "\C-x\C-c" 'kill-emacs-or-frame)
 #+END_SRC
 
-Set global keys for the most important org commands.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-#+END_SRC
-
 Clipboard.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
@@ -1288,36 +1469,4 @@ Proced.
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
 (global-set-key (kbd "C-x p") 'proced)
-#+END_SRC
-
-[[https://github.com/magnars/multiple-cursors.el][Multiple cursors]]
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'multiple-cursors)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-#+END_SRC
-
-[[https://github.com/magit/magit][Magit]] status shortcut.
-
-#+BEGIN_SRC emacs-lips :tangle ~/.emacsrc
-(require 'magit)
-(global-set-key [f5] 'magit-status)
-#+END_SRC
-
-[[https://github.com/abo-abo/ace-window][Ace-window]]
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'ace-window)
-(global-set-key (kbd "C-x o") 'other-window)
-(global-set-key [remap other-window] 'ace-window)
-(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-#+END_SRC
-
-[[https://github.com/winterTTr/ace-jump-mode][Ace-jump-mode]]
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacsrc
-(require 'ace-jump-mode)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 #+END_SRC
