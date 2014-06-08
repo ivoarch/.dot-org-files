@@ -1,10 +1,10 @@
-#+TITLE: Xdefaults
+#+TITLE: X resources
 
 ** XFT settings.
 
 Necessary to improve the xft fonts.
 
-#+begin_src conf :tangle ~/.Xdefaults :padline yes
+#+begin_src conf :tangle ~/.Xresources :padline yes
 Xft.dpi: 96
 Xft.antialias: true
 Xft.rgba: rgb
@@ -18,7 +18,7 @@ Xft.lcdfilter: lcddefault
 
 *** Start Urxvt as a login shell.
 
-#+begin_src conf :tangle ~/.Xdefaults :padline no
+#+begin_src conf :tangle ~/.Xresources :padline no
 URxvt*loginShell: true
 #+end_src
 
@@ -26,7 +26,7 @@ URxvt*loginShell: true
 
 I use gnu-screen so this is helpful.
 
-#+begin_src conf :tangle ~/.Xdefaults :padline no
+#+begin_src conf :tangle ~/.Xresources :padline no
 URxvt*termName: screen-256color
 #+end_src
 
@@ -34,7 +34,7 @@ URxvt*termName: screen-256color
 
 Someone who really need scroll bars?
 
-#+begin_src conf :tangle ~/.Xdefaults :padline no
+#+begin_src conf :tangle ~/.Xresources :padline no
 URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: true
 #+end_src
@@ -44,7 +44,7 @@ URxvt*mouseWheelScrollPage: true
 I want to select and open URLs in my browser without using the mouse, by this we installed [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]]
 from Arch/community repo.
 
-#+begin_src conf :tangle ~/.Xdefaults :padline yes
+#+begin_src conf :tangle ~/.Xresources :padline yes
 URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,font-size
 URxvt.url-select.launcher:  conkeror
 URxvt.url-select.underline: true
@@ -56,7 +56,7 @@ URxvt.keysym.M-s:           perl:keyboard-select:search
 Changing the font size on the fly with keyboard shortcuts.
 To use install [[https://aur.archlinux.org/packages/urxvt-font-size-git/][urxvt-font-size-git]] from Archlinux/Aur.
 
-#+BEGIN_SRC conf :tangle ~/.Xdefaults
+#+BEGIN_SRC conf :tangle ~/.Xresources
 URxvt.keysym.C-equal : perl:font-size:increase
 URxvt.keysym.C-minus : perl:font-size:decrease
 #+END_SRC
@@ -65,7 +65,7 @@ URxvt.keysym.C-minus : perl:font-size:decrease
 
 I use Anonymous Pro as my font choice.
 
-#+begin_src conf :tangle ~/.Xdefaults :padline yes
+#+begin_src conf :tangle ~/.Xresources :padline yes
 URxvt*font:                 xft:Anonymous Pro:regular:size=13
 URxvt*imFont:               xft:Anonymous Pro:regular:size=13
 URxvt*boldFont:             xft:Anonymous Pro:bold:size=13
@@ -77,7 +77,7 @@ URxvt*boldItalicFont:       xft:Anonymous Pro:bold:italic:size=13
 
 The Color scheme that Changed the World!
 
-#+begin_src conf :tangle ~/.Xdefaults :padline yes
+#+begin_src conf :tangle ~/.Xresources :padline yes
 URxvt*background: #3F3F3F
 URxvt*foreground: #DCDCCC
 URxvt*cursorColor: #DCDCCC
@@ -117,7 +117,7 @@ URxvt*color15: #FFFFFF
 
 Configure the appearance of xmessage, I like red background and yellow foreground.
 
-#+begin_src conf :tangle ~/.Xdefaults :padline yes
+#+begin_src conf :tangle ~/.Xresources :padline yes
 Xmessage*font: -*-terminus-medium-r-*-*-14-*-*-*-*-*-iso10646-1
 Xmessage*background: red
 Xmessage*foreground: yellow

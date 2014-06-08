@@ -57,10 +57,10 @@ xset +fp /usr/share/fonts/misc
 xset fp rehash
 #+end_src
 
-** Merging .XDefaults
+** Load .Xresources
 
 #+begin_src sh :tangle ~/.xinitrc
-xrdb -merge ~/.Xdefaults &
+xrdb -merge ~/.Xresources
 #+end_src
 
 ** Start Emacs as a daemon.
