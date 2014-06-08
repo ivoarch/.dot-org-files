@@ -72,7 +72,6 @@ Following code adapted from [[https://github.com/bbatsov/prelude][emacs-prelude]
        'js2-mode ; javascript-mode for emacs.
        'magit ; Emacs mode for Git.
        'markdown-mode ; Emacs mode for Markdown-formatted files.
-       'mu4e-maildirs-extension ; adds a maildir summary in mu4e-main-view.
        'multi-term ; managing multiple terminal buffers in Emacs.
        'multiple-cursors ; Multiple cursors for emacs.
        'org ; an Emacs Mode for Notes, Planning, and Authoring.
@@ -907,14 +906,6 @@ Email client http://www.djcbsoftware.nl/code/mu/mu4e.html
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacs
 (require 'mu4e)
-
-;; Mu4e maildirs extension
-(require 'mu4e-maildirs-extension)
-(mu4e-maildirs-extension)
-(setq mu4e-maildirs-extension-title " Maildirs\n"
-      mu4e-maildirs-extension-insert-before-str "\n Misc"
-      mu4e-maildirs-extension-maildir-separator "\n\t» "
-      mu4e-maildirs-extension-submaildir-separator "\t | ")
 
 ;; default's mu4e
 (setq mu4e-maildir "~/Maildir"
