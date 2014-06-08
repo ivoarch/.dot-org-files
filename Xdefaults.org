@@ -39,19 +39,27 @@ URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: true
 #+end_src
 
-*** URL and Mouseless text selection.
+*** Perl extensions
 
 I want to select and open URLs in my browser without using the mouse, by this we installed [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]]
 from Arch/community repo.
 
 #+begin_src conf :tangle ~/.Xdefaults :padline yes
-URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,font-size
 URxvt.url-select.launcher:  conkeror
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_nextnnn
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-s:           perl:keyboard-select:search
 #+end_src
+
+Changing the font size on the fly with keyboard shortcuts.
+To use install [[https://aur.archlinux.org/packages/urxvt-font-size-git/][urxvt-font-size-git]] from Archlinux/Aur.
+
+#+BEGIN_SRC conf :tangle ~/.Xdefaults
+URxvt.keysym.C-equal : perl:font-size:increase
+URxvt.keysym.C-minus : perl:font-size:decrease
+#+END_SRC
 
 *** Font Appearance.
 

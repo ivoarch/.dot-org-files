@@ -1,7 +1,7 @@
 # $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
 # Maintainer: <ivo@arch>
 pkgname=dot-org-files
-pkgver=e128ee8
+pkgver=fe3ffc5
 pkgrel=1
 epoch=
 pkgdesc="A package to set up my archlinux working environment"
@@ -99,6 +99,8 @@ depends=("abs"
 #  "perl-getopt-long-descriptive"
 #  "lc-git"
 #  "xpdf"
+#  "urxvt-font-size-git"
+#  "rxvt-unicode-patched"
 )
 makedepends=('git')
 checkdepends=()

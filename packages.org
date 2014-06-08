@@ -33,7 +33,7 @@
 - *Mail* mu-git
 - *Media* mps-youtube-git
 - *Pdf* xpdf
-- *Terminal* rxvt-unicode-patched
+- *Terminal* rxvt-unicode-patched urxvt-font-size-git
 - *Utilities* stint-git antigen-git trash-cli-git lc-git
 - *X11* ratpoison-patched-git
 
