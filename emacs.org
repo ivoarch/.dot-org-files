@@ -791,7 +791,7 @@ Magit is an emacs mode for interacting with the Git version control system.
 
 Magit-status shortcut.
 
-#+BEGIN_SRC emacs-lips :tangle ~/.emacs
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacs
 (require 'magit)
 (global-set-key [f5] 'magit-status)
 #+END_SRC
