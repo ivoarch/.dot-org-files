@@ -589,6 +589,11 @@ Github: https://github.com/mooz/js2-mode
 
 *** Dired mode
 
+#+BEGIN_QUOTE
+It shows a directory (folder) listing that you can use to perform various
+operations on files and subdirectories in the directory.
+#+END_QUOTE
+
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacs
 (require 'dired)
 
@@ -610,16 +615,34 @@ Github: https://github.com/mooz/js2-mode
 ;; No confirmation on file delete - clever hack
 ;;(setq dired-deletion-confirmer '(lambda (x) t))
 
-(require 'dired-details)
-(setq-default dired-details-hidden-string "..> ")
-(define-key dired-mode-map (kbd "TAB") 'dired-details-toggle)
-
-;; enable some really cool extensions like C-x C-j(dired-jump)
-(require 'dired-x)
-
 ;; hide uninteresting files, such as backup files and AutoSave files
 (setq-default dired-omit-mode t
 dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
+#+END_SRC
+
+**** Dired-detailts
+
+#+BEGIN_QUOTE
+Hide or show the file and directory details in a Dired listing, to save space and clutter.
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacs
+(require 'dired-details)
+(setq-default dired-details-hidden-string "..> ")
+(define-key dired-mode-map (kbd "TAB") 'dired-details-toggle)
+#+END_SRC
+
+**** Dired+
+
+#+BEGIN_QUOTE
+Enable some really cool extensions like =C-x C-j(dired-jump)=
+#+END_QUOTE
+
+Jump from file to containing directory.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacs
+(require 'dired-x)
+(global-set-key (kbd "C-x C-j") 'dired-jump) (autoload 'dired-jump "dired")
 #+END_SRC
 
 *** Ido mode
@@ -645,18 +668,28 @@ Using ido-vertical-mode changes the way possibilities are displayed, and flx-ido
 
 *** Recenf
 
+#+BEGIN_QUOTE
+Recentf is a minor mode that builds a list of recently opened files. This list is
+automatically saved across Emacs sessions.
+#+END_QUOTE
+
+Enable recentf
+
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacs
 (require 'recentf)
 (recentf-mode 1)
+(setq recentf-max-saved-items 50)
+#+END_SRC
 
+Find a recent file using Ido.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacs
 (defun ido-recentf-open ()
   "Use `ido-completing-read' to \\[find-file] a recent file"
   (interactive)
   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
       (message "Opening file...")
     (message "Aborting")))
-
-(setq recentf-max-saved-items 50)
 
 (global-set-key (kbd "C-c f") 'ido-recentf-open)
 #+END_SRC
@@ -752,14 +785,24 @@ Github: https://github.com/magnars/multiple-cursors.el
 
 *** Magit
 
-magit-status shortcut.
+#+BEGIN_QUOTE
+Magit is an emacs mode for interacting with the Git version control system.
+#+END_QUOTE
+
+Magit-status shortcut.
 
 #+BEGIN_SRC emacs-lips :tangle ~/.emacs
 (require 'magit)
 (global-set-key [f5] 'magit-status)
 #+END_SRC
 
+Github: https://github.com/magit/magit
+
 *** Ace-window
+
+#+BEGIN_QUOTE
+Quickly switch windows using ace-jump-mode.
+#+END_QUOTE
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacs
 (require 'ace-window)
@@ -875,6 +918,12 @@ Show selected title in Ratpoison.
 (define-key elfeed-search-mode-map "x" #'elfeed-ratpoison-message)
 #+END_SRC
 *** Emms
+
+#+BEGIN_QUOTE
+EMMS is the Emacs Multimedia System.
+#+END_QUOTE
+
+Website: https://www.gnu.org/software/emms/
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacs
 (require 'emms-setup)
@@ -1036,7 +1085,9 @@ Multiterm setup.
 
 *** Ratpoison
 
-ratpoison support for Emacs.
+#+BEGIN_QUOTE
+Ratpoison support for Emacs.
+#+END_QUOTE
 
 You have to install [[http://www.nongnu.org/ratpoison/index.html][Ratpoison]] first.
 
@@ -1335,12 +1386,6 @@ Edit the shell init file in another window.
 #+END_SRC
 
 ** Global key bindings.
-
-Jump from file to containing directory.
-
-#+BEGIN_SRC emacs-lisp :tangle ~/.emacs
-(global-set-key (kbd "C-x C-j") 'dired-jump) (autoload 'dired-jump "dired")
-#+END_SRC
 
 Goto line with feedback.
 
