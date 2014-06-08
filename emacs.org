@@ -1385,6 +1385,18 @@ Edit the shell init file in another window.
 (global-set-key (kbd "C-c S") 'find-shell-init-file)
 #+END_SRC
 
+Create a new scratch buffer.
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.emacs
+(defun create-scratch-buffer ()
+  "Create a new scratch buffer."
+  (interactive)
+  (progn
+    (switch-to-buffer
+     (get-buffer-create (generate-new-buffer-name "*scratch*")))
+    (emacs-lisp-mode)))
+#+END_SRC
+
 ** Global key bindings.
 
 Goto line with feedback.
