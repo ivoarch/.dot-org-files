@@ -30,35 +30,65 @@ I use gnu-screen so this is helpful.
 URxvt*termName: screen-256color
 #+end_src
 
-*** Scrolling/mouse wheel improvments.
+*** Scrolling.
 
 Someone who really need scroll bars?
 
 #+begin_src conf :tangle ~/.Xresources :padline no
 URxvt*scrollBar: false
-URxvt*mouseWheelScrollPage: true
+URxvt*scrollBar_right: false
+URxvt*scrollBar_floating: false
 #+end_src
+
+Stop automatic scrolling when going back in the buffer.
+
+1. do not scroll to bottom when tty receives output.
+2. scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+3. scroll back to the bottom on keypress.
+
+#+BEGIN_SRC conf :tangle ~/.Xresources
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+#+END_SRC
 
 *** Perl extensions
 
-I want to select and open URLs in my browser without using the mouse, by this we installed [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]]
+**** Enable the extensions features for Urxvt.
+
+#+BEGIN_SRC conf :tangle ~/.Xresources
+URxvt.perl-ext-common: default,clipboard,url-select,font-size
+#+END_SRC
+
+**** Url-select
+
+I want to select and open URLs in my browser (Conkeror) without using the mouse, by this we installed [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]]
 from Arch/community repo.
 
 #+begin_src conf :tangle ~/.Xresources :padline yes
-URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,font-size
 URxvt.url-select.launcher:  conkeror
 URxvt.url-select.underline: true
-URxvt.keysym.M-u:           perl:url-select:select_nextnnn
-URxvt.keysym.M-Escape:      perl:keyboard-select:activate
-URxvt.keysym.M-s:           perl:keyboard-select:search
+URxvt.keysym.C-i:           perl:url-select:select_next
 #+end_src
 
-Changing the font size on the fly with keyboard shortcuts.
-To use install [[https://aur.archlinux.org/packages/urxvt-font-size-git/][urxvt-font-size-git]] from Archlinux/Aur.
+**** Font size
+
+Changing the font size on the fly with keyboard shortcuts. To use this you have
+to install [[https://aur.archlinux.org/packages/urxvt-font-size-git/][urxvt-font-size-git]] from Archlinux/Aur.
 
 #+BEGIN_SRC conf :tangle ~/.Xresources
 URxvt.keysym.C-equal : perl:font-size:increase
 URxvt.keysym.C-minus : perl:font-size:decrease
+#+END_SRC
+
+**** Clipboard
+
+Enable Copy/Pasting from Urxvt with =^c= =^v= . To use this you have to
+install [[https://www.archlinux.org/packages/community/any/urxvt-perls/][urxvt-perls]] from Arch/community repo.
+
+#+BEGIN_SRC conf :tangle ~/.Xresources
+URxvt.keysym.C-c: perl:clipboard:copy
+URxvt.keysym.C-v: perl:clipboard:paste
 #+END_SRC
 
 *** Font Appearance.
