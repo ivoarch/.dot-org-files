@@ -91,6 +91,15 @@ URxvt.keysym.C-c: perl:clipboard:copy
 URxvt.keysym.C-v: perl:clipboard:paste
 #+END_SRC
 
+*** Disable Keycap Picture insert mode
+
+Disable all the urxvt functionalities (input of ☺ unicodes etc..) associated with the =ctrl+shift= keys.
+
+#+BEGIN_SRC conf :tangle ~/.Xresources
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+#+END_SRC
+
 *** Font Appearance.
 
 I use Anonymous Pro as my font choice.
