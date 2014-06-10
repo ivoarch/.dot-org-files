@@ -3,6 +3,7 @@
 
 * TODO
 ** Tasks with unclassified time period
+*** TODO Urxvt Ctrl+c (clipboard/copy) does not work well with emacs. Set another key or comment this line in .Xresources file.
 *** TODO Make function to open man-pages in Conkeror
 *** TODO Make function to take a full-length screenshot of a web page.
 *** DONE Make function to switch to the buffer that has radio.
