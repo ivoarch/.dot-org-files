@@ -123,9 +123,7 @@ setopt cdablevars              # avoid the need for an explicit $
 setopt correctall              # correct commands
 setopt correct_all             # correct all the words in the command line
 setopt noflowcontrol           # if I could disable Ctrl-s completely I would!
-setopt promptsubst             # do variable fu in prompt
 setopt RM_STAR_WAIT            # confirmation after 'rm *' etc..
-setopt printexitvalue          # alert me if something's failed'
 #+end_src
 
 ** Completion stuff
@@ -219,13 +217,6 @@ zstyle ':completion:*:killall:*' force-list always
 
 ** Starting and Stopping Processes: Signals, Job Control
 
-*** Options
-#+begin_src sh :tangle ~/.zshrc
-setopt notify                  # report background job events immediately
-setopt print_exit_value        # report job status changes
-setopt checkjobs               # report job status on shell exit
-#+end_src
-
 *** Report CPU usage for commands running longer than 10 seconds.
 
 #+begin_src sh :tangle ~/.zshrc
@@ -233,13 +224,6 @@ export TIMEFMT="%U user %S system %P cpu %*E total, running %J"
 REPORTTIME=10
 #+end_src
 
-*** Watching for Other Users
-
-#+begin_src sh :tangle ~/.zshrc
-watch=(notme) # watch for everybody except me
-LOGCHECK=300  # check every 5 min for login/logout activity
-WATCHFMT="%(a:${fg[cyan]}Hello %n [%m] [%t]:${fg[red]}Bye %n [%m] [%t])"
-#+end_src
 
 ** Directory
 
@@ -376,7 +360,7 @@ alias stinth='printf "#%02X%02X%02X" $(stint)""' # suckless-style color grabber
 #+begin_src sh :tangle ~/.zshrc
 alias pacman='pacman --color=always'
 alias pachist="awk -F' ' /\(starting\|upgraded\|downgraded\|installed\)/'{print \$1,\$2,\$5,\$6,\$7,\$8}' /var/log/pacman.log | sed 's/.*full.*//'"
-alias pac-mirror-update='sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup+`date +y%m%d`; sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist'
+alias pac_mirror_update='sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup+`date +"%m-%d-%y"`; sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist'
 alias cower='cower --color=always'
 alias cowerd='cower --download --force --target=/home/ivo/abs'
 alias updates='checkupdates && cower -u'
@@ -408,16 +392,10 @@ disabled() { ctl disable $1.service; listd; }
 
 **** Maintenance
 
-logs.
+Show logs.
 
 #+begin_src sh :tangle ~/.zshrc
 alias journalctl-error='sudo journalctl -b --priority 0..3'
-#+end_src
-
-Clear Conkeror Profile.
-
-#+begin_src sh :tangle ~/.zshrc
-alias pc='profile-cleaner ck'
 #+end_src
 
 Trashes files.
@@ -435,8 +413,8 @@ alias trash='trash-empty'
 #+begin_src sh :tangle ~/.zshrc
 alias -s {ogg,mp3,wav,wma}="mplayer"
 alias -s {avi,mpeg,mpg,mov,m2v,flv}="mplayer"
-alias -s {png,gif,jpg,jpeg}=$EDITOR
-alias -s {doc,pdf}=$EDITOR
+alias -s {png,gif,jpg,jpeg}="sxiv"
+alias -s {doc,pdf}="xpdf"
 alias -s {txt,c,h,conf,tex}=$EDITOR
 alias -s PKGBUILD=$EDITOR
 alias -s {html,php,com,net,org,gov}=$BROWSER
@@ -595,6 +573,7 @@ export HOMEPAGE="https://bbs.archlinux.org/search.php?action=show_new"
 export SDL_AUDIODRIVER='alsa'
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export XDG_CONFIG_HOME="$HOME/.config"
+export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$HOME/bin"
 #+end_src
 
 **** Encoding
@@ -613,15 +592,17 @@ export LC_TELEPHONE=$LANG
 export LESSCHARSET="UTF-8"
 #+end_src
 
-**** Add ~/bin to path
-
-#+begin_src sh :tangle ~/.zshrc
-export PATH="$HOME/bin:$PATH"
-#+end_src
-
 ** The Prompt
 
 Setting up my zsh prompt.
+
+*** prompt_subst is not set by default.
+
+Turns on command substitution in the prompt (and parameter expansion and arithmetic expansion).
+
+#+BEGIN_SRC sh :tangle ~/.zshrc
+setopt prompt_subst
+#+END_SRC
 
 *** Load the colors
 
@@ -653,8 +634,8 @@ function git_branch {
 
 #+begin_src sh :tangle ~/.zshrc
 PROMPT='$(git_branch)%{$fg[green]%}(%~)%{$reset_color%}%# '
-#RPROMPT="%(?,%{$fg[green]%};%),%{$fg[red]%};()%f"
-RPROMPT="%{$fg[green]%}%T%{$reset_color%}"
+RPROMPT="%(?,%{$fg[green]%};%),%{$fg[red]%};()%f"
+#RPROMPT="%{$fg[green]%}%T%{$reset_color%}"
 SPROMPT="Correct %{$fg[red]%}%R to %{$fg[green]%}%r?%{$reset_color%} ([%{$fg[green]%}Y%{$reset_color%}]es/[%{$fg[red]%}N%{$reset_color%}]o/[%{$fg[yellow]%}E%{$reset_color%}]dit/[%{$fg[red]%}A%{$reset_color%}]bort) "
 #+end_src
 
