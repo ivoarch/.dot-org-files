@@ -412,7 +412,11 @@ add_hook("window_before_close_hook",
 *** Restore killed buffer Url.
 
 #+BEGIN_SRC js :tangle ~/.conkerorrc
+// I think by the time kill_buffer_hook runs the buffer is gone so I
+// patch kill_buffer
+
 var kill_buffer_original = kill_buffer_original || kill_buffer;
+
 var killed_buffer_urls = [];
 
 kill_buffer = function (buffer, force) {
