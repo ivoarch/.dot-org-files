@@ -120,7 +120,6 @@ setopt nobeep                  # i hate beeps
 setopt alwaystoend             # when complete from middle, move cursor
 setopt autopushd               # automatically append dirs to the push/pop list
 setopt cdablevars              # avoid the need for an explicit $
-setopt correctall              # correct commands
 setopt correct_all             # correct all the words in the command line
 setopt noflowcontrol           # if I could disable Ctrl-s completely I would!
 setopt RM_STAR_WAIT            # confirmation after 'rm *' etc..
@@ -428,6 +427,7 @@ alias man='nocorrect man'
 alias mv='nocorrect mv'
 alias mysql='nocorrect mysql'
 alias mkdir='nocorrect mkdir'
+alias sudo='nocorrect sudo'
 #+end_src
 
 **** General
@@ -645,10 +645,24 @@ SPROMPT="Correct %{$fg[red]%}%R to %{$fg[green]%}%r?%{$reset_color%} ([%{$fg[gre
 
 #+begin_src sh :tangle ~/.zshrc
 bindkey -e
-#+end_src
-
-*** Enable magic space
-
-#+begin_src sh :tangle ~/.zshrc
-bindkey ' '   magic-space
+bindkey '\ew' kill-region
+bindkey -s '\el' "ls\n"
+bindkey '^r' history-incremental-search-backward
+bindkey "^[[5~" up-line-or-history
+bindkey "^[[6~" down-line-or-history
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+bindkey "^[[H" beginning-of-line
+bindkey "^[[1~" beginning-of-line
+bindkey "^[OH" beginning-of-line
+bindkey "^[[4~" end-of-line
+bindkey "^[OF" end-of-line
+bindkey ' ' magic-space
+bindkey "^F" forward-word
+bindkey "^B" backward-word
+bindkey '^[[Z' reverse-menu-complete
+bindkey '^?' backward-delete-char
+bindkey "^[[3~" delete-char
+bindkey "^[3;5~" delete-char
+bindkey "\e[3~" delete-char
 #+end_src
