@@ -23,7 +23,7 @@ Dotfiles, Emacs + Org-mode with babel and Literate programming.
 [[https://github.com/ivoarch/.dot-org-files/blob/master/gtk.org][gtk.org]]
 - My configuration file for Gtk.
 
-[[https://github.com/ivoarch/.dot-org-files/blob/master/Xdefaults.org][Xresources.org]]
+[[https://github.com/ivoarch/.dot-org-files/blob/master/Xresources.org][Xresources.org]]
 - Settings for multiple X programs.
 
 [[https://github.com/ivoarch/.dot-org-files/blob/master/dircolors.org][dircolors.org]]
